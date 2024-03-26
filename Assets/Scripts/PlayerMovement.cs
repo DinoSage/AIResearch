@@ -1,18 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // -- Serialize Fields --
+
+    [SerializeField]
+    float speed = 1;
+
+    // -- Private Fields --
+    InputAction moveAction;
+
     void Start()
     {
+        // load input actions
+        PlayerInput input = this.GetComponent<PlayerInput>();
+        moveAction = input.actions.FindAction("Move");
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        Vector2 deltaPos = moveAction.ReadValue<Vector2>().normalized;
+        deltaPos = deltaPos * speed * Time.deltaTime;
+
+        this.transform.position += new Vector3(deltaPos.x, deltaPos.y, 0);
+    }
+
+    // ----- Input Actions -----
+
+    public void OnMove()
+    {
+        //Vector2 val = context.ReadValue<Vector2>();
+        //Debug.Log("hi");
     }
 }
