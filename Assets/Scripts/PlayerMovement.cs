@@ -29,11 +29,4 @@ public class PlayerMovement : MonoBehaviour
         this.transform.position += new Vector3(deltaPos.x, deltaPos.y, 0);
     }
 
-    // ----- Input Actions -----
-
-    public void OnMove()
-    {
-        //Vector2 val = context.ReadValue<Vector2>();
-        //Debug.Log("hi");
-    }
 }

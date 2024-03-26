@@ -201,6 +201,8 @@ GameObject:
   m_Component:
   - component: {fileID: 225525433}
   - component: {fileID: 225525432}
+  - component: {fileID: 225525435}
+  - component: {fileID: 225525434}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -275,6 +277,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &225525434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225525431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6955f4941ebd41f488c54da54fe4d1c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueManager: {fileID: 1292033786}
+  llm: {fileID: 225525435}
+--- !u!114 &225525435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225525431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  advancedOptions: 0
+  expertOptions: 0
+  host: localhost
+  port: 13333
+  stream: 0
+  grammar: 
+  seed: 0
+  numPredict: 256
+  cachePrompt: 1
+  temperature: 0.2
+  topK: 40
+  topP: 0.9
+  minP: 0.05
+  repeatPenalty: 1.1
+  presencePenalty: 0
+  frequencyPenalty: 0
+  tfsZ: 1
+  typicalP: 1
+  repeatLastN: 64
+  penalizeNl: 1
+  penaltyPrompt: 
+  mirostat: 0
+  mirostatTau: 5
+  mirostatEta: 0.1
+  nProbs: 0
+  ignoreEos: 0
+  nKeep: -1
+  stop: []
+  grammarString: 
+  playerName: Ansh
+  AIName: Jake
+  prompt: "Jake grew up on a family farm, learning the ropes of agriculture from
+    his parents. Determined to modernize their operation, he studied agricultural
+    science and returned home to transform their farm into a thriving, sustainable
+    enterprise. Today, Jake is known not just as a farmer, but as a community leader
+    who advocates for sustainable practices and supports his neighbors.\r Jack meets
+    the player named Ansh who approaches him and starts a conversation.\n"
+  chatTemplate: chatml
+  setNKeepToPrompt: 1
+  modelHide: 1
+  numThreads: -1
+  numGPULayers: 0
+  parallelPrompts: -1
+  debug: 0
+  asynchronousStartup: 0
+  remote: 0
+  killExistingServersOnStart: 1
+  model: openhermes-2.5-mistral-7b.Q3_K_L.gguf
+  lora: 
+  contextSize: 512
+  batchSize: 512
+  SelectedModel: 0
+  modelProgress: 1
+  modelCopyProgress: 1
 --- !u!1 &235351365
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,7 +480,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235351365}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d23471614d157784f9165b29de664e6c, type: 3}
   m_Name: 
@@ -1195,6 +1277,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   output_tmp: {fileID: 1344947809}
   input_tmp: {fileID: 1191517447}
+  npc: {fileID: 225525434}
 --- !u!114 &1292033787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1326,8 +1409,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

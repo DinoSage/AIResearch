@@ -13,6 +13,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI input_tmp;
 
+    [SerializeField]
+    BasicNPC npc;
+
     void Start()
     {
         
@@ -23,10 +26,25 @@ public class DialogueManager : MonoBehaviour
         
     }
 
+    // ----- Public Functions -----
+
+    public void DisplayOutput(string output)
+    {
+        Debug.Log("Display Output TRIGGERED");
+        output_tmp.SetText(output);
+    }
+
+    public void DisplayInput(string input) 
+    { 
+        input_tmp.SetText(input);
+    }
+
     // ----- Input Actions -----
 
     public void OnSubmit()
     {
-        Debug.Log("Submitted");
+        string input = input_tmp.text;
+        input_tmp.SetText("nono");
+        npc.Game(input);
     }
 }
