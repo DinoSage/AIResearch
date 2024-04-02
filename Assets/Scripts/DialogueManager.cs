@@ -9,41 +9,69 @@ public class DialogueManager : MonoBehaviour
     // -- Serialize Fields --
 
     [SerializeField]
-    TextMeshProUGUI output_tmp;
+    GameObject UIGUI;
 
     [SerializeField]
-    TextMeshProUGUI input_tmp;
+    GameObject player;
 
     [SerializeField]
-    BasicNPC current_npc;
+    TextMeshProUGUI outputText;
+
+    [SerializeField]
+    TextMeshProUGUI inputText;
+
+    // -- Private Fields --
+    BasicNPC currentNPC;
+    bool dialogueActive;
+
 
     void Start()
     {
-
-    }
-
-    void Update()
-    {
-        
+        UIGUI.SetActive(false);
+        currentNPC = null;
+        dialogueActive = false;
     }
 
     // ----- Public Functions -----
 
     public void DisplayOutput(string output)
     {
-        output_tmp.SetText(output);
+        outputText.SetText(output);
     }
 
     public void DisplayInput(string input) 
     { 
-        input_tmp.SetText(input);
+        inputText.SetText(input);
+    }
+
+    public bool BeginConversation(GameObject npc)
+    {
+        currentNPC = npc.GetComponent<BasicNPC>();
+        UIGUI.SetActive(true);
+        dialogueActive = true;
+        return true;
+    }
+
+    public void EndConversation()
+    {
+        UIGUI.SetActive(false);
+        player.GetComponent<ManageInteractions>().ResumeMovemnt();
+        dialogueActive = false;
     }
 
     public void OnSubmit()
     {
-        string input = input_tmp.text;
-        input_tmp.text = "";
-        current_npc.Chat(input);
-        Debug.Log("SUBMITTED!");
+        if (dialogueActive)
+        {
+            string input = inputText.text;
+            inputText.text = "";
+            currentNPC.Chat(input);
+            Debug.Log("SUBMITTED!");
+        }
+    }
+
+    public void OnEnd()
+    {
+        EndConversation();
     }
 }

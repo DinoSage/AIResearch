@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class ManageInteractions : MonoBehaviour
 {
+    // -- Serialize Fields --
+
+    [SerializeField]
+    DialogueManager dialogueManager;
+    
     // -- Private Fields --
     List<GameObject> npcs;
 
@@ -14,12 +19,29 @@ public class ManageInteractions : MonoBehaviour
 
     void Update()
     {
-        string str = "";
+    }
+
+    public void OnInteract()
+    {
+        // find closest npc
+        float closDist = float.MaxValue;
+        GameObject closNPC = null;
+
         foreach (GameObject npc in npcs)
         {
-            str += npc.name + " ";
+            float dist = Vector3.Distance(this.transform.position, npc.transform.position);
+            if (dist < closDist)
+            {
+                dist = closDist;
+                closNPC = npc;
+            }
         }
-        Debug.Log(str);
+
+        // start conversation
+        bool check = dialogueManager.BeginConversation(closNPC);
+        this.GetComponent<PlayerMovement>().enabled = false;
+
+        Debug.Log("Talking to: [ " + closNPC.name + " ]");
     }
 
 
@@ -36,5 +58,11 @@ public class ManageInteractions : MonoBehaviour
     public void NPCLost(GameObject npc)
     {
         npcs.Remove(npc);
+    }
+
+    public void ResumeMovemnt()
+    {
+        this.GetComponent<PlayerMovement>().enabled = true;
+        Debug.Log("No longer talking!");
     }
 }
