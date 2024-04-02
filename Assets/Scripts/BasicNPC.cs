@@ -8,14 +8,16 @@ public class BasicNPC : MonoBehaviour
     // -- Serialize Fields --
 
     [SerializeField]
-    DialogueManager dialogueManager;
+    GameObject dialogueSystem;
 
     // -- Private Fields --
-    public LLM llm;
+    DialogueManager dialogueManager;
+    LLMClient client;
 
     void Start()
     {
-        Game("Hello Bot!");
+        dialogueManager = dialogueSystem.GetComponent<DialogueManager>();
+        client = GetComponent<LLMClient>();
     }
 
     void Update()
@@ -25,15 +27,13 @@ public class BasicNPC : MonoBehaviour
 
     // ----- LLM Related Functions -----
 
-    void HandleReply(string reply)
+    public void HandleReply(string reply)
     {
-        Debug.Log("HandleReply TRIGGERED");
         dialogueManager.DisplayOutput(reply);
     }
 
-    public void Game(string input)
+    public void Chat(string input)
     {
-        Debug.Log("Game TRIGGERED");
-        _ = llm.Chat(input, HandleReply);
+        _ = client.Chat(input, HandleReply);
     }
 }

@@ -201,8 +201,8 @@ GameObject:
   m_Component:
   - component: {fileID: 225525433}
   - component: {fileID: 225525432}
-  - component: {fileID: 225525435}
   - component: {fileID: 225525434}
+  - component: {fileID: 225525435}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -289,8 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6955f4941ebd41f488c54da54fe4d1c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueManager: {fileID: 1292033786}
-  llm: {fileID: 225525435}
+  dialogueSystem: {fileID: 1292033785}
 --- !u!114 &225525435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,14 +299,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 225525431}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
+  m_Script: {fileID: 11500000, guid: e95e88cdd1b0a159692667660a065473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   advancedOptions: 0
   expertOptions: 0
   host: localhost
   port: 13333
-  stream: 0
+  stream: 1
   grammar: 
   seed: 0
   numPredict: 256
@@ -333,30 +332,14 @@ MonoBehaviour:
   stop: []
   grammarString: 
   playerName: Ansh
-  AIName: Jake
-  prompt: "Jake grew up on a family farm, learning the ropes of agriculture from
-    his parents. Determined to modernize their operation, he studied agricultural
-    science and returned home to transform their farm into a thriving, sustainable
-    enterprise. Today, Jake is known not just as a farmer, but as a community leader
-    who advocates for sustainable practices and supports his neighbors.\r Jack meets
-    the player named Ansh who approaches him and starts a conversation.\n"
+  AIName: Sarah
+  prompt: "Meet Sarah, a dedicated teacher born and raised in the same town as Jake's
+    farm. Inspired by her family of educators, she returned home after earning her
+    degree to make a difference in the lives of her students. Sarah's passion for
+    teaching extends beyond the classroom as she volunteers and advocates for educational
+    equity, earning her respect and admiration throughout the community.\r"
   chatTemplate: chatml
   setNKeepToPrompt: 1
-  modelHide: 1
-  numThreads: -1
-  numGPULayers: 0
-  parallelPrompts: -1
-  debug: 0
-  asynchronousStartup: 0
-  remote: 0
-  killExistingServersOnStart: 1
-  model: openhermes-2.5-mistral-7b.Q3_K_L.gguf
-  lora: 
-  contextSize: 512
-  batchSize: 512
-  SelectedModel: 0
-  modelProgress: 1
-  modelCopyProgress: 1
 --- !u!1 &235351365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,8 +1239,9 @@ GameObject:
   - component: {fileID: 1292033788}
   - component: {fileID: 1292033787}
   - component: {fileID: 1292033786}
+  - component: {fileID: 1292033789}
   m_Layer: 0
-  m_Name: Dialogue Manager
+  m_Name: Dialogue System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1277,7 +1261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   output_tmp: {fileID: 1344947809}
   input_tmp: {fileID: 1191517447}
-  npc: {fileID: 225525434}
+  current_npc: {fileID: 225525434}
 --- !u!114 &1292033787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1323,6 +1307,70 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1292033789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292033785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a50e3140c3ecaaf1c848dbf141cc2074, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  advancedOptions: 0
+  expertOptions: 0
+  host: localhost
+  port: 13333
+  stream: 0
+  grammar: 
+  seed: 0
+  numPredict: 256
+  cachePrompt: 1
+  temperature: 0.2
+  topK: 40
+  topP: 0.9
+  minP: 0.05
+  repeatPenalty: 1.1
+  presencePenalty: 0
+  frequencyPenalty: 0
+  tfsZ: 1
+  typicalP: 1
+  repeatLastN: 64
+  penalizeNl: 1
+  penaltyPrompt: 
+  mirostat: 0
+  mirostatTau: 5
+  mirostatEta: 0.1
+  nProbs: 0
+  ignoreEos: 0
+  nKeep: -1
+  stop: []
+  grammarString: 
+  playerName: 
+  AIName: 
+  prompt: For each NPC that you roleplay as, the NPC has a couple of actions they
+    can take. Whenever the conversation seems to end, the NPC no longer wants to
+    communicate, or the NPC has to go somewhere, in addition to the reply, append
+    the text "[EXIT]" as well.
+  chatTemplate: chatml
+  setNKeepToPrompt: 1
+  modelHide: 1
+  numThreads: -1
+  numGPULayers: 0
+  parallelPrompts: -1
+  debug: 0
+  asynchronousStartup: 0
+  remote: 0
+  killExistingServersOnStart: 1
+  model: openhermes-2.5-mistral-7b.Q3_K_L.gguf
+  lora: 
+  contextSize: 512
+  batchSize: 512
+  SelectedModel: 0
+  modelProgress: 1
+  modelCopyProgress: 1
 --- !u!1 &1344947807
 GameObject:
   m_ObjectHideFlags: 0

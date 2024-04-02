@@ -1,3 +1,4 @@
+using LLMUnity;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,11 +15,11 @@ public class DialogueManager : MonoBehaviour
     TextMeshProUGUI input_tmp;
 
     [SerializeField]
-    BasicNPC npc;
+    BasicNPC current_npc;
 
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -30,7 +31,6 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayOutput(string output)
     {
-        Debug.Log("Display Output TRIGGERED");
         output_tmp.SetText(output);
     }
 
@@ -44,7 +44,8 @@ public class DialogueManager : MonoBehaviour
     public void OnSubmit()
     {
         string input = input_tmp.text;
-        input_tmp.SetText("nono");
-        npc.Game(input);
+        input_tmp.text = "";
+        current_npc.Chat(input);
+        Debug.Log("SUBMITTED!");
     }
 }
