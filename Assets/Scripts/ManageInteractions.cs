@@ -19,6 +19,7 @@ public class ManageInteractions : MonoBehaviour
 
     void Update()
     {
+
     }
 
     public void OnInteract()

@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a5e7ccfaaa2954b94446da74e2a9c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueManager: {fileID: 0}
+  dialogueManager: {fileID: 1292033786}
 --- !u!1 &251277313
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +439,18 @@ PrefabInstance:
       propertyPath: AIName
       value: Max
       objectReference: {fileID: 0}
+    - target: {fileID: 7147219411949550588, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+      propertyPath: prompt
+      value: "Max, a skilled blacksmith born and raised in the same town as Jake's
+        farm, learned the art from his father. Setting up his own forge, Max became
+        known for his craftsmanship and reliability, forging tools and ornamental
+        pieces with meticulous care. His dedication to his craft has earned him respect
+        throughout the community.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7738467939684607693, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+      propertyPath: dialogueSystem
+      value: 
+      objectReference: {fileID: 1292033785}
     - target: {fileID: 7893293618231112615, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
       propertyPath: m_Name
       value: Max
@@ -1038,6 +1050,10 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 7738467939684607693, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+      propertyPath: dialogueSystem
+      value: 
+      objectReference: {fileID: 1292033785}
     - target: {fileID: 7893293618231112615, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
       propertyPath: m_Name
       value: Jake
@@ -1391,11 +1407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd307bedc5643df45982ef04c530dc90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIGUI: {fileID: 0}
-  player: {fileID: 0}
-  outputText: {fileID: 0}
-  inputText: {fileID: 0}
-  currentNPC: {fileID: 0}
+  UIGUI: {fileID: 983594270}
+  player: {fileID: 235351365}
+  outputText: {fileID: 1344947809}
+  inputText: {fileID: 1191517447}
 --- !u!114 &1292033787
 MonoBehaviour:
   m_ObjectHideFlags: 0
