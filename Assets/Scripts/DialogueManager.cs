@@ -39,8 +39,6 @@ public class DialogueManager : MonoBehaviour
         input_tmp.SetText(input);
     }
 
-    // ----- Input Actions -----
-
     public void OnSubmit()
     {
         string input = input_tmp.text;
