@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float speed = 1;
 
-    // -- Private Fields --
+    // -- Fields --
+    public static bool canMove = true;
     InputAction moveAction;
 
     void Start()
@@ -18,15 +19,16 @@ public class PlayerMovement : MonoBehaviour
         // load input actions
         PlayerInput input = this.GetComponent<PlayerInput>();
         moveAction = input.actions.FindAction("Move");
-        
     }
 
     void Update()
     {
-        Vector2 deltaPos = moveAction.ReadValue<Vector2>().normalized;
-        deltaPos = deltaPos * speed * Time.deltaTime;
+        if (canMove)
+        {
+            Vector2 deltaPos = moveAction.ReadValue<Vector2>().normalized;
+            deltaPos = deltaPos * speed * Time.deltaTime;
 
-        this.transform.position += new Vector3(deltaPos.x, deltaPos.y, 0);
+            this.transform.position += new Vector3(deltaPos.x, deltaPos.y, 0);
+        }
     }
-
 }

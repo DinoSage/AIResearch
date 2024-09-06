@@ -512,7 +512,7 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1483772406}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TestChatGPT, Assembly-CSharp
         m_MethodName: AskChatGPT
         m_Mode: 0
@@ -765,6 +765,7 @@ GameObject:
   - component: {fileID: 1215079625}
   - component: {fileID: 1215079624}
   - component: {fileID: 1215079623}
+  - component: {fileID: 1215079627}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -779,7 +780,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1215079621}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d23471614d157784f9165b29de664e6c, type: 3}
   m_Name: 
@@ -798,7 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 055130a62a648ba47a558591b0851b37, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -882,6 +883,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1215079627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215079621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5d6c197e425d84e8777dd085bd7d55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatManager: {fileID: 1483772406}
+  interactRadius: 5
 --- !u!1 &1483772404
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,9 +938,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1483772404}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 271bf5ddfd0be9a4e8eac9ae09ca8ce4, type: 3}
+  m_Script: {fileID: 11500000, guid: 63d2af25c4189c74991422178f8d0363, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chatUI: {fileID: 2128014362}
   input: {fileID: 1056002449}
   output: {fileID: 40465006}
 --- !u!1 &1621949786
@@ -1337,7 +1353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2128014363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1434,6 +1450,7 @@ GameObject:
   - component: {fileID: 360353310208975415}
   - component: {fileID: 2565012670110290248}
   - component: {fileID: 4112867445810141685}
+  - component: {fileID: 4112867445810141686}
   m_Layer: 12
   m_Name: NPC
   m_TagString: NPC
@@ -1570,6 +1587,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4112867445810141686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 342846605880258954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832cf5d22c2a99d4abacbbcc4d803de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPCName: 
+  NPCBackground: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
