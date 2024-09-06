@@ -16,6 +16,15 @@ public class NPC : MonoBehaviour
     // -- Fields --
     private List<ChatMessage> messages = new List<ChatMessage>();
 
+    private void Start()
+    {
+        // prepare background message
+        ChatMessage background = new ChatMessage();
+        background.Content = string.Format("Your name is {0}. {1}", NPCName, NPCBackground);
+        background.Role = "system";
+        messages.Add(background);
+    }
+
     // -- Methods --
     public List<ChatMessage> GetMessageList() { return messages; }
     public void AddMessage(ChatMessage message) { messages.Add(message); }
