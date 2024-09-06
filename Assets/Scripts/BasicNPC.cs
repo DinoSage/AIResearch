@@ -32,8 +32,19 @@ public class BasicNPC : MonoBehaviour
         dialogueManager.DisplayOutput(reply);
     }
 
-    public void Chat(string input)
+    public async void Chat(string input)
     {
-        _ = client.Chat(input, HandleReply);
+        _ = await client.Chat(input, HandleReply);
+    }
+
+    public void Listen(string input)
+    {
+        input = "imagine you overhear that: " + input;
+        _ = client.Chat(input, ListenTest);
+    }
+
+    public void ListenTest(string reply)
+    {
+        Debug.Log(reply);
     }
 }

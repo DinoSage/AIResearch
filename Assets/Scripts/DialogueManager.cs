@@ -20,6 +20,12 @@ public class DialogueManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI inputText;
 
+    [SerializeField]
+    GameObject[] npcs;
+
+    [SerializeField]
+    LLM llm;
+
     // -- Private Fields --
     BasicNPC currentNPC;
     bool dialogueActive;
@@ -30,6 +36,11 @@ public class DialogueManager : MonoBehaviour
         UIGUI.SetActive(false);
         currentNPC = null;
         dialogueActive = false;
+
+        while(!llm.serverListening)
+        {
+            Debug.Log("waiting");
+        }
     }
 
     // ----- Public Functions -----
@@ -63,10 +74,17 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialogueActive)
         {
-            string input = inputText.text;
-            inputText.text = "";
-            currentNPC.Chat(input);
             Debug.Log("SUBMITTED!");
+            string input = inputText.text;
+            inputText.SetText(". . . ");
+            foreach (GameObject npc in npcs)
+            {
+                if (currentNPC.gameObject != npc)
+                {
+                    npc.GetComponent<BasicNPC>().Listen(input);
+                }
+            }
+            currentNPC.Chat(input);
         }
     }
 

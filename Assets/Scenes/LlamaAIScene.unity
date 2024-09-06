@@ -447,6 +447,18 @@ PrefabInstance:
         pieces with meticulous care. His dedication to his craft has earned him respect
         throughout the community.\r"
       objectReference: {fileID: 0}
+    - target: {fileID: 7147219411949550588, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+      propertyPath: stream
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7147219411949550588, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+      propertyPath: expertOptions
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7147219411949550588, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+      propertyPath: advancedOptions
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7738467939684607693, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
       propertyPath: dialogueSystem
       value: 
@@ -731,6 +743,11 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!1 &569668383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893293618231112615, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+  m_PrefabInstance: {fileID: 715884485}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,6 +1005,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643638086}
   m_CullTransparentMesh: 1
+--- !u!1 &671413932 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893293618231112615, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+  m_PrefabInstance: {fileID: 324514500}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &715884485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1049,6 +1071,10 @@ PrefabInstance:
         leader who advocates for sustainable practices and supports his neighbors.
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7147219411949550588, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+      propertyPath: stream
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7738467939684607693, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
       propertyPath: dialogueSystem
@@ -1411,6 +1437,11 @@ MonoBehaviour:
   player: {fileID: 235351365}
   outputText: {fileID: 1344947809}
   inputText: {fileID: 1191517447}
+  npcs:
+  - {fileID: 1740443079}
+  - {fileID: 569668383}
+  - {fileID: 671413932}
+  llm: {fileID: 1292033789}
 --- !u!114 &1292033787
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1472,7 +1503,7 @@ MonoBehaviour:
   expertOptions: 0
   host: localhost
   port: 13333
-  stream: 0
+  stream: 1
   grammar: 
   seed: 0
   numPredict: 256
@@ -1513,7 +1544,7 @@ MonoBehaviour:
   asynchronousStartup: 0
   remote: 0
   killExistingServersOnStart: 1
-  model: openhermes-2.5-mistral-7b.Q3_K_L.gguf
+  model: openhermes-2.5-mistral-7b.Q5_K_M.gguf
   lora: 
   contextSize: 512
   batchSize: 512
@@ -1887,6 +1918,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1538722605}
   m_CullTransparentMesh: 1
+--- !u!1 &1740443079 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7893293618231112615, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+  m_PrefabInstance: {fileID: 358442854968902788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &358442854968902788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1934,6 +1970,10 @@ PrefabInstance:
     - target: {fileID: 7006723499676835745, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7147219411949550588, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
+      propertyPath: stream
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7738467939684607693, guid: c6f0b5cfda1e47f44b1cdf275c27f908, type: 3}
       propertyPath: dialogueSystem

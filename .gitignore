@@ -71,3 +71,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Assets/StreamingAssets/openhermes-2.5-mistral-7b.Q3_K_L.gguf
+Assets/StreamingAssets/openhermes-2.5-mistral-7b.Q5_K_M.gguf
