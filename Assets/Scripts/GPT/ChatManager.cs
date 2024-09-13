@@ -51,7 +51,6 @@ public class ChatManager : MonoBehaviour
             ChatMessage chatReponse = response.Choices[0].Message;
             ChatMessage actualResponse = currentNPC.AddMessage(chatReponse);
 
-            Debug.Log(actualResponse.Content);
             input.text = "";
             output.SetText(actualResponse.Content);
         }
@@ -68,6 +67,7 @@ public class ChatManager : MonoBehaviour
     {
         chatUI.SetActive(false);
         currentNPC = null;
+        output.SetText("");
     }
 
 }

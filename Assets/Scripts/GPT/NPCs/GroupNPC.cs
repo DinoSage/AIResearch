@@ -1,5 +1,7 @@
 using OpenAI;
+using System;
 using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GroupNPC : NPC
@@ -10,11 +12,11 @@ public class GroupNPC : NPC
 
     [SerializeField]
     [TextArea(2, 10)]
-    private string gossipFormat;
+    private string gossipTrigger;
 
     [SerializeField]
     [TextArea(2, 10)]
-    private string gossipTrigger;
+    private string gossipFormat;
 
 
     protected override void Start()
@@ -26,7 +28,7 @@ public class GroupNPC : NPC
         messages.Add(background);
 
         ChatMessage gossipInstruction = new ChatMessage();
-        gossipInstruction.Content += string.Format("{0}, add to the end of your response \"X-X-X {1}\"", gossipTrigger, gossipFormat);
+        gossipInstruction.Content += string.Format("{0}, add to the very end of your response on a new line \"[ {1} ]\"", gossipTrigger, gossipFormat);
         gossipInstruction.Role = "system";
         messages.Add(gossipInstruction);
     }
@@ -35,34 +37,42 @@ public class GroupNPC : NPC
     {
         if (message.Role == "assistant")
         {
-            Regex firstR = new Regex("(?<=X-X-X).*");
-            Regex secondR = new Regex(".*(?=X-X-X)");
+            Debug.Log("INFO: " + message.Content);
 
-            string response = firstR.Match(message.Content).Value;
-            string gossipText = secondR.Match(message.Content).Value;
-            Debug.Log("INFO: Response: " + response);
-            Debug.Log("INFO: Gossip: " + gossipText);
+            Regex r = new Regex("(?<=\\[)[^\\]]*(?=\\])");
 
-            GroupNPC[] groupNPCs = FindObjectsOfType<GroupNPC>();
-
-            foreach (GroupNPC npc in groupNPCs)
+            Match m = r.Match(message.Content);
+            if (m.Success)
             {
-                if (npc.groupName == this.groupName)
+                string gossipText = m.Value;
+                string response = message.Content.Replace("[" + gossipText + "]", string.Empty);
+
+                Debug.Log("SPE: Response: " + response);
+                Debug.Log("SPE: Gossip: " + gossipText);
+
+                GroupNPC[] groupNPCs = FindObjectsOfType<GroupNPC>();
+
+                foreach (GroupNPC npc in groupNPCs)
                 {
-                    ChatMessage gossip = new ChatMessage();
-                    gossip.Role = "system";
-                    gossip.Content = gossipText;
-                    npc.messages.Add(gossip);
+                    if (npc.groupName == this.groupName)
+                    {
+                        Debug.Log("MATCH: Name is " + npc.name);
+                        ChatMessage gossip = new ChatMessage();
+                        gossip.Role = "system";
+                        gossip.Content = gossipText;
+                        npc.messages.Add(gossip);
+                    }
                 }
+
+                message.Content = response;
             }
-           
-            message.Content = response;
-            return message;
-            
-        } else
-        {
             this.messages.Add(message);
             return message;
-        }        
+            
+        }
+
+        this.messages.Add(message);
+        return message;
+
     }
 }

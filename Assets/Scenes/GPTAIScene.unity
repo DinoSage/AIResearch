@@ -180,9 +180,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Test
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -294,8 +292,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.273}
-  m_AnchoredPosition: {x: 0, y: 140}
-  m_SizeDelta: {x: -65.339, y: -8.2116}
+  m_AnchoredPosition: {x: 0, y: 206.09613}
+  m_SizeDelta: {x: -65.339, y: 123.9807}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &63755246
 MonoBehaviour:
@@ -335,175 +333,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63755244}
   m_CullTransparentMesh: 1
---- !u!1 &244753426
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 244753431}
-  - component: {fileID: 244753430}
-  - component: {fileID: 244753429}
-  - component: {fileID: 244753428}
-  - component: {fileID: 244753427}
-  m_Layer: 12
-  m_Name: Cashier (1)
-  m_TagString: NPC
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &244753427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244753426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ebb0ddb806e0844e94895e27ae24e3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCName: John Smith
-  NPCBackground: You are a cashier at a grocery store. When processing a transaction,
-    make sure to ask for the customer's name.
-  groupName: Cashier
-  gossipFormat: ' Whenever a customer completes a transaction regarding some times
-    that they bought'
-  gossipTrigger: '{name of customer} bought {each item that the customer bought and
-    its price}'
---- !u!50 &244753428
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244753426}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!70 &244753429
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244753426}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
---- !u!212 &244753430
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244753426}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.92174244, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &244753431
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244753426}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 3.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &898778404
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +347,7 @@ GameObject:
   - component: {fileID: 898778406}
   - component: {fileID: 898778405}
   m_Layer: 12
-  m_Name: Cashier (2)
+  m_Name: Cashier
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -536,14 +365,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ebb0ddb806e0844e94895e27ae24e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPCName: John Smith
-  NPCBackground: You are a cashier at a grocery store. When processing a transaction,
-    make sure to ask for the customer's name.
+  NPCName: Martin Zibsky
+  NPCBackground: 'You are a cashier at a grocery store. Here are the steps to processing
+    a payment. First, ask them for their name. Second, ask  what items they will 
+    be purchasing. Third, summarize the purchase (quantity, price, total price).
+    After that, complete the transaction with a thank the customer.
+
+
+    A customer
+    might ask you about past transactions. Use the customer''s name and what you
+    remember to help them.'
   groupName: Cashier
-  gossipFormat: ' Whenever a customer completes a transaction regarding some times
-    that they bought'
-  gossipTrigger: '{name of customer} bought {each item that the customer bought and
-    its price}'
+  gossipTrigger: Whenever a customer completes the transaction / payment,
+  gossipFormat: remember that {name of customer} bought {each item that the customer
+    bought and its price}
 --- !u!50 &898778406
 Rigidbody2D:
   serializedVersion: 4
@@ -667,7 +502,7 @@ Transform:
   m_GameObject: {fileID: 898778404}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7, y: 3.5, z: 0}
+  m_LocalPosition: {x: 0, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1416,7 +1251,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1621949786}
   m_CullTransparentMesh: 1
---- !u!1 &1646290682
+--- !u!1 &1640609058
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1424,26 +1259,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1646290687}
-  - component: {fileID: 1646290686}
-  - component: {fileID: 1646290685}
-  - component: {fileID: 1646290684}
-  - component: {fileID: 1646290688}
+  - component: {fileID: 1640609063}
+  - component: {fileID: 1640609062}
+  - component: {fileID: 1640609061}
+  - component: {fileID: 1640609060}
+  - component: {fileID: 1640609059}
   m_Layer: 12
-  m_Name: Cashier
+  m_Name: Fake Cashier
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &1646290684
+--- !u!114 &1640609059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640609058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 309ebea83ff8fd54d8032fdaa1e550f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPCName: Joey Rudolph
+  NPCBackground: You are a cashier at a cashier store.
+--- !u!50 &1640609060
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646290682}
+  m_GameObject: {fileID: 1640609058}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -1463,13 +1312,13 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &1646290685
+--- !u!70 &1640609061
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646290682}
+  m_GameObject: {fileID: 1640609058}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -1498,13 +1347,13 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!212 &1646290686
+--- !u!212 &1640609062
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646290682}
+  m_GameObject: {fileID: 1640609058}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -1540,7 +1389,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.4191149, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1550,41 +1399,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!4 &1646290687
+--- !u!4 &1640609063
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646290682}
+  m_GameObject: {fileID: 1640609058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.5, z: 0}
+  m_LocalPosition: {x: 5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1646290688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646290682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ebb0ddb806e0844e94895e27ae24e3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCName: John Smith
-  NPCBackground: You are a cashier at a grocery store. When processing a transaction,
-    make sure to ask for the customer's name.
-  groupName: Cashier
-  gossipFormat: ' Whenever a customer completes a transaction regarding some times
-    that they bought'
-  gossipTrigger: '{name of customer} bought {each item that the customer bought and
-    its price}'
 --- !u!1 &1664075909
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,6 +1477,181 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1668612774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1668612779}
+  - component: {fileID: 1668612778}
+  - component: {fileID: 1668612777}
+  - component: {fileID: 1668612776}
+  - component: {fileID: 1668612775}
+  m_Layer: 12
+  m_Name: Cashier (1)
+  m_TagString: NPC
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1668612775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668612774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ebb0ddb806e0844e94895e27ae24e3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPCName: Emily Roberts
+  NPCBackground: 'You are a cashier at a grocery store. Here are the steps to processing
+    a payment. First, ask them for their name. Second, ask  what items they will 
+    be purchasing. Third, summarize the purchase (quantity, price, total price).
+    After that, complete the transaction with a thank the customer.
+
+
+    A customer
+    might ask you about past transactions. Use the customer''s name and what you
+    remember to help them.'
+  groupName: Cashier
+  gossipTrigger: Whenever a customer completes the transaction / payment,
+  gossipFormat: remember that {name of customer} bought {each item that the customer
+    bought and its price}
+--- !u!50 &1668612776
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668612774}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!70 &1668612777
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668612774}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
+--- !u!212 &1668612778
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668612774}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Color: {r: 0, g: 1, b: 0.9424281, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1668612779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668612774}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2124,7 +2128,7 @@ SceneRoots:
   - {fileID: 1664075912}
   - {fileID: 1215079626}
   - {fileID: 609239891450764684}
-  - {fileID: 1646290687}
-  - {fileID: 244753431}
+  - {fileID: 1640609063}
   - {fileID: 898778409}
+  - {fileID: 1668612779}
   - {fileID: 1483772405}
