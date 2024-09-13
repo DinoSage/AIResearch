@@ -19,13 +19,13 @@ public class ChatManager : MonoBehaviour
 
     // -- Fields --
     private OpenAIApi openAI = new OpenAIApi();
-    private NPC currentNPC;
+    private BasicNPC currentNPC;
 
     public async void ChatNPC()
     {
         if (currentNPC == null)
         {
-            Debug.LogWarning("GPT: current NPC is null");
+            Debug.LogWarning("GPT: current BasicNPC is null");
             return;
         }
 
@@ -61,7 +61,7 @@ public class ChatManager : MonoBehaviour
     public void StartConversation(GameObject npc)
     {
         chatUI.SetActive(true);
-        currentNPC = npc.GetComponent<NPC>();
+        currentNPC = npc.GetComponent<BasicNPC>();
     }
 
     public void EndConversation()
