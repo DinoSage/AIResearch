@@ -377,8 +377,8 @@ MonoBehaviour:
     remember to help them.'
   groupName: Cashier
   gossipTrigger: Whenever a customer completes the transaction / payment,
-  gossipFormat: remember that {name of customer} bought {each item that the customer
-    bought and its price}
+  gossipFormat: remember that {name of cashier} completed  {name of customer}'s purchase
+    of {each item that the customer bought and its price}
 --- !u!50 &898778406
 Rigidbody2D:
   serializedVersion: 4
@@ -1526,8 +1526,8 @@ MonoBehaviour:
     remember to help them.'
   groupName: Cashier
   gossipTrigger: Whenever a customer completes the transaction / payment,
-  gossipFormat: remember that {name of customer} bought {each item that the customer
-    bought and its price}
+  gossipFormat: remember that {name of cashier} completed  {name of customer}'s purchase
+    of {each item that the customer bought and its price}
 --- !u!50 &1668612776
 Rigidbody2D:
   serializedVersion: 4
