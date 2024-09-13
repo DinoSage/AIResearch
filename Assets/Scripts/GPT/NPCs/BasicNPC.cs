@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class BasicNPC : NPC
 {
-    public override ChatMessage AddMessage(ChatMessage message)
-    {
-        this.messages.Add(message);
-        return message;
-    }
 
     protected override void Start()
     {
@@ -18,5 +13,11 @@ public class BasicNPC : NPC
         background.Content = string.Format("Your name is {0}. {1}", NPCName, NPCBackground);
         background.Role = "system";
         messages.Add(background);
+    }
+
+    public override ChatMessage AddMessage(ChatMessage message)
+    {
+        this.messages.Add(message);
+        return message;
     }
 }
