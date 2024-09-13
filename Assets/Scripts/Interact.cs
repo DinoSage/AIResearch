@@ -41,7 +41,7 @@ public class Interact : MonoBehaviour
                 inConversation = true;
             } else
             {
-                Debug.Log("INFO: no BasicNPC in range");
+                Debug.Log("INFO: no NPC in range");
             }
         }
     }

@@ -19,7 +19,7 @@ public class ChatManager : MonoBehaviour
 
     // -- Fields --
     private OpenAIApi openAI = new OpenAIApi();
-    private BasicNPC currentNPC;
+    private NPC currentNPC;
 
     public async void ChatNPC()
     {
@@ -31,7 +31,7 @@ public class ChatManager : MonoBehaviour
 
         if (input.text.Length < 1)
         {
-            Debug.LogWarning("GPT: input is near empty");
+            Debug.LogWarning("GPT: input is practically empty");
             return;
         }
 
@@ -48,12 +48,12 @@ public class ChatManager : MonoBehaviour
 
         if (response.Choices != null && response.Choices.Count > 0)
         {
-            var chatReponse = response.Choices[0].Message;
-            currentNPC.AddMessage(chatReponse);
+            ChatMessage chatReponse = response.Choices[0].Message;
+            ChatMessage actualResponse = currentNPC.AddMessage(chatReponse);
 
-            Debug.Log(chatReponse.Content);
+            Debug.Log(actualResponse.Content);
             input.text = "";
-            output.SetText(chatReponse.Content);
+            output.SetText(actualResponse.Content);
         }
     }
 
@@ -61,7 +61,7 @@ public class ChatManager : MonoBehaviour
     public void StartConversation(GameObject npc)
     {
         chatUI.SetActive(true);
-        currentNPC = npc.GetComponent<BasicNPC>();
+        currentNPC = npc.GetComponent<NPC>();
     }
 
     public void EndConversation()

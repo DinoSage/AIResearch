@@ -3,20 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicNPC : MonoBehaviour
+public class BasicNPC : NPC
 {
-    // -- Serialize Fields --
-    [SerializeField]
-    protected string NPCName;
+    public override ChatMessage AddMessage(ChatMessage message)
+    {
+        this.messages.Add(message);
+        return message;
+    }
 
-    [SerializeField]
-    [TextArea(3, 10)]
-    protected string NPCBackground;
-
-    // -- Fields --
-    protected List<ChatMessage> messages = new List<ChatMessage>();
-
-    protected void Start()
+    protected override void Start()
     {
         // prepare background message
         ChatMessage background = new ChatMessage();
@@ -24,12 +19,4 @@ public class BasicNPC : MonoBehaviour
         background.Role = "system";
         messages.Add(background);
     }
-
-    // -- Methods --
-    public List<ChatMessage> GetMessageList() { return messages; }
-    public void AddMessage(ChatMessage message)
-    { 
-        messages.Add(message); 
-    }
-
 }

@@ -1596,14 +1596,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 342846605880258954}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 832cf5d22c2a99d4abacbbcc4d803de5, type: 3}
+  m_Script: {fileID: 11500000, guid: 309ebea83ff8fd54d8032fdaa1e550f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   NPCName: Arthur Pendragon
-  NPCBackground: You are the king of the kingdom Camelot. You are revered as the
-    legend who pulled Excalibur, your trusty sword, from an ancient rock. You are
-    also the strongest knight of Camelot and leader of the roundtable, a group of
-    12 of the Camelot's most influential and powerful knights.
+  NPCBackground: 'You are the king of camelot, Arthur Pendragon, from the Arthurian
+    Legend. The same hero who pulled Excalibur out of the stone.
+
+'
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
