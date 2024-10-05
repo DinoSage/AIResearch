@@ -9,6 +9,9 @@ public class Interact : MonoBehaviour
     ChatManager chatManager;
 
     [SerializeField]
+    ScriptedManager scriptedManager;
+
+    [SerializeField]
     float interactRadius;
 
     // -- Fields --
@@ -36,7 +39,7 @@ public class Interact : MonoBehaviour
             // initiate conversation if npc exists
             if (closest != null)
             {
-                chatManager.StartConversation(closest);
+                scriptedManager.StartConversation(closest);
                 PlayerMovement.canMove = false;
                 inConversation = true;
             } else
@@ -51,7 +54,7 @@ public class Interact : MonoBehaviour
         // chat with npc if in conversation
         if (inConversation)
         {
-            chatManager.ChatNPC();
+            scriptedManager.ChatNPC();
         }
     }
 
@@ -60,7 +63,7 @@ public class Interact : MonoBehaviour
         // end conversation if in conversation
         if (inConversation)
         {
-            chatManager.EndConversation();
+            scriptedManager.EndConversation();
             PlayerMovement.canMove = true;
             inConversation = false;
         }

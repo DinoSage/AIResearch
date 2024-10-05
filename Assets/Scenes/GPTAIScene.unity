@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: 898778407}
   - component: {fileID: 898778406}
   - component: {fileID: 898778405}
+  - component: {fileID: 898778410}
   m_Layer: 12
   m_Name: Cashier
   m_TagString: NPC
@@ -508,6 +509,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &898778410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898778404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7901aae7a9ec0a4c9a520fcea6aa71b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  dialogue:
+    name: 
+    sentences:
+    - Hi! What can I get for you today?
+    - You want 1 banana, is that all?
+    - Great! You total is $36.54
+    - Thank you for shopping, come again soon!
 --- !u!1 &959458598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,7 +1089,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5d6c197e425d84e8777dd085bd7d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatManager: {fileID: 1483772406}
+  chatManager: {fileID: 0}
+  scriptedManager: {fileID: 1483772407}
   interactRadius: 5
 --- !u!1 &1483772404
 GameObject:
@@ -1079,7 +1101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1483772405}
-  - component: {fileID: 1483772406}
+  - component: {fileID: 1483772407}
   m_Layer: 0
   m_Name: ChatGPT Manager
   m_TagString: Untagged
@@ -1102,7 +1124,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1483772406
+--- !u!114 &1483772407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1111,11 +1133,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1483772404}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63d2af25c4189c74991422178f8d0363, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ef49721768eb2b4cace4976ab22e3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   chatUI: {fileID: 2128014362}
-  input: {fileID: 1056002449}
   output: {fileID: 40465006}
 --- !u!1 &1621949786
 GameObject:
