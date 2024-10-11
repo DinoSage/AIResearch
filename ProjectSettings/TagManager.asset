@@ -7,6 +7,7 @@ TagManager:
   - NPC
   - ChatInput
   - ChatOutput
+  - ChatManager
   layers:
   - Default
   - TransparentFX

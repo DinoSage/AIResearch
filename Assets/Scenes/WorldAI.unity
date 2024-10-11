@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 898778406}
   - component: {fileID: 898778410}
   m_Layer: 12
-  m_Name: Librarian Mary
+  m_Name: Jake
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494,9 +494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterName: Mary
-  CharacterBackground: Mary is a female 67 year old librarian. She had a husband
-    who died 3 years ago. Make up the rest of her backstory and stay consistent.
+  CharacterName: Jake
+  CharacterBackground: Roleplay as the character Jake in the villlage.
 --- !u!1 &959458598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,8 +1056,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5d6c197e425d84e8777dd085bd7d55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatManager: {fileID: 0}
-  scriptedManager: {fileID: 0}
   interactRadius: 5
 --- !u!1 &1483772404
 GameObject:
@@ -1072,7 +1069,7 @@ GameObject:
   - component: {fileID: 1483772406}
   m_Layer: 0
   m_Name: Chat Manager
-  m_TagString: Untagged
+  m_TagString: ChatManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1107,6 +1104,17 @@ MonoBehaviour:
   uiElements:
   - {fileID: 63755244}
   - {fileID: 959458598}
+  initialInfo:
+  - message: "In the heart of a dense, ancient forest lies the small medieval village
+      of Eldenbrook, a close-knit community surrounded by towering trees and mysterious
+      creatures. Jake, the village farmer, grows both crops and rare herbs that thrive
+      in the enchanted soil, while Sarah, the town healer and teacher, uses these
+      herbs in her remedies and teaches local children about magic and folklore.
+      Max, the blacksmith, forges enchanted weapons and tools for the village\u2019s
+      defense and daily use, ensuring they are well-prepared for any threat. Eldenbrook's
+      protector is Lyra, a skilled ranger who patrols the forest, guarding the village
+      from lurking dangers and keeping its people safe from mythical beasts. Together,
+      these four shape the life and safety of the village in their own unique ways."
 --- !u!1 &1621949786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,7 +1263,7 @@ GameObject:
   - component: {fileID: 1640609060}
   - component: {fileID: 1640609064}
   m_Layer: 12
-  m_Name: Farmer Jake
+  m_Name: Max
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1402,9 +1410,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterName: Jake
-  CharacterBackground: Jake is a male 32 year old farmer. He has a family. Make up
-    his family members and stay consistent.
+  CharacterName: Max
+  CharacterBackground: Roleplay as the character Max in the villlage.
 --- !u!1 &1664075909
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class AIChatManger : MonoBehaviour, IChat
     GameObject[] uiElements;
 
     [SerializeField]
-    public List<ChatMessage> globalInfo = new List<ChatMessage>();
+    public GlobalMessage[] initialInfo;
 
     
     // -- Non-Serialized Fields --
@@ -21,6 +21,17 @@ public class AIChatManger : MonoBehaviour, IChat
     private TextMeshProUGUI output;
     private OpenAIApi openAI = new OpenAIApi();
     private ICharacter currentNPC;
+    private List<ChatMessage> globalInfo = new List<ChatMessage>();
+
+    // -- Structs --
+    [Serializable]
+    public struct GlobalMessage
+    {
+        [SerializeField]
+        [TextArea(3, 10)]
+        public string message;
+    }
+
 
     // -- Functions --
     private void Start()
@@ -30,6 +41,14 @@ public class AIChatManger : MonoBehaviour, IChat
         foreach (GameObject ui in uiElements)
         {
             ui.SetActive(false);
+        }
+
+        foreach (GlobalMessage info in initialInfo)
+        {
+            ChatMessage message = new ChatMessage();
+            message.Content = info.message;
+            message.Role = "system";
+            globalInfo.Add(message);
         }
     }
 
