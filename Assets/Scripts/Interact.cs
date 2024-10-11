@@ -6,18 +6,18 @@ public class Interact : MonoBehaviour
 {
     // -- Serialize Fields --
     [SerializeField]
-    ChatManager chatManager;
-
-    [SerializeField]
-    ScriptedManager scriptedManager;
-
-    [SerializeField]
     float interactRadius;
 
-    // -- Fields --
+    // -- Non-Serialized Fields --
     private bool inConversation = false;
+    private IChat chatManager;
 
-    // -- Input Actions --
+    // -- Functions --
+    private void Start()
+    {
+        chatManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<IChat>();
+    }
+
     public void OnInteract()
     {
         if (!inConversation)
@@ -39,7 +39,7 @@ public class Interact : MonoBehaviour
             // initiate conversation if npc exists
             if (closest != null)
             {
-                scriptedManager.StartConversation(closest);
+                chatManager.StartConversation(closest.GetComponent<AICharacter>());
                 PlayerMovement.canMove = false;
                 inConversation = true;
             } else
@@ -54,7 +54,7 @@ public class Interact : MonoBehaviour
         // chat with npc if in conversation
         if (inConversation)
         {
-            scriptedManager.ChatNPC();
+            chatManager.Chat();
         }
     }
 
@@ -63,7 +63,7 @@ public class Interact : MonoBehaviour
         // end conversation if in conversation
         if (inConversation)
         {
-            scriptedManager.EndConversation();
+            chatManager.EndConversation();
             PlayerMovement.canMove = true;
             inConversation = false;
         }
