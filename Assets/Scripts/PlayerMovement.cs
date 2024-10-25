@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     // -- Serialize Fields --
-
     [SerializeField]
     float speed = 1;
 
@@ -30,5 +29,10 @@ public class PlayerMovement : MonoBehaviour
 
             this.transform.position += new Vector3(deltaPos.x, deltaPos.y, 0);
         }
+    }
+
+    public void OnTest()
+    {
+        this.GetComponent<WorldObject>().UpdateProxem1("Hellow from playe rmovemnt!");
     }
 }

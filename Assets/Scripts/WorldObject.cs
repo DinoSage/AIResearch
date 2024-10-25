@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WorldObject : MonoBehaviour
+{
+    public delegate void ProxemUpdate(string update);
+
+    public event ProxemUpdate Proxem1Trigger;
+    public event ProxemUpdate Proxem2Trigger;
+    public event ProxemUpdate Proxem3Trigger;
+
+    public void UpdateProxem1(string update)
+    {
+        Proxem1Trigger?.Invoke(update);
+    }
+
+    public void UpdateProxem2(string update)
+    {
+        Proxem2Trigger?.Invoke(update);
+    }
+
+    public void UpdateProxem3(string update)
+    {
+        Proxem3Trigger?.Invoke(update);
+    }
+
+    public void UpdateProxemAll(string update)
+    {
+        UpdateProxem1(update);
+        UpdateProxem2(update);
+        UpdateProxem3(update);
+    }
+}
