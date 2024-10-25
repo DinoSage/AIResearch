@@ -33,6 +33,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnTest()
     {
-        this.GetComponent<WorldObject>().UpdateProxemAll("Cough");
+        this.GetComponent<WorldObject>().UpdateProxemAll("The person named Ansh coughed.");
     }
 }

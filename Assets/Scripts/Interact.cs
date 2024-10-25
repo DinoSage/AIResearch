@@ -23,7 +23,7 @@ public class Interact : MonoBehaviour
         if (!inConversation)
         {
             // find closest npc within range
-            Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, interactRadius);
+            Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, interactRadius, LayerMask.GetMask("NPC"));
             GameObject closest = null;
             float minDist = Mathf.Infinity;
             foreach (Collider2D hit in hits)
@@ -54,7 +54,7 @@ public class Interact : MonoBehaviour
         // chat with npc if in conversation
         if (inConversation)
         {
-            chatManager.Chat();
+            chatManager.Respond();
         }
     }
 

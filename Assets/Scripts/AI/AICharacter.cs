@@ -37,17 +37,25 @@ public class AICharacter : MonoBehaviour, ICharacter
     public void ConversationStarted()
     {
         inConversation = true;
+        ChatMessage talk = new ChatMessage();
+        talk.Content = "You are now talking to Ansh";
+        talk.Role = "system";
+        personalInfo.Add(talk);
     }
 
     public void ConversationEnded()
     {
         inConversation = false;
+        ChatMessage talk = new ChatMessage();
+        talk.Content = "You are no longer talking to Ansh";
+        talk.Role = "system";
+        personalInfo.Add(talk);
     }
 
     public void Alert(string update)
     {
         ChatMessage world = new ChatMessage();
-        world.Content = update;
+        world.Content = update + " Next time you talk to someone, bring it up.";
         world.Role = "system";
         personalInfo.Add(world);
 

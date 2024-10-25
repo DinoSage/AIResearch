@@ -73,7 +73,7 @@ public class AIChatManger : MonoBehaviour, IChat
         }
     }
 
-    public async void Chat()
+    public async void Respond()
     {
         if (input.text.Length < 1)
         {
@@ -112,8 +112,8 @@ public class AIChatManger : MonoBehaviour, IChat
         {
             ui.SetActive(true);
         }
-        //npc.ConversationStarted();
         currentNPC = npc;
+        currentNPC.ConversationStarted();
     }
 
     public void EndConversation()
@@ -122,7 +122,7 @@ public class AIChatManger : MonoBehaviour, IChat
         {
             ui.SetActive(false);
         }
-        //currentNPC.ConversationEnded();
+        currentNPC.ConversationEnded();
         currentNPC = null;
     }
 }

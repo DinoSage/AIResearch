@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IChat
 {
     public void Speak();
-    public void Chat();
+    public void Respond();
 
     public void StartConversation(ICharacter npc);
 
