@@ -343,8 +343,10 @@ GameObject:
   m_Component:
   - component: {fileID: 726206522}
   - component: {fileID: 726206521}
+  - component: {fileID: 726206524}
+  - component: {fileID: 726206523}
   m_Layer: 0
-  m_Name: Object 1
+  m_Name: Vase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -411,12 +413,37 @@ Transform:
   m_GameObject: {fileID: 726206520}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.614231, y: 5.4201736, z: 0}
+  m_LocalPosition: {x: -8.77, y: -4.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &726206523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726206520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66bac8f9f8c8bc149947e69d39b559cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crashDelay: 5
+--- !u!114 &726206524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726206520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &898778404
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,10 +620,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e43a6d821a1af49ac02f11cc40eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proxem1Range: 10
+  proxem1Range: 20
   proxem2Range: 0
   proxem3Range: 0
-  updateTriggerName: Test
+  updateTriggerName: Alert
 --- !u!1 &959458598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,7 +1580,7 @@ Transform:
   m_GameObject: {fileID: 1640609058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 3.5, z: 0}
+  m_LocalPosition: {x: -8.72, y: -2.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1585,10 +1612,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e43a6d821a1af49ac02f11cc40eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proxem1Range: 3
+  proxem1Range: 4
   proxem2Range: 0
   proxem3Range: 0
-  updateTriggerName: Test
+  updateTriggerName: Alert
 --- !u!1 &1664075909
 GameObject:
   m_ObjectHideFlags: 0

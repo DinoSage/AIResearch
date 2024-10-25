@@ -52,6 +52,27 @@ public class AIChatManger : MonoBehaviour, IChat
         }
     }
 
+    public async void Speak()
+    {
+        AICharacter aiNPC = (AICharacter)currentNPC;
+
+        List<ChatMessage> completeList = globalInfo.Concat(aiNPC.personalInfo).ToList();
+
+        CreateChatCompletionRequest request = new CreateChatCompletionRequest();
+        request.Messages = completeList;
+        request.Model = "gpt-4o-mini";
+
+        var response = await openAI.CreateChatCompletion(request);
+
+        if (response.Choices != null && response.Choices.Count > 0)
+        {
+            ChatMessage chatReponse = response.Choices[0].Message;
+            aiNPC.personalInfo.Add(chatReponse);
+
+            output.SetText(chatReponse.Content);
+        }
+    }
+
     public async void Chat()
     {
         if (input.text.Length < 1)
@@ -91,6 +112,7 @@ public class AIChatManger : MonoBehaviour, IChat
         {
             ui.SetActive(true);
         }
+        //npc.ConversationStarted();
         currentNPC = npc;
     }
 
@@ -100,6 +122,7 @@ public class AIChatManger : MonoBehaviour, IChat
         {
             ui.SetActive(false);
         }
+        //currentNPC.ConversationEnded();
         currentNPC = null;
     }
 }

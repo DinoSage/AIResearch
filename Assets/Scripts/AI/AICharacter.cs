@@ -22,7 +22,7 @@ public class AICharacter : MonoBehaviour, ICharacter
 
     // -- Non-Serialized Fields -- 
     [NonSerialized] public List<ChatMessage> personalInfo = new List<ChatMessage>();
-
+    bool inConversation = false;
 
     // -- Functions --
     void Start()
@@ -34,8 +34,26 @@ public class AICharacter : MonoBehaviour, ICharacter
         personalInfo.Add(background);
     }
 
-    public void Test(string update)
+    public void ConversationStarted()
     {
-        Debug.Log(update);
+        inConversation = true;
+    }
+
+    public void ConversationEnded()
+    {
+        inConversation = false;
+    }
+
+    public void Alert(string update)
+    {
+        ChatMessage world = new ChatMessage();
+        world.Content = update;
+        world.Role = "system";
+        personalInfo.Add(world);
+
+        Debug.Log("SENSED");
+
+        if (inConversation)
+            GameObject.FindGameObjectWithTag("ChatManager").GetComponent<IChat>().Speak();
     }
 }
