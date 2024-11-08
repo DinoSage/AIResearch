@@ -18,7 +18,6 @@ public class Clock : MonoBehaviour
 
     void Update()
     {
-        int[] time = timeManager.GetTime();
-        clock.SetText(string.Format("{0:D2}:{1:D2}", time[0], time[1]));
+        clock.SetText(timeManager.GetTimeStr());
     }
 }
