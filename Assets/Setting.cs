@@ -5,7 +5,7 @@ using UnityEngine;
 public class Setting : MonoBehaviour
 {
     [SerializeField]
-    private string settingName;
+    public string settingName;
     void Start()
     {
         
@@ -16,24 +16,4 @@ public class Setting : MonoBehaviour
     {
         
     }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        WorldObject wo = collision.GetComponent<WorldObject>();
-        if (wo != null)
-        {
-            wo.location = settingName;
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D collision)
-    {
-        WorldObject wo = collision.GetComponent<WorldObject>();
-        if (wo != null)
-        {
-            wo.location = "Unknown";
-        }
-    }
-
-
 }

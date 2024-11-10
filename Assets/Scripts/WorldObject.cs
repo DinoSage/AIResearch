@@ -6,49 +6,64 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class WorldObject : MonoBehaviour
 {
-
-    [NonSerialized]
-    public string location;
-
+    // -- Serialize Fields --
     [SerializeField]
     private bool debugUpdates;
 
     [SerializeField]
     private bool prefix;
 
-    private TimeManager time;
-    void Start()
-    {
-        time = FindFirstObjectByType<TimeManager>();
-    }
+    // -- Private Fields --
+    private Setting setting;
 
-    private string PrefixDetails(string update)
+    private string Process(string update)
     {
-        string str = (prefix) ? string.Format("At time {0} at {1}: {2}", time.GetTimeStr(), location, update) : update;
+        string time = World.instance.GetTimeStr();
+        string location = (setting == null) ? "Unknown" : setting.name;
+        string str = (prefix) ? string.Format("At time {0} at {1}: {2}", time, location, update) : update;
         if (debugUpdates) Debug.Log(str);
 
         return str;
     }
 
-    public delegate void ProxemUpdate(string update);
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        Setting location = collider.gameObject.GetComponent<Setting>();
+        if (location != null)
+        {
+            this.setting = location;
+        }
+    }
 
+    public void OnTriggerExit2D(Collider2D collider)
+    {
+        Setting location = collider.gameObject.GetComponent<Setting>();
+        if (location != null && this.setting == location)
+        {
+            this.setting = null;
+        }
+    }
+
+    // -- Events (To Subscribe To) --
+    public delegate void ProxemUpdate(string update);
     public event ProxemUpdate Proxem1Trigger;
     public event ProxemUpdate Proxem2Trigger;
     public event ProxemUpdate Proxem3Trigger;
 
+    // -- Public Functions --
     public void UpdateProxem1(string update)
     {
-        Proxem1Trigger?.Invoke(PrefixDetails(update));
+        Proxem1Trigger?.Invoke(Process(update));
     }
 
     public void UpdateProxem2(string update)
     {
-        Proxem2Trigger?.Invoke(PrefixDetails(update));
+        Proxem2Trigger?.Invoke(Process(update));
     }
 
     public void UpdateProxem3(string update)
     {
-        Proxem3Trigger?.Invoke(PrefixDetails(update));
+        Proxem3Trigger?.Invoke(Process(update));
     }
 
     public void UpdateProxemAll(string update)

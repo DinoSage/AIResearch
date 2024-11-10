@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class Clock : MonoBehaviour
 {
-    [SerializeField]
-    TimeManager timeManager;
-
     // -- Private Fields --
     private TextMeshProUGUI clock;
 
@@ -18,6 +15,7 @@ public class Clock : MonoBehaviour
 
     void Update()
     {
-        clock.SetText(timeManager.GetTimeStr());
+        string time = World.instance.GetTimeStr();
+        clock.SetText(time);
     }
 }
