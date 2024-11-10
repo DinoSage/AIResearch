@@ -72,4 +72,9 @@ public class WorldObject : MonoBehaviour
         UpdateProxem2(update);
         UpdateProxem3(update);
     }
+
+    public Setting GetCurrentSetting()
+    {
+        return this.setting;
+    }
 }

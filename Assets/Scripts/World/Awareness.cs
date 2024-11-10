@@ -32,10 +32,7 @@ public class Awareness : MonoBehaviour
         {
             Debug.LogWarning("Proxem Ranges are less than zero or not in decreasing order (range1 >= range2 >= range3)");
         }
-    }
 
-    void Start()
-    {
         subscribed = new List<WorldObject>();
     }
 

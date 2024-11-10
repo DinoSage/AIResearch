@@ -20,13 +20,16 @@ public class Interact : MonoBehaviour
 
     public void OnInteract()
     {
-        if (!inConversation)
+        // cannot interact if already in a conversation
+        if (inConversation) { return; }
+
+        // find closest interact and interact with it
+        Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, interactRadius);
+        GameObject closest = null;
+        float minDist = Mathf.Infinity;
+        foreach (Collider2D hit in hits)
         {
-            // find closest npc within range
-            Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, interactRadius, LayerMask.GetMask("NPC"));
-            GameObject closest = null;
-            float minDist = Mathf.Infinity;
-            foreach (Collider2D hit in hits)
+            if (hit.GetComponent<IInteractable>() != null)
             {
                 float dist = Vector2.Distance(hit.gameObject.transform.position, this.transform.position);
                 if (minDist > dist)
@@ -35,18 +38,39 @@ public class Interact : MonoBehaviour
                     closest = hit.gameObject;
                 }
             }
-
-            // initiate conversation if npc exists
-            if (closest != null)
-            {
-                chatManager.StartConversation(closest.GetComponent<AICharacter>());
-                PlayerMovement.canMove = false;
-                inConversation = true;
-            } else
-            {
-                Debug.Log("INFO: no NPC in range");
-            }
         }
+        if (closest != null)
+        {
+            closest.gameObject.GetComponent<IInteractable>().Interact();
+        }
+
+        /* if (!inConversation)
+         {
+             // find closest npc within range
+             Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, interactRadius, LayerMask.GetMask("NPC"));
+             GameObject closest = null;
+             float minDist = Mathf.Infinity;
+             foreach (Collider2D hit in hits)
+             {
+                 float dist = Vector2.Distance(hit.gameObject.transform.position, this.transform.position);
+                 if (minDist > dist)
+                 {
+                     minDist = dist;
+                     closest = hit.gameObject;
+                 }
+             }
+
+             // initiate conversation if npc exists
+             if (closest != null)
+             {
+                 chatManager.StartConversation(closest.GetComponent<AICharacter>());
+                 PlayerMovement.canMove = false;
+                 inConversation = true;
+             } else
+             {
+                 Debug.Log("INFO: no NPC in range");
+             }
+         }*/
     }
 
     public void OnSubmit()

@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static GameObject player;
+    public static GameObject instance;
 
     void Start()
     {
-        player = this.gameObject;
+        instance = this.gameObject;
     }
 }

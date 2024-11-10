@@ -9,6 +9,9 @@ public class World : MonoBehaviour
 
     // -- Serialize Fields --
     [SerializeField]
+    private bool debugEnabled;
+
+    [SerializeField]
     private float secsPerGameMin;
 
     void Awake()
@@ -39,5 +42,8 @@ public class World : MonoBehaviour
         return string.Format("{0:D2}:{1:D2}", time[0], time[1]);
     }
 
-    
+    public bool IsDebugEnabled()
+    {
+        return debugEnabled;
+    }
 }
