@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class AIChatManager : MonoBehaviour, IChat
+public class AIChatManager : MonoBehaviour
 {
     // -- Serialized Fields --
     [SerializeField]
@@ -20,7 +20,7 @@ public class AIChatManager : MonoBehaviour, IChat
     private TMP_InputField input;
     private TextMeshProUGUI output;
     private OpenAIApi openAI = new OpenAIApi();
-    private ICharacter currentNPC;
+    private AICharacter currentNPC;
     private List<ChatMessage> globalInfo = new List<ChatMessage>();
 
     // -- Structs --
@@ -106,7 +106,7 @@ public class AIChatManager : MonoBehaviour, IChat
         }
     }
 
-    public void StartConversation(ICharacter npc)
+    public void StartConversation(AICharacter npc)
     {
         // show conversation UI elements so player can converse
         foreach (GameObject ui in uiElements)
@@ -148,7 +148,7 @@ public class AIChatManager : MonoBehaviour, IChat
         }
     }
 
-    public void OnTalk ()
+    public void OnTalk()
     {
         // chat with npc if in conversation
         if (currentNPC != null)

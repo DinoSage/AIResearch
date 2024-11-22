@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Windows;
 using static UnityEditor.Rendering.CameraUI;
 
-public class AICharacter : MonoBehaviour, ICharacter, IInteractable
+public class AICharacter : MonoBehaviour, IInteractable
 {
     // -- Serialize Fields --
 
@@ -19,6 +19,9 @@ public class AICharacter : MonoBehaviour, ICharacter, IInteractable
     [SerializeField]
     [TextArea(3, 10)]
     private string CharacterBackground;
+
+    [SerializeField]
+    private float talkative;
 
     // -- Non-Serialized Fields -- 
     [NonSerialized] public List<ChatMessage> personalInfo = new List<ChatMessage>();
@@ -58,14 +61,12 @@ public class AICharacter : MonoBehaviour, ICharacter, IInteractable
     public void Alert(string update)
     {
         ChatMessage world = new ChatMessage();
-        world.Content = update + " Next time you talk to someone, bring it up.";
+        world.Content = update + "The time is " + World.instance.GetTimeStr();
         world.Role = "system";
         personalInfo.Add(world);
 
-        Debug.Log("SENSED");
-
         if (inConversation)
-            GameObject.FindGameObjectWithTag("ChatManager").GetComponent<IChat>().Speak();
+            GameObject.FindGameObjectWithTag("ChatManager").GetComponent<AIChatManager>().Speak();
     }
 
     public void Interact()
