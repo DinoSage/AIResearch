@@ -7,21 +7,22 @@ public class PlayerMovement : MonoBehaviour
 {
     // -- Serialize Fields --
     [SerializeField]
-    float speed = 1;
+    float speed;
 
-    // -- Fields --
-    public static bool canMove = true;
-    InputAction moveAction;
+    // -- Non-Serialized Fields --
+    private bool canMove = true;
+    private InputAction moveAction;
 
     void Start()
     {
-        // load input actions
+        // find move action for movement input in update
         PlayerInput input = this.GetComponent<PlayerInput>();
         moveAction = input.actions.FindAction("Move");
     }
 
     void Update()
     {
+        // move player each frame based on movement input (if movement enabled)
         if (canMove)
         {
             Vector2 deltaPos = moveAction.ReadValue<Vector2>().normalized;
@@ -31,8 +32,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void DisableMovement()
+    {
+        canMove = false;
+    }
+
+    public void EnableMovement()
+    {
+        canMove = true;
+    }
+
     public void OnTest()
     {
         this.GetComponent<WorldObject>().UpdateProxemAll("The person named Ansh coughed.");
     }
+
 }

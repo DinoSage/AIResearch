@@ -114,6 +114,9 @@ public class AIChatManger : MonoBehaviour, IChat
         }
         currentNPC = npc;
         currentNPC.ConversationStarted();
+
+        // disable player movement while in conversation
+        Player.instance.GetComponent<PlayerMovement>().EnableMovement();
     }
 
     public void EndConversation()
@@ -124,5 +127,8 @@ public class AIChatManger : MonoBehaviour, IChat
         }
         currentNPC.ConversationEnded();
         currentNPC = null;
+
+        // enable player movement once conversation ended
+        Player.instance.GetComponent<PlayerMovement>().DisableMovement();
     }
 }
