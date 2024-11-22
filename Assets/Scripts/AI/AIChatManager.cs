@@ -52,11 +52,10 @@ public class AIChatManager : MonoBehaviour
         }
     }
 
-    public async void Speak()
+    public async void Speak(List<ChatMessage> messages)
     {
-        AICharacter aiNPC = (AICharacter)currentNPC;
-
-        List<ChatMessage> completeList = globalInfo.Concat(aiNPC.personalInfo).ToList();
+        // determine final complete list of ChatMessages to generate response
+        List<ChatMessage> completeList = globalInfo.Concat(messages).ToList();
 
         CreateChatCompletionRequest request = new CreateChatCompletionRequest();
         request.Messages = completeList;
@@ -66,42 +65,10 @@ public class AIChatManager : MonoBehaviour
 
         if (response.Choices != null && response.Choices.Count > 0)
         {
+            // add raesponse to history and display response in UI
             ChatMessage chatReponse = response.Choices[0].Message;
-            aiNPC.personalInfo.Add(chatReponse);
+            currentNPC.AddResponse(chatReponse);
 
-            output.SetText(chatReponse.Content);
-        }
-    }
-
-    public async void Respond()
-    {
-        if (input.text.Length < 1)
-        {
-            Debug.LogWarning("GPT: input is practically empty");
-            return;
-        }
-
-        AICharacter aiNPC = (AICharacter) currentNPC; 
-
-        ChatMessage message = new ChatMessage();
-        message.Content = input.text;
-        message.Role = "user";
-        aiNPC.personalInfo.Add(message);
-
-        List<ChatMessage> completeList = globalInfo.Concat(aiNPC.personalInfo).ToList();
-
-        CreateChatCompletionRequest request = new CreateChatCompletionRequest();
-        request.Messages = completeList;
-        request.Model = "gpt-4o-mini";
-
-        var response = await openAI.CreateChatCompletion(request);
-
-        if (response.Choices != null && response.Choices.Count > 0)
-        {
-            ChatMessage chatReponse = response.Choices[0].Message;
-            aiNPC.personalInfo.Add(chatReponse);
-
-            input.text = "";
             output.SetText(chatReponse.Content);
         }
     }
@@ -114,7 +81,7 @@ public class AIChatManager : MonoBehaviour
             ui.SetActive(true);
         }
         currentNPC = npc;
-        currentNPC.ConversationStarted();
+        currentNPC.EnteredConversation();
 
         // disable player movement while in conversation
         Player.instance.GetComponent<PlayerMovement>().DisableMovement();
@@ -132,7 +99,7 @@ public class AIChatManager : MonoBehaviour
         input.text = "";
         output.SetText("");
 
-        currentNPC.ConversationEnded();
+        currentNPC.ExitedConversation();
         currentNPC = null;
 
         // enable player movement once conversation ended
@@ -153,7 +120,18 @@ public class AIChatManager : MonoBehaviour
         // chat with npc if in conversation
         if (currentNPC != null)
         {
-            Respond();
+            if (input.text.Length < 1)
+            {
+                Debug.LogWarning("GPT: input is practically empty");
+                return;
+            }
+
+            ChatMessage message = new ChatMessage();
+            message.Content = input.text;
+            message.Role = "user";
+
+            currentNPC.Chat(message);
+            input.text = "";
         }
     }
 }

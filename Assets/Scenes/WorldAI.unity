@@ -823,6 +823,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Jake
   CharacterBackground: Roleplay as the character Jake in the villlage.
+  talkative: 0
+  thinkDelay: 0
 --- !u!114 &898778411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1545,8 +1547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugUpdates: 1
-  prefix: 1
 --- !u!61 &1215079629
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2024,8 +2024,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugUpdates: 0
-  prefix: 0
 --- !u!1 &1483772404
 GameObject:
   m_ObjectHideFlags: 0
@@ -2413,6 +2411,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Max
   CharacterBackground: Roleplay as the character Max in the villlage.
+  talkative: 0
+  thinkDelay: 3
 --- !u!114 &1640609065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2596,8 +2596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugUpdates: 1
-  prefix: 1
 --- !u!61 &1859684606
 BoxCollider2D:
   m_ObjectHideFlags: 0
