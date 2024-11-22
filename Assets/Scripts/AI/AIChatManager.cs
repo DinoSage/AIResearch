@@ -127,6 +127,11 @@ public class AIChatManager : MonoBehaviour, IChat
         {
             ui.SetActive(false);
         }
+
+        // clear converation UI text
+        input.text = "";
+        output.SetText("");
+
         currentNPC.ConversationEnded();
         currentNPC = null;
 
