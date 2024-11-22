@@ -825,7 +825,7 @@ MonoBehaviour:
   CharacterName: Jake
   CharacterBackground: Roleplay as the character Jake in the villlage.
   talkative: 1
-  thinkDelay: 5
+  thinkDelay: 10
   convoTime: 10
 --- !u!114 &898778411
 MonoBehaviour:

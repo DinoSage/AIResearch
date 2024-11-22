@@ -13,7 +13,6 @@ public class Locale : MonoBehaviour
         if (setting != null)
         {
             currLocale = setting;
-            Debug.Log(setting.name);
         }
     }
 

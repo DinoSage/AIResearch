@@ -57,12 +57,15 @@ public class AICharacter : MonoBehaviour, IInteractable
         inConversation = true;
         ChatMessage talk = new ChatMessage();
         string location = this.GetComponent<Locale>().GetCurrLocale().name;
+        string time = World.instance.GetTimeStr();
         talk.Content = "You are now talking to Ansh in the " + location;
+        talk.Content += "The time right now is " + time;
         talk.Role = "system";
         personalInfo.Add(talk);
         coroutine = Thinking();
         StartCoroutine(coroutine);
         responding = false;
+        Debug.Log(talk.Content);
     }
 
     public void ExitedConversation()
@@ -84,7 +87,6 @@ public class AICharacter : MonoBehaviour, IInteractable
         string location = "This happened in " + this.GetComponent<Locale>().GetCurrLocale().name + ". ";
         world.Content = update + time + location;
         world.Role = "system";
-        Debug.Log(world.Content);
         personalInfo.Add(world);
     }
 
@@ -121,7 +123,6 @@ public class AICharacter : MonoBehaviour, IInteractable
         float start = Time.time;
         while (true)
         {
-            Debug.Log("Thinking!");
             if (Time.time - start > Mathf.Max(1, convoTime))
             {
                 ChatMessage world = new ChatMessage();
