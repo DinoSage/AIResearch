@@ -28,7 +28,7 @@ public class ScriptedManager : MonoBehaviour
 
         if (line.Equals("|END|"))
         {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Interact>().OnEnd();
+            //GameObject.FindGameObjectWithTag("Player").GetComponent<Interact>().OnEnd();
         } else
         {
             output.SetText(line);

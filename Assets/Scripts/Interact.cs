@@ -8,22 +8,9 @@ public class Interact : MonoBehaviour
     [SerializeField]
     float interactRadius;
 
-    // -- Non-Serialized Fields --
-    private bool inConversation = false;
-    private IChat chatManager;
-
-    // -- Functions --
-    private void Start()
-    {
-        chatManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<IChat>();
-    }
-
     public void OnInteract()
     {
-        // cannot interact if already in a conversation
-        if (inConversation) { return; }
-
-        // find closest interact and interact with it
+        // find closest interactable object and interact with it
         Collider2D[] hits = Physics2D.OverlapCircleAll(this.transform.position, interactRadius);
         GameObject closest = null;
         float minDist = Mathf.Infinity;
@@ -73,23 +60,5 @@ public class Interact : MonoBehaviour
          }*/
     }
 
-    public void OnSubmit()
-    {
-        // chat with npc if in conversation
-        if (inConversation)
-        {
-            chatManager.Respond();
-        }
-    }
-
-    public void OnEnd()
-    {
-        // end conversation if in conversation
-        if (inConversation)
-        {
-            chatManager.EndConversation();
-            PlayerMovement.canMove = true;
-            inConversation = false;
-        }
-    }
+    
 }

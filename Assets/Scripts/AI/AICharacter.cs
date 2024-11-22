@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Windows;
 using static UnityEditor.Rendering.CameraUI;
 
-public class AICharacter : MonoBehaviour, ICharacter
+public class AICharacter : MonoBehaviour, ICharacter, IInteractable
 {
     // -- Serialize Fields --
 
@@ -22,11 +22,14 @@ public class AICharacter : MonoBehaviour, ICharacter
 
     // -- Non-Serialized Fields -- 
     [NonSerialized] public List<ChatMessage> personalInfo = new List<ChatMessage>();
-    bool inConversation = false;
+    private bool inConversation = false;
+    private AIChatManager chatManager;
 
     // -- Functions --
     void Start()
     {
+        chatManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<AIChatManager>();
+
         // add background message to personal info
         ChatMessage background = new ChatMessage();
         background.Content = string.Format("Your name is {0}. {1}", CharacterName, CharacterBackground);
@@ -63,5 +66,11 @@ public class AICharacter : MonoBehaviour, ICharacter
 
         if (inConversation)
             GameObject.FindGameObjectWithTag("ChatManager").GetComponent<IChat>().Speak();
+    }
+
+    public void Interact()
+    {
+        chatManager.StartConversation(this);
+
     }
 }

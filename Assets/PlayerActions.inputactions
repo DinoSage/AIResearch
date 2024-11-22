@@ -15,27 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Submit",
-                    "type": "Button",
-                    "id": "3b75e195-7454-4f1a-8ae4-fd258f1acf30",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Tap",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Interact",
                     "type": "Button",
                     "id": "90a5e0fe-777f-488a-a250-e1813d3c8356",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "End",
-                    "type": "Button",
-                    "id": "798b27cc-da94-4561-82b9-cb9d265485cb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -109,17 +91,6 @@
                 },
                 {
                     "name": "",
-                    "id": "2ba553b7-3b6a-4551-be3f-e86fee562be4",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "0e45af1f-195d-4092-9a5f-4b99301adfb9",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -131,23 +102,60 @@
                 },
                 {
                     "name": "",
-                    "id": "c559cfd7-de00-4d56-8cea-84c226d2399b",
-                    "path": "<Keyboard>/tab",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "End",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "6d9918c6-2de5-4d14-84af-0071e110f102",
                     "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Test",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Conversation",
+            "id": "779a2ec3-9f29-412b-b3b7-132b578441f4",
+            "actions": [
+                {
+                    "name": "Talk",
+                    "type": "Button",
+                    "id": "ec299a7a-1885-4900-b198-6d84409c73dc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Leave",
+                    "type": "Button",
+                    "id": "1c7a1ddc-4fae-4a4b-a8d4-4510b57a549c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "987d79da-6271-4540-8e41-1de8ce51d487",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Talk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8797eeb7-60a1-4805-8a11-8035bd6c233a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Leave",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

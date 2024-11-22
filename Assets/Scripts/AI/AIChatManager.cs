@@ -6,7 +6,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class AIChatManger : MonoBehaviour, IChat
+public class AIChatManager : MonoBehaviour, IChat
 {
     // -- Serialized Fields --
     [SerializeField]
@@ -108,6 +108,7 @@ public class AIChatManger : MonoBehaviour, IChat
 
     public void StartConversation(ICharacter npc)
     {
+        // show conversation UI elements so player can converse
         foreach (GameObject ui in uiElements)
         {
             ui.SetActive(true);
@@ -116,11 +117,12 @@ public class AIChatManger : MonoBehaviour, IChat
         currentNPC.ConversationStarted();
 
         // disable player movement while in conversation
-        Player.instance.GetComponent<PlayerMovement>().EnableMovement();
+        Player.instance.GetComponent<PlayerMovement>().DisableMovement();
     }
 
     public void EndConversation()
     {
+        // hide conversation UI elements since no longer in conversation
         foreach (GameObject ui in uiElements)
         {
             ui.SetActive(false);
@@ -129,6 +131,24 @@ public class AIChatManger : MonoBehaviour, IChat
         currentNPC = null;
 
         // enable player movement once conversation ended
-        Player.instance.GetComponent<PlayerMovement>().DisableMovement();
+        Player.instance.GetComponent<PlayerMovement>().EnableMovement();
+    }
+
+    public void OnLeave()
+    {
+        // end conversation if leaving conversation input received
+        if (currentNPC != null)
+        {
+            EndConversation();
+        }
+    }
+
+    public void OnTalk ()
+    {
+        // chat with npc if in conversation
+        if (currentNPC != null)
+        {
+            Respond();
+        }
     }
 }
