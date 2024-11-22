@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AIChatManager : MonoBehaviour
 {
@@ -84,7 +85,7 @@ public class AIChatManager : MonoBehaviour
         currentNPC.EnteredConversation();
 
         // disable player movement while in conversation
-        Player.instance.GetComponent<PlayerMovement>().DisableMovement();
+        Player.instance.GetComponent<PlayerInput>().enabled = false;
     }
 
     public void EndConversation()
@@ -103,7 +104,7 @@ public class AIChatManager : MonoBehaviour
         currentNPC = null;
 
         // enable player movement once conversation ended
-        Player.instance.GetComponent<PlayerMovement>().EnableMovement();
+        Player.instance.GetComponent<PlayerInput>().enabled = true;
     }
 
     public void OnLeave()
