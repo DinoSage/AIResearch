@@ -11,18 +11,20 @@ public class AIChatManager : MonoBehaviour
 {
     // -- Serialized Fields --
     [SerializeField]
-    GameObject[] uiElements;
+    GameObject[] chatUIElements;
 
     [SerializeField]
-    public GlobalMessage[] initialInfo;
+    public GlobalMessage[] initialInfoText;
 
     
     // -- Non-Serialized Fields --
     private TMP_InputField input;
     private TextMeshProUGUI output;
+
     private OpenAIApi openAI = new OpenAIApi();
+
     private AICharacter currentNPC;
-    private List<ChatMessage> globalInfo = new List<ChatMessage>();
+    private List<ChatMessage> globalInfoChat = new List<ChatMessage>();
 
     // -- Structs --
     [Serializable]
@@ -39,24 +41,24 @@ public class AIChatManager : MonoBehaviour
     {
         this.input = GameObject.FindGameObjectWithTag("ChatInput").GetComponent<TMP_InputField>();
         this.output = GameObject.FindGameObjectWithTag("ChatOutput").GetComponent<TextMeshProUGUI>();
-        foreach (GameObject ui in uiElements)
+        foreach (GameObject ui in chatUIElements)
         {
             ui.SetActive(false);
         }
 
-        foreach (GlobalMessage info in initialInfo)
+        foreach (GlobalMessage info in initialInfoText)
         {
             ChatMessage message = new ChatMessage();
             message.Content = info.message;
             message.Role = "system";
-            globalInfo.Add(message);
+            globalInfoChat.Add(message);
         }
     }
 
     public async void Speak(List<ChatMessage> messages)
     {
         // determine final complete list of ChatMessages to generate response
-        List<ChatMessage> completeList = globalInfo.Concat(messages).ToList();
+        List<ChatMessage> completeList = globalInfoChat.Concat(messages).ToList();
 
         CreateChatCompletionRequest request = new CreateChatCompletionRequest();
         request.Messages = completeList;
@@ -77,7 +79,7 @@ public class AIChatManager : MonoBehaviour
     public void StartConversation(AICharacter npc)
     {
         // show conversation UI elements so player can converse
-        foreach (GameObject ui in uiElements)
+        foreach (GameObject ui in chatUIElements)
         {
             ui.SetActive(true);
         }
@@ -91,7 +93,7 @@ public class AIChatManager : MonoBehaviour
     public void EndConversation()
     {
         // hide conversation UI elements since no longer in conversation
-        foreach (GameObject ui in uiElements)
+        foreach (GameObject ui in chatUIElements)
         {
             ui.SetActive(false);
         }

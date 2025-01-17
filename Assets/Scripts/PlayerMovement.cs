@@ -32,16 +32,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void DisableMovement()
-    {
-        canMove = false;
-    }
-
-    public void EnableMovement()
-    {
-        canMove = true;
-    }
-
     public void OnTest()
     {
         this.GetComponent<WorldObject>().UpdateProxemAll("The person named Ansh coughed.");
