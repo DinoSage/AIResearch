@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AIChatManager : MonoBehaviour
+public class ConversationManager : MonoBehaviour
 {
     // -- Serialized Fields --
     [SerializeField]
@@ -54,7 +54,7 @@ public class AIChatManager : MonoBehaviour
         }
     }
 
-    public async void Prompt(Action<ChatMessage> process, params List<ChatMessage>[] lists)
+    /*public async void Prompt(Action<ChatMessage> process, params List<ChatMessage>[] lists)
     {
         IEnumerable<ChatMessage> complete = null;
         foreach (List<ChatMessage> list in lists)
@@ -72,7 +72,7 @@ public class AIChatManager : MonoBehaviour
         {
             process(response.Choices[0].Message);
         }
-    }
+    }*/
 
     public async void Speak(List<ChatMessage> messages)
     {

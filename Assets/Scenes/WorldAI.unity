@@ -2056,7 +2056,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1483772405}
   - component: {fileID: 1483772407}
-  - component: {fileID: 1483772406}
+  - component: {fileID: 1483772408}
   m_Layer: 0
   m_Name: Chat Manager
   m_TagString: ChatManager
@@ -2079,32 +2079,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1483772406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1483772404}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d4edbe9c21e35641b953ce827f0f7cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chatUIElements:
-  - {fileID: 63755244}
-  - {fileID: 959458598}
-  initialInfoText:
-  - message: "In the heart of a dense, ancient forest lies the small medieval village\r\nof
-      Eldenbrook, a close-knit community surrounded by towering trees and mysterious\r\ncreatures.
-      Jake, the village farmer, grows both crops and rare herbs that thrive\r\nin
-      the enchanted soil, while Sarah, the town healer and teacher, uses these\r\nherbs
-      in her remedies and teaches local children about magic and folklore.\r\nMax,
-      the blacksmith, forges enchanted weapons and tools for the village\u2019s\r\ndefense
-      and daily use, ensuring they are well-prepared for any threat. Eldenbrook's\r\nprotector
-      is Lyra, a skilled ranger who patrols the forest, guarding the village\r\nfrom
-      lurking dangers and keeping its people safe from mythical beasts. Together,\r\nthese
-      four shape the life and safety of the village in their own unique ways.\r"
 --- !u!114 &1483772407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2135,6 +2109,20 @@ MonoBehaviour:
   m_DefaultActionMap: Conversation
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1483772408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483772404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d18ab850b0ff6248b864d4690d8f7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatUIElements: []
+  initialInfoText: []
 --- !u!1 &1621949786
 GameObject:
   m_ObjectHideFlags: 0

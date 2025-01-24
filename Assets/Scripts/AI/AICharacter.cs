@@ -55,13 +55,13 @@ public class AICharacter : MonoBehaviour, IInteractable
     List<ChatMessage> conversationInfo = new List<ChatMessage>();
 
     private bool inConversation = false;
-    private AIChatManager chatManager;
+    private ConversationManager chatManager;
     private IEnumerator coroutine;
 
     // -- Functions --
     void Start()
     {
-        chatManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<AIChatManager>();
+        chatManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<ConversationManager>();
 
         // add background message to context info
         ChatMessage background = new ChatMessage();
@@ -121,7 +121,7 @@ public class AICharacter : MonoBehaviour, IInteractable
         testMesage.Role = "user";
         testMesage.Content = "hi! how is the weather today?";
         test.Add(testMesage);
-        chatManager.Prompt(Blah, test);
+        GPTCommunicator.Prompt(Blah, test);
     }
 
     public void Blah(ChatMessage reply)
