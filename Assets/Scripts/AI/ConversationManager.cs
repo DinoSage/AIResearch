@@ -91,13 +91,18 @@ public class ConversationManager : MonoBehaviour
         // chat with npc if in conversation
         if (currentNPC != null)
         {
+            if (GPTCommunicator.GENERATING)
+            {
+                Debug.LogWarning("GPT: still generating previous response");
+                return;
+            }
+
             if (input.text.Length < 1)
             {
                 Debug.LogWarning("GPT: input is practically empty");
                 return;
             }
 
-            Debug.Log(input.text);
             currentNPC.Chat(input.text);
             input.text = "";
         }

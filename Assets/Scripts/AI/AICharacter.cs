@@ -32,29 +32,19 @@ public class AICharacter : MonoBehaviour, IInteractable
     private float convoTime;
 
     [SerializeField]
-    private Instruction[] instructions;
-
-    public struct Instruction
-    {
-        [SerializeField]
-        [TextArea(3, 10)]
-        public string message;
-    }
-
+    private World.Text[] instructions;
 
     // -- Non-Serialized Fields -- 
     [NonSerialized] public bool responding = false;
 
-    private List<ChatMessage> instructionsInfo = new List<ChatMessage>();
-
+    private List<ChatMessage> instructInfo = new List<ChatMessage>();
     private List<ChatMessage> contextInfo = new List<ChatMessage>();
+    private List<ChatMessage> convoInfo = new List<ChatMessage>();
+
     private ChatMessage timeContext = new ChatMessage();
     private ChatMessage locationContext = new ChatMessage();
     private ChatMessage actionContext = new ChatMessage();
 
-    List<ChatMessage> convoInfo = new List<ChatMessage>();
-
-    private bool inConversation = false;
     private ConversationManager convoManager;
     private IEnumerator coroutine;
 
@@ -70,22 +60,23 @@ public class AICharacter : MonoBehaviour, IInteractable
         contextInfo.Add(background);
         convoTime = (convoTime <= 0) ? 100f : convoTime;
 
-        /*foreach (Instruction instruction in instructions)
+        // convert instructiosn as ChatMessages
+        foreach (World.Text instruction in instructions)
         {
             ChatMessage message = new ChatMessage();
             message.Content = instruction.message;
             message.Role = "system";
-            instructionsInfo.Add(message);
+            instructInfo.Add(message);
         }
 
+        // set roles for some context messages
         timeContext.Role = "system";
         locationContext.Role = "system";
-        actionContext.Role = "action";*/
+        actionContext.Role = "system";
     }
 
     public void Chat(string message)
     {
-        Debug.Log(message);
         ChatMessage userMessage = new ChatMessage();
         userMessage.Role = "user";
         userMessage.Content = message;
@@ -102,12 +93,12 @@ public class AICharacter : MonoBehaviour, IInteractable
 
     void Update()
     {
+        Debug.Log(GPTCommunicator.GENERATING);
         timeContext.Content = "The time is " + World.instance.GetTimeStr() + ".";
     }
 
     public void ExitedConversation()
     {
-        inConversation = false;
         actionContext.Content = "You are not talking to anyone.";
         StopCoroutine(coroutine);
         coroutine = null;

@@ -9,8 +9,12 @@ public static class GPTCommunicator
 {
     private static OpenAIApi openAI = new OpenAIApi();
 
+    public static bool GENERATING = false;
+
     public static async void Prompt(Action<ChatMessage> process, params List<ChatMessage>[] lists)
     {
+        GENERATING = true;
+
         IEnumerable<ChatMessage> complete = null;
         foreach (List<ChatMessage> list in lists)
         {
@@ -27,5 +31,7 @@ public static class GPTCommunicator
         {
             process(response.Choices[0].Message);
         }
+
+        GENERATING = false;
     }
 }
