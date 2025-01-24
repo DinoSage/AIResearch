@@ -16,11 +16,11 @@ public class AICharacter : MonoBehaviour, IInteractable
 
     [Header("Background")]
     [SerializeField]
-    private string CharacterName;
+    private string characterName;
 
     [SerializeField]
     [TextArea(3, 10)]
-    private string CharacterBackground;
+    private string characterBackground;
 
     [SerializeField]
     private float talkative;
@@ -52,20 +52,20 @@ public class AICharacter : MonoBehaviour, IInteractable
     private ChatMessage locationContext = new ChatMessage();
     private ChatMessage actionContext = new ChatMessage();
 
-    List<ChatMessage> conversationInfo = new List<ChatMessage>();
+    List<ChatMessage> convoInfo = new List<ChatMessage>();
 
     private bool inConversation = false;
-    private ConversationManager chatManager;
+    private ConversationManager convoManager;
     private IEnumerator coroutine;
 
     // -- Functions --
     void Start()
     {
-        chatManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<ConversationManager>();
+        convoManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<ConversationManager>();
 
         // add background message to context info
         ChatMessage background = new ChatMessage();
-        background.Content = string.Format("Your name is {0}. {1}", CharacterName, CharacterBackground);
+        background.Content = string.Format("Your name is {0}. {1}", characterName, characterBackground);
         background.Role = "system";
         contextInfo.Add(background);
         convoTime = (convoTime <= 0) ? 100f : convoTime;
@@ -81,6 +81,23 @@ public class AICharacter : MonoBehaviour, IInteractable
         timeContext.Role = "system";
         locationContext.Role = "system";
         actionContext.Role = "action";*/
+    }
+
+    public void Chat(string message)
+    {
+        Debug.Log(message);
+        ChatMessage userMessage = new ChatMessage();
+        userMessage.Role = "user";
+        userMessage.Content = message;
+        convoInfo.Add(userMessage);
+
+        GPTCommunicator.Prompt(Reply, World.instance.worldInfo, contextInfo, convoInfo);
+    }
+
+    private void Reply(ChatMessage reply)
+    {
+        convoInfo.Add(reply);
+        convoManager.ReplaceOutput(reply.Content);
     }
 
     void Update()
@@ -113,40 +130,30 @@ public class AICharacter : MonoBehaviour, IInteractable
         
         coroutine = Thinking();
         StartCoroutine(coroutine);
-        chatManager.StartConversation(this);
+        convoManager.StartConversation(this);
         responding = false;
         Debug.Log("Entered Conversation");*/
-        List<ChatMessage> test = new List<ChatMessage>();
+        /*List<ChatMessage> test = new List<ChatMessage>();
         ChatMessage testMesage = new ChatMessage();
         testMesage.Role = "user";
         testMesage.Content = "hi! how is the weather today?";
         test.Add(testMesage);
-        GPTCommunicator.Prompt(Blah, test);
-    }
-
-    public void Blah(ChatMessage reply)
-    {
-        Debug.Log(reply.Content);
-    }
-
-    public void Chat(ChatMessage message)
-    {
-        conversationInfo.Add(message);
-        Speak();
+        GPTCommunicator.Prompt(Blah, test);*/
+        convoManager.StartConversation(this);
     }
 
     public void Speak()
     {
         if (!responding) {
             responding = true;
-            List<ChatMessage> finalInfo = contextInfo.Concat(conversationInfo).ToList();
-            chatManager.Speak(finalInfo);
+            List<ChatMessage> finalInfo = contextInfo.Concat(convoInfo).ToList();
+            //convoManager.Speak(finalInfo);
         }
     }
 
     public void AddResponse(ChatMessage response)
     {
-        conversationInfo.Add(response);
+        convoInfo.Add(response);
         if (response.Content.Contains("[BYE]")) {
             StartCoroutine(Leave());
         }
@@ -176,9 +183,9 @@ public class AICharacter : MonoBehaviour, IInteractable
             /*ChatMessage probe = new ChatMessage();
             probe.Role = "system";
             probe.Content = "What do you want to do?";
-            List<ChatMessage> finalInfo = instructionsInfo.Concat(contextInfo.Concat(conversationInfo).ToList()).ToList();
+            List<ChatMessage> finalInfo = instructionsInfo.Concat(contextInfo.Concat(convoInfo).ToList()).ToList();
             finalInfo.Add(probe);
-            chatManager.Speak
+            convoManager.Speak
 
 
             yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));*/
@@ -206,7 +213,7 @@ public class AICharacter : MonoBehaviour, IInteractable
     IEnumerator Leave()
     {
         yield return new WaitForSeconds(3f);
-        chatManager.EndConversation();
+        convoManager.EndConversation();
     }
 
 }

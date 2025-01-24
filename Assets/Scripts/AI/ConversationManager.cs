@@ -11,7 +11,7 @@ public class ConversationManager : MonoBehaviour
 {
     // -- Serialized Fields --
     [SerializeField]
-    GameObject[] chatUIElements;
+    GameObject[] convoUI;
 
     [SerializeField]
     public GlobalMessage[] initialInfoText;
@@ -20,10 +20,7 @@ public class ConversationManager : MonoBehaviour
     private TMP_InputField input;
     private TextMeshProUGUI output;
 
-    private OpenAIApi openAI = new OpenAIApi();
-
     private AICharacter currentNPC;
-    private List<ChatMessage> globalInfoChat = new List<ChatMessage>();
 
     // -- Structs --
     [Serializable]
@@ -40,65 +37,27 @@ public class ConversationManager : MonoBehaviour
     {
         this.input = GameObject.FindGameObjectWithTag("ChatInput").GetComponent<TMP_InputField>();
         this.output = GameObject.FindGameObjectWithTag("ChatOutput").GetComponent<TextMeshProUGUI>();
-        foreach (GameObject ui in chatUIElements)
+        
+        foreach (GameObject ui in convoUI)
         {
             ui.SetActive(false);
         }
-
-        foreach (GlobalMessage info in initialInfoText)
-        {
-            ChatMessage message = new ChatMessage();
-            message.Content = info.message;
-            message.Role = "system";
-            globalInfoChat.Add(message);
-        }
     }
 
-    /*public async void Prompt(Action<ChatMessage> process, params List<ChatMessage>[] lists)
+    public void ClearInput(string outputText)
     {
-        IEnumerable<ChatMessage> complete = null;
-        foreach (List<ChatMessage> list in lists)
-        {
-            complete = (complete == null) ? list.AsEnumerable() : complete.Concat(list);
-        }
+        input.text = "";
+    }
 
-        CreateChatCompletionRequest request = new CreateChatCompletionRequest();
-        request.Model = "gpt-4o-mini";
-        request.Messages = complete.ToList();
-
-        var response = await openAI.CreateChatCompletion(request);
-
-        if (response.Choices != null && response.Choices.Count > 0)
-        {
-            process(response.Choices[0].Message);
-        }
-    }*/
-
-    public async void Speak(List<ChatMessage> messages)
+    public void ReplaceOutput(string outputText)
     {
-        // determine final complete list of ChatMessages to generate response
-        List<ChatMessage> completeList = globalInfoChat.Concat(messages).ToList();
-
-        CreateChatCompletionRequest request = new CreateChatCompletionRequest();
-        request.Messages = completeList;
-        request.Model = "gpt-4o-mini";
-
-        var response = await openAI.CreateChatCompletion(request);
-
-        if (response.Choices != null && response.Choices.Count > 0)
-        {
-            // add raesponse to history and display response in UI
-            ChatMessage chatReponse = response.Choices[0].Message;
-            currentNPC.AddResponse(chatReponse);
-
-            output.SetText(chatReponse.Content);
-        }
+        output.SetText(outputText);
     }
 
     public void StartConversation(AICharacter npc)
     {
         // show conversation UI elements so player can converse
-        foreach (GameObject ui in chatUIElements)
+        foreach (GameObject ui in convoUI)
         {
             ui.SetActive(true);
         }
@@ -111,7 +70,7 @@ public class ConversationManager : MonoBehaviour
     public void EndConversation()
     {
         // hide conversation UI elements since no longer in conversation
-        foreach (GameObject ui in chatUIElements)
+        foreach (GameObject ui in convoUI)
         {
             ui.SetActive(false);
         }
@@ -127,15 +86,6 @@ public class ConversationManager : MonoBehaviour
         Player.instance.GetComponent<PlayerInput>().enabled = true;
     }
 
-    public void OnLeave()
-    {
-        // end conversation if leaving conversation input received
-        if (currentNPC != null)
-        {
-            EndConversation();
-        }
-    }
-
     public void OnTalk()
     {
         // chat with npc if in conversation
@@ -147,12 +97,17 @@ public class ConversationManager : MonoBehaviour
                 return;
             }
 
-            ChatMessage message = new ChatMessage();
-            message.Content = input.text;
-            message.Role = "user";
-
-            currentNPC.Chat(message);
+            Debug.Log(input.text);
+            currentNPC.Chat(input.text);
             input.text = "";
+        }
+    }
+    public void OnLeave()
+    {
+        // end conversation if leaving conversation input received
+        if (currentNPC != null)
+        {
+            EndConversation();
         }
     }
 }

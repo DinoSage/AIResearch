@@ -822,8 +822,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterName: Jake
-  CharacterBackground: Roleplay as the character Jake in the villlage.
+  characterName: Jake
+  characterBackground: Roleplay as the character Jake in the village.
   talkative: 1
   thinkDelay: 10
   convoTime: 20
@@ -1389,6 +1389,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugEnabled: 1
   secsPerGameMin: 1
+  worldBackground:
+  - message: "In the heart of a dense, ancient forest lies the small medieval village
+      of Eldenbrook, a close-knit community surrounded by towering trees and mysterious
+      creatures. Jake, the village farmer, grows both crops and rare herbs that thrive
+      in the enchanted soil, while Sarah, the town healer and teacher, uses these
+      herbs in her remedies and teaches local children about magic and folklore.
+      Max, the blacksmith, forges enchanted weapons and tools for the village\u2019s
+      defense and daily use, ensuring they are well-prepared for any threat. Eldenbrook's
+      protector is Lyra, a skilled ranger who patrols the forest, guarding the village
+      from lurking dangers and keeping its people safe from mythical beasts. Together,
+      these four shape the life and safety of the village in their own unique ways."
 --- !u!4 &1101987094
 Transform:
   m_ObjectHideFlags: 0
@@ -2121,8 +2132,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d18ab850b0ff6248b864d4690d8f7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatUIElements: []
-  initialInfoText: []
+  convoUI:
+  - {fileID: 63755244}
+  - {fileID: 959458598}
+  initialInfoText:
+  - message: "In the heart of a dense, ancient forest lies the small medieval village
+      of Eldenbrook, a close-knit community surrounded by towering trees and mysterious
+      creatures. Jake, the village farmer, grows both crops and rare herbs that thrive
+      in the enchanted soil, while Sarah, the town healer and teacher, uses these
+      herbs in her remedies and teaches local children about magic and folklore.
+      Max, the blacksmith, forges enchanted weapons and tools for the village\u2019s
+      defense and daily use, ensuring they are well-prepared for any threat. Eldenbrook's
+      protector is Lyra, a skilled ranger who patrols the forest, guarding the village
+      from lurking dangers and keeping its people safe from mythical beasts. Together,
+      these four shape the life and safety of the village in their own unique ways."
 --- !u!1 &1621949786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,8 +2443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterName: Max
-  CharacterBackground: Roleplay as the character Max in the villlage.
+  characterName: Max
+  characterBackground: Roleplay as the character Max in the village.
   talkative: 0
   thinkDelay: 8
   convoTime: 15
@@ -2770,8 +2793,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterName: Max
-  CharacterBackground: Roleplay as the character Sarah in the villlage.
+  characterName: 
+  characterBackground: 
   talkative: 0.5
   thinkDelay: 10
   convoTime: 100
