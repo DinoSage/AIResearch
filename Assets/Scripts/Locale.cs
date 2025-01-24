@@ -7,23 +7,6 @@ public class Locale : MonoBehaviour
     // -- Private Fields --
     private Setting currLocale;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Setting setting = collision.GetComponent<Setting>();
-        if (setting != null)
-        {
-            currLocale = setting;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Setting setting = collision.GetComponent<Setting>();
-        if (setting == currLocale)
-        {
-            currLocale = null;
-        }
-    }
 
     public Setting GetCurrLocale() 
     { 

@@ -31,10 +31,29 @@ public class AICharacter : MonoBehaviour, IInteractable
     [SerializeField]
     private float convoTime;
 
+    [SerializeField]
+    private Instruction[] instructions;
+
+    public struct Instruction
+    {
+        [SerializeField]
+        [TextArea(3, 10)]
+        public string message;
+    }
+
+
     // -- Non-Serialized Fields -- 
     [NonSerialized] public bool responding = false;
 
-    [NonSerialized] public List<ChatMessage> personalInfo = new List<ChatMessage>();
+    private List<ChatMessage> instructionsInfo = new List<ChatMessage>();
+
+    private List<ChatMessage> contextInfo = new List<ChatMessage>();
+    private ChatMessage timeContext = new ChatMessage();
+    private ChatMessage locationContext = new ChatMessage();
+    private ChatMessage actionContext = new ChatMessage();
+
+    List<ChatMessage> conversationInfo = new List<ChatMessage>();
+
     private bool inConversation = false;
     private AIChatManager chatManager;
     private IEnumerator coroutine;
@@ -44,60 +63,75 @@ public class AICharacter : MonoBehaviour, IInteractable
     {
         chatManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<AIChatManager>();
 
-        // add background message to personal info
+        // add background message to context info
         ChatMessage background = new ChatMessage();
         background.Content = string.Format("Your name is {0}. {1}", CharacterName, CharacterBackground);
         background.Role = "system";
-        personalInfo.Add(background);
+        contextInfo.Add(background);
         convoTime = (convoTime <= 0) ? 100f : convoTime;
+
+        /*foreach (Instruction instruction in instructions)
+        {
+            ChatMessage message = new ChatMessage();
+            message.Content = instruction.message;
+            message.Role = "system";
+            instructionsInfo.Add(message);
+        }
+
+        timeContext.Role = "system";
+        locationContext.Role = "system";
+        actionContext.Role = "action";*/
     }
 
-    public void EnteredConversation()
+    void Update()
     {
-        inConversation = true;
-        ChatMessage talk = new ChatMessage();
-        string location = this.GetComponent<Locale>().GetCurrLocale().name;
-        string time = World.instance.GetTimeStr();
-        talk.Content = "You are now talking to Ansh in the " + location;
-        talk.Content += "The time right now is " + time;
-        talk.Role = "system";
-        personalInfo.Add(talk);
-        coroutine = Thinking();
-        StartCoroutine(coroutine);
-        responding = false;
-        Debug.Log(talk.Content);
+        timeContext.Content = "The time is " + World.instance.GetTimeStr() + ".";
     }
 
     public void ExitedConversation()
     {
         inConversation = false;
-        ChatMessage talk = new ChatMessage();
-        talk.Content = "You are no longer talking to Ansh";
-        talk.Role = "system";
-
-        personalInfo.Add(talk);
+        actionContext.Content = "You are not talking to anyone.";
         StopCoroutine(coroutine);
         coroutine = null;
     }
 
     public void Alert(string update)
     {
-        ChatMessage world = new ChatMessage();
-        string time = "This happened at time " + World.instance.GetTimeStr() + ". ";
-        string location = "This happened in " + this.GetComponent<Locale>().GetCurrLocale().name + ". ";
-        world.Content = update + time + location;
-        world.Role = "system";
-        personalInfo.Add(world);
+        ChatMessage worldEvent = new ChatMessage();
+        string time = "This happened at time " + World.instance.GetTimeStr() + ".";
+        worldEvent.Content = update + time;
+        worldEvent.Role = "system";
+        contextInfo.Add(worldEvent);
     }
 
     public void Interact()
     {
+        /*string time = World.instance.GetTimeStr();
+        actionContext.Content = "You are now talking to Ansh";
+        actionContext.Content += "The time right now is " + time;
+        
+        coroutine = Thinking();
+        StartCoroutine(coroutine);
         chatManager.StartConversation(this);
+        responding = false;
+        Debug.Log("Entered Conversation");*/
+        List<ChatMessage> test = new List<ChatMessage>();
+        ChatMessage testMesage = new ChatMessage();
+        testMesage.Role = "user";
+        testMesage.Content = "hi! how is the weather today?";
+        test.Add(testMesage);
+        chatManager.Prompt(Blah, test);
+    }
+
+    public void Blah(ChatMessage reply)
+    {
+        Debug.Log(reply.Content);
     }
 
     public void Chat(ChatMessage message)
     {
-        personalInfo.Add(message);
+        conversationInfo.Add(message);
         Speak();
     }
 
@@ -105,13 +139,14 @@ public class AICharacter : MonoBehaviour, IInteractable
     {
         if (!responding) {
             responding = true;
-            chatManager.Speak(personalInfo);
+            List<ChatMessage> finalInfo = contextInfo.Concat(conversationInfo).ToList();
+            chatManager.Speak(finalInfo);
         }
     }
 
     public void AddResponse(ChatMessage response)
     {
-        personalInfo.Add(response);
+        conversationInfo.Add(response);
         if (response.Content.Contains("[BYE]")) {
             StartCoroutine(Leave());
         }
@@ -123,7 +158,7 @@ public class AICharacter : MonoBehaviour, IInteractable
         float start = Time.time;
         while (true)
         {
-            if (Time.time - start > Mathf.Max(1, convoTime))
+            /*if (Time.time - start > Mathf.Max(1, convoTime))
             {
                 ChatMessage world = new ChatMessage();
                 world.Content = "You need to get back to work, say goodbye! Add the phrase \"[BYE]\" to your next response";
@@ -136,9 +171,35 @@ public class AICharacter : MonoBehaviour, IInteractable
             if (rand <= talkative)
             {
                 Speak();
-            }
+            }*/
 
-            yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));
+            /*ChatMessage probe = new ChatMessage();
+            probe.Role = "system";
+            probe.Content = "What do you want to do?";
+            List<ChatMessage> finalInfo = instructionsInfo.Concat(contextInfo.Concat(conversationInfo).ToList()).ToList();
+            finalInfo.Add(probe);
+            chatManager.Speak
+
+
+            yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));*/
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Setting setting = collision.GetComponent<Setting>();
+        if (setting != null)
+        {
+            locationContext.Content = "You are at " + setting.settingName + ".";
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Setting setting = collision.GetComponent<Setting>();
+        if (setting != null)
+        {
+            locationContext.Content = "You don't know where you are.";
         }
     }
 
@@ -147,4 +208,5 @@ public class AICharacter : MonoBehaviour, IInteractable
         yield return new WaitForSeconds(3f);
         chatManager.EndConversation();
     }
+
 }

@@ -16,7 +16,6 @@ public class AIChatManager : MonoBehaviour
     [SerializeField]
     public GlobalMessage[] initialInfoText;
 
-    
     // -- Non-Serialized Fields --
     private TMP_InputField input;
     private TextMeshProUGUI output;
@@ -55,6 +54,26 @@ public class AIChatManager : MonoBehaviour
         }
     }
 
+    public async void Prompt(Action<ChatMessage> process, params List<ChatMessage>[] lists)
+    {
+        IEnumerable<ChatMessage> complete = null;
+        foreach (List<ChatMessage> list in lists)
+        {
+            complete = (complete == null) ? list.AsEnumerable() : complete.Concat(list);
+        }
+
+        CreateChatCompletionRequest request = new CreateChatCompletionRequest();
+        request.Model = "gpt-4o-mini";
+        request.Messages = complete.ToList();
+
+        var response = await openAI.CreateChatCompletion(request);
+
+        if (response.Choices != null && response.Choices.Count > 0)
+        {
+            process(response.Choices[0].Message);
+        }
+    }
+
     public async void Speak(List<ChatMessage> messages)
     {
         // determine final complete list of ChatMessages to generate response
@@ -84,7 +103,6 @@ public class AIChatManager : MonoBehaviour
             ui.SetActive(true);
         }
         currentNPC = npc;
-        currentNPC.EnteredConversation();
 
         // disable player movement while in conversation
         Player.instance.GetComponent<PlayerInput>().enabled = false;
