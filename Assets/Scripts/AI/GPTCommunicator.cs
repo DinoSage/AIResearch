@@ -13,6 +13,8 @@ public static class GPTCommunicator
 
     public static async void Prompt(Action<ChatMessage> process, params List<ChatMessage>[] lists)
     {
+        if (GENERATING) return;
+
         GENERATING = true;
 
         IEnumerable<ChatMessage> complete = null;
@@ -29,7 +31,8 @@ public static class GPTCommunicator
 
         if (response.Choices != null && response.Choices.Count > 0)
         {
-            process(response.Choices[0].Message);
+            int idx = UnityEngine.Random.Range(0, response.Choices.Count);
+            process(response.Choices[idx].Message);
         }
 
         GENERATING = false;

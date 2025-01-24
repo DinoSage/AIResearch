@@ -35,8 +35,6 @@ public class AICharacter : MonoBehaviour, IInteractable
     private World.Text[] instructions;
 
     // -- Non-Serialized Fields -- 
-    [NonSerialized] public bool responding = false;
-
     private List<ChatMessage> instructInfo = new List<ChatMessage>();
     private List<ChatMessage> contextInfo = new List<ChatMessage>();
     private List<ChatMessage> convoInfo = new List<ChatMessage>();
@@ -46,7 +44,9 @@ public class AICharacter : MonoBehaviour, IInteractable
     private ChatMessage actionContext = new ChatMessage();
 
     private ConversationManager convoManager;
-    private IEnumerator coroutine;
+    private IEnumerator thinkCouroutine;
+
+    private string lastSpokeTime = "not for a while";
 
     // -- Functions --
     void Start()
@@ -69,10 +69,18 @@ public class AICharacter : MonoBehaviour, IInteractable
             instructInfo.Add(message);
         }
 
-        // set roles for some context messages
+        // set values for permanent context messages and add to list
         timeContext.Role = "system";
+        timeContext.Content = "";
+        contextInfo.Add(timeContext);
+
         locationContext.Role = "system";
+        locationContext.Content = "";
+        contextInfo.Add(locationContext);
+
         actionContext.Role = "system";
+        actionContext.Content = "";
+        contextInfo.Add(actionContext);
     }
 
     public void Chat(string message)
@@ -82,26 +90,26 @@ public class AICharacter : MonoBehaviour, IInteractable
         userMessage.Content = message;
         convoInfo.Add(userMessage);
 
-        GPTCommunicator.Prompt(Reply, World.instance.worldInfo, contextInfo, convoInfo);
+        GPTCommunicator.Prompt(Reply, World.instance.worldInfo, instructInfo, contextInfo, convoInfo);
     }
 
     private void Reply(ChatMessage reply)
     {
         convoInfo.Add(reply);
         convoManager.ReplaceOutput(reply.Content);
+        lastSpokeTime = World.instance.GetTimeStr();
     }
 
     void Update()
     {
-        Debug.Log(GPTCommunicator.GENERATING);
-        timeContext.Content = "The time is " + World.instance.GetTimeStr() + ".";
+        timeContext.Content = "The time right now is " + World.instance.GetTimeStr() + ".";
     }
 
     public void ExitedConversation()
     {
         actionContext.Content = "You are not talking to anyone.";
-        StopCoroutine(coroutine);
-        coroutine = null;
+        StopCoroutine(thinkCouroutine);
+        thinkCouroutine = null;
     }
 
     public void Alert(string update)
@@ -115,47 +123,43 @@ public class AICharacter : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        /*string time = World.instance.GetTimeStr();
-        actionContext.Content = "You are now talking to Ansh";
-        actionContext.Content += "The time right now is " + time;
+        string time = World.instance.GetTimeStr();
+        actionContext.Content = "You are chatting with Ansh. You started chatting at " + time;
         
-        coroutine = Thinking();
-        StartCoroutine(coroutine);
-        convoManager.StartConversation(this);
-        responding = false;
-        Debug.Log("Entered Conversation");*/
-        /*List<ChatMessage> test = new List<ChatMessage>();
-        ChatMessage testMesage = new ChatMessage();
-        testMesage.Role = "user";
-        testMesage.Content = "hi! how is the weather today?";
-        test.Add(testMesage);
-        GPTCommunicator.Prompt(Blah, test);*/
+        thinkCouroutine = Thinking();
+        StartCoroutine(thinkCouroutine);
         convoManager.StartConversation(this);
     }
 
-    public void Speak()
+    private void ProccessThought(ChatMessage thought)
     {
-        if (!responding) {
-            responding = true;
-            List<ChatMessage> finalInfo = contextInfo.Concat(convoInfo).ToList();
-            //convoManager.Speak(finalInfo);
+        Debug.Log(thought.Content);
+        if (thought.Content.Contains("||SPEAK||"))
+        {
+            convoInfo.Add(thought);
+            convoManager.ReplaceOutput(thought.Content);
         }
-    }
-
-    public void AddResponse(ChatMessage response)
-    {
-        convoInfo.Add(response);
-        if (response.Content.Contains("[BYE]")) {
-            StartCoroutine(Leave());
-        }
-        responding = false;
     }
 
     IEnumerator Thinking()
     {
-        float start = Time.time;
         while (true)
         {
+            if (!GPTCommunicator.GENERATING)
+            {
+                Debug.Log("Thinking now!");
+                List<ChatMessage> thinkInfo = new List<ChatMessage>();
+                ChatMessage thinkAction = new ChatMessage();
+                thinkAction.Role = "system";
+                thinkAction.Content = "WHAT DO YOU WANT TO DO? The last time someone spoke was " + lastSpokeTime + ".";
+                thinkInfo.Add(thinkAction);
+
+                GPTCommunicator.Prompt(ProccessThought, World.instance.worldInfo, instructInfo, contextInfo, convoInfo, thinkInfo);
+            }
+
+            yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));
+
+
             /*if (Time.time - start > Mathf.Max(1, convoTime))
             {
                 ChatMessage world = new ChatMessage();
@@ -183,7 +187,7 @@ public class AICharacter : MonoBehaviour, IInteractable
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         Setting setting = collision.GetComponent<Setting>();
         if (setting != null)
@@ -205,6 +209,6 @@ public class AICharacter : MonoBehaviour, IInteractable
     {
         yield return new WaitForSeconds(3f);
         convoManager.EndConversation();
-    }
+    }*/
 
 }

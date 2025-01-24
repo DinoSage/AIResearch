@@ -827,6 +827,12 @@ MonoBehaviour:
   talkative: 1
   thinkDelay: 10
   convoTime: 20
+  instructions:
+  - message: "When I tell ask you \"WHAT DO YOU WANT TO DO?\" followed by some context,
+      reply back with one of the following:\n\"||SPEAK||\" followed by what you want
+      to say to the person when you are engaged in a conversation \n\"||BYE||\" followed
+      by a final message that you want to say to the person you are in a conversation
+      with"
 --- !u!114 &898778411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2135,17 +2141,6 @@ MonoBehaviour:
   convoUI:
   - {fileID: 63755244}
   - {fileID: 959458598}
-  initialInfoText:
-  - message: "In the heart of a dense, ancient forest lies the small medieval village
-      of Eldenbrook, a close-knit community surrounded by towering trees and mysterious
-      creatures. Jake, the village farmer, grows both crops and rare herbs that thrive
-      in the enchanted soil, while Sarah, the town healer and teacher, uses these
-      herbs in her remedies and teaches local children about magic and folklore.
-      Max, the blacksmith, forges enchanted weapons and tools for the village\u2019s
-      defense and daily use, ensuring they are well-prepared for any threat. Eldenbrook's
-      protector is Lyra, a skilled ranger who patrols the forest, guarding the village
-      from lurking dangers and keeping its people safe from mythical beasts. Together,
-      these four shape the life and safety of the village in their own unique ways."
 --- !u!1 &1621949786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2448,6 +2443,7 @@ MonoBehaviour:
   talkative: 0
   thinkDelay: 8
   convoTime: 15
+  instructions: []
 --- !u!114 &1640609065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2798,6 +2794,7 @@ MonoBehaviour:
   talkative: 0.5
   thinkDelay: 10
   convoTime: 100
+  instructions: []
 --- !u!50 &1981079087
 Rigidbody2D:
   serializedVersion: 4

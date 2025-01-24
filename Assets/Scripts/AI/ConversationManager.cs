@@ -13,13 +13,9 @@ public class ConversationManager : MonoBehaviour
     [SerializeField]
     GameObject[] convoUI;
 
-    [SerializeField]
-    public GlobalMessage[] initialInfoText;
-
     // -- Non-Serialized Fields --
     private TMP_InputField input;
     private TextMeshProUGUI output;
-
     private AICharacter currentNPC;
 
     // -- Structs --
@@ -31,7 +27,6 @@ public class ConversationManager : MonoBehaviour
         public string message;
     }
 
-
     // -- Functions --
     private void Start()
     {
@@ -42,11 +37,6 @@ public class ConversationManager : MonoBehaviour
         {
             ui.SetActive(false);
         }
-    }
-
-    public void ClearInput(string outputText)
-    {
-        input.text = "";
     }
 
     public void ReplaceOutput(string outputText)
