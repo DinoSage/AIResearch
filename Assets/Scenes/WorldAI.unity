@@ -832,7 +832,8 @@ MonoBehaviour:
       reply back with one of the following:\n\"||SPEAK||\" followed by what you want
       to say to the person when you are engaged in a conversation \n\"||BYE||\" followed
       by a final message that you want to say to the person you are in a conversation
-      with"
+      with\n\"||CHECK TIME||\" when you want to check the time."
+  - message: At 00:15, you need to get back to work.
 --- !u!114 &898778411
 MonoBehaviour:
   m_ObjectHideFlags: 0

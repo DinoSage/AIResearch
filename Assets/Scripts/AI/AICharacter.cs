@@ -138,6 +138,14 @@ public class AICharacter : MonoBehaviour, IInteractable
         {
             convoInfo.Add(thought);
             convoManager.ReplaceOutput(thought.Content);
+        } else if (thought.Content.Contains("||BYE||"))
+        {
+            convoInfo.Add(thought);
+            convoManager.ReplaceOutput(thought.Content);
+            StartCoroutine(Leave());
+        } else if (thought.Content.Contains("||CHECK TIME||"))
+        {
+            Debug.Log("I WANT TO CHECK THE TIME!!!");
         }
     }
 
@@ -203,12 +211,12 @@ public class AICharacter : MonoBehaviour, IInteractable
         {
             locationContext.Content = "You don't know where you are.";
         }
-    }
+    }*/
 
     IEnumerator Leave()
     {
         yield return new WaitForSeconds(3f);
         convoManager.EndConversation();
-    }*/
+    }
 
 }
