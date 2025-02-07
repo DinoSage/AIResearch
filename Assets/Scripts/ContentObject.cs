@@ -4,42 +4,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text.RegularExpressions;
 
-public class MessageObject
+public class ContentObject
 {
     // Constructors
-    public MessageObject() { }
+    public ContentObject() { }
 
-    public MessageObject(string category, string message, string time = "", string location = "", string npc = "")
+    public ContentObject(string category, string message, string time = "", string location = "", string character = "")
     {
         Category = category;
         Time = time;
         Location = location;
-        NPC = npc;
+        Character = character;
         Message = message;
     }
 
-    private static readonly string PATTERN = @"\[(?<category>\w+)(?: \| time=(?<time>\d{2}:\d{2}))?(?: \| location=(?<location>[\w\s]+))?(?: \| npc=(?<npc>[\w\s]+))?\] (?<message>.+)";
+    private static readonly string PATTERN = @"\[(?<category>\w+)(?: \| time=(?<time>\d{2}:\d{2}))?(?: \| location=(?<location>[\w\s]+))?(?: \| character=(?<npc>[\w\s]+))?\] (?<message>.+)";
 
     public string Category { get; set; } // Required
     public string Time { get; set; } // Optional (Format: HH:MM)
     public string Location { get; set; } // Optional
-    public string NPC { get; set; } // Optional
+    public string Character { get; set; } // Optional
     public string Message { get; set; } // Required
 
-    public static MessageObject ContentToObject(string content)
+    public static ContentObject StringToObject(string content)
     {
-        MessageObject obj = new MessageObject();
+        ContentObject obj = new ContentObject();
         Match match = Regex.Match(content, PATTERN);
         obj.Category = match.Groups["category"].Value;
         obj.Time = match.Groups["time"].Value;
         obj.Location = match.Groups["location"].Value;
-        obj.NPC = match.Groups["npc"].Value;
+        obj.Character = match.Groups["npc"].Value;
         obj.Message = match.Groups["message"].Value;
 
         return obj;
     }
 
-    public static string ObjectToContent(MessageObject obj)
+    public static string ObjectToString(ContentObject obj)
     {
         string formattedString = $"[{obj.Category}";
 
@@ -49,8 +49,8 @@ public class MessageObject
         if (!string.IsNullOrEmpty(obj.Location))
             formattedString += $" | location={obj.Location}";
 
-        if (!string.IsNullOrEmpty(obj.NPC))
-            formattedString += $" | npc={obj.NPC}";
+        if (!string.IsNullOrEmpty(obj.Character))
+            formattedString += $" | character={obj.Character}";
 
         formattedString += $"] {obj.Message}";
 

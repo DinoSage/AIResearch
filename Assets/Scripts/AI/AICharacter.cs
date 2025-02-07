@@ -2,11 +2,7 @@ using OpenAI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Windows;
-using static UnityEditor.Rendering.CameraUI;
 
 public class AICharacter : MonoBehaviour, IInteractable
 {
@@ -23,130 +19,156 @@ public class AICharacter : MonoBehaviour, IInteractable
     private string characterBackground;
 
     [SerializeField]
-    private float talkative;
-
-    [SerializeField]
     private float thinkDelay;
 
     [SerializeField]
-    private float convoTime;
+    public World.Text[] memories;
 
-    [SerializeField]
-    private World.Text[] instructions;
 
     // -- Non-Serialized Fields -- 
-    private List<ChatMessage> instructInfo = new List<ChatMessage>();
-    private List<ChatMessage> contextInfo = new List<ChatMessage>();
-    private List<ChatMessage> convoInfo = new List<ChatMessage>();
-
-    private ChatMessage timeContext = new ChatMessage();
-    private ChatMessage locationContext = new ChatMessage();
-    private ChatMessage actionContext = new ChatMessage();
+    List<ChatMessage> longMem = new List<ChatMessage>();
+    List<ChatMessage> shortMem = new List<ChatMessage>();
 
     private ConversationManager convoManager;
     private IEnumerator thinkCouroutine;
 
-    private string lastSpokeTime = "not for a while";
-
     // -- Functions --
+    void Awake()
+    {
+        // add master instruction
+        ChatMessage masterInstruction = new ChatMessage();
+        masterInstruction.Role = "system";
+        masterInstruction.Content = World.MASTER_INSTRUCTION;
+        longMem.Add(masterInstruction);
+
+        // add identity memory
+        ChatMessage background = new ChatMessage();
+        background.Role = "system";
+        background.Content = ContentObject.ObjectToString(new ContentObject("MEMORY", string.Format("Your name is {0}. {1}", characterName, characterBackground)));
+        longMem.Add(background);
+
+        foreach (World.Text info in memories)
+        {
+            ContentObject temp = new ContentObject("MEMORY", info.message);
+
+            ChatMessage message = new ChatMessage();
+            message.Content = ContentObject.ObjectToString(temp);
+            message.Role = "system";
+            longMem.Add(message);
+        }
+
+        /*foreach (ChatMessage prompt in promptMem)
+        {
+            shortMem.Remove(prompt);
+        }
+        promptMem.Clear();*/
+    }
+
     void Start()
     {
         convoManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<ConversationManager>();
-
-        // add background message to context info
-        ChatMessage background = new ChatMessage();
-        background.Content = string.Format("Your name is {0}. {1}", characterName, characterBackground);
-        background.Role = "system";
-        contextInfo.Add(background);
-        convoTime = (convoTime <= 0) ? 100f : convoTime;
-
-        // convert instructiosn as ChatMessages
-        foreach (World.Text instruction in instructions)
-        {
-            ChatMessage message = new ChatMessage();
-            message.Content = instruction.message;
-            message.Role = "system";
-            instructInfo.Add(message);
-        }
-
-        // set values for permanent context messages and add to list
-        timeContext.Role = "system";
-        timeContext.Content = "";
-        contextInfo.Add(timeContext);
-
-        locationContext.Role = "system";
-        locationContext.Content = "";
-        contextInfo.Add(locationContext);
-
-        actionContext.Role = "system";
-        actionContext.Content = "";
-        contextInfo.Add(actionContext);
-    }
-
-    public void Chat(string message)
-    {
-        ChatMessage userMessage = new ChatMessage();
-        userMessage.Role = "user";
-        userMessage.Content = message;
-        convoInfo.Add(userMessage);
-
-        GPTCommunicator.Prompt(Reply, World.instance.worldInfo, instructInfo, contextInfo, convoInfo);
-    }
-
-    private void Reply(ChatMessage reply)
-    {
-        convoInfo.Add(reply);
-        convoManager.ReplaceOutput(reply.Content);
-        lastSpokeTime = World.instance.GetTimeStr();
     }
 
     void Update()
     {
-        timeContext.Content = "The time right now is " + World.instance.GetTimeStr() + ".";
     }
 
-    public void ExitedConversation()
+    public void Chat(string message)
     {
-        actionContext.Content = "You are not talking to anyone.";
-        StopCoroutine(thinkCouroutine);
-        thinkCouroutine = null;
+        ContentObject temp = new ContentObject("TALK", message, time: World.instance.GetTimeStr(), character: "Ansh");
+
+        ChatMessage userMessage = new ChatMessage();
+        userMessage.Role = "user";
+        userMessage.Content = ContentObject.ObjectToString(temp);
+        shortMem.Add(userMessage);
+
+        GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
     }
 
-    public void Alert(string update)
+    private void Reply(ChatMessage reply)
+    {
+        ContentObject temp = ContentObject.StringToObject(reply.Content);
+        temp.Time = World.instance.GetTimeStr();
+
+        reply.Content = ContentObject.ObjectToString(temp);
+        shortMem.Add(reply);
+
+        convoManager.ReplaceOutput(temp.Message);
+        PrintAll();
+    }
+
+    /*public void Alert(string update)
     {
         ChatMessage worldEvent = new ChatMessage();
         string time = "This happened at time " + World.instance.GetTimeStr() + ".";
         worldEvent.Content = update + time;
         worldEvent.Role = "system";
-        contextInfo.Add(worldEvent);
-    }
+    }*/
 
     public void Interact()
     {
-        string time = World.instance.GetTimeStr();
-        actionContext.Content = "You are chatting with Ansh. You started chatting at " + time;
-        
+        ContentObject startConvo = new ContentObject("EVENT", "You are chatting with Ansh.", time: World.instance.GetTimeStr());
+        ChatMessage eventMessage = new ChatMessage();
+        eventMessage.Role = "system";
+        eventMessage.Content = ContentObject.ObjectToString(startConvo);
+        shortMem.Add(eventMessage);
+
         thinkCouroutine = Thinking();
         StartCoroutine(thinkCouroutine);
         convoManager.StartConversation(this);
     }
+    public void ExitedConversation()
+    {
+        ContentObject startConvo = new ContentObject("EVENT", "You are no longer chatting with Ansh.", time: World.instance.GetTimeStr());
+        ChatMessage eventMessage = new ChatMessage();
+        eventMessage.Role = "system";
+        eventMessage.Content = ContentObject.ObjectToString(startConvo);
+        shortMem.Add(eventMessage);
+
+        StopCoroutine(thinkCouroutine);
+        thinkCouroutine = null;
+
+        ContentObject summObj = new ContentObject("SUMMARIZE", "Summarize all relevant [TALK], [BYE], and [EVENT] messages. Set the [MEMORY] message's time field to reflect the latest relevant event. Mention important times within the summary where necessary. Keep it concise while preserving key details about conversations, events, and decisions.");
+
+        ChatMessage summAction = new ChatMessage();
+        summAction.Role = "system";
+        summAction.Content = ContentObject.ObjectToString(summObj);
+        shortMem.Add(summAction);
+
+        GPTCommunicator.Prompt(Summarize, longMem, shortMem);
+    }
+
+    private void Summarize(ChatMessage memory)
+    {
+        ContentObject actionObj = ContentObject.StringToObject(memory.Content);
+        actionObj.Time = null;
+
+        memory.Content = ContentObject.ObjectToString(actionObj);
+        longMem.Add(memory);
+        shortMem.Clear();
+        PrintAll();
+    }
 
     private void ProccessThought(ChatMessage thought)
     {
-        Debug.Log(thought.Content);
-        if (thought.Content.Contains("||SPEAK||"))
+        ContentObject actionObj = ContentObject.StringToObject(thought.Content);
+        actionObj.Time = World.instance.GetTimeStr();
+        switch (actionObj.Category)
         {
-            convoInfo.Add(thought);
-            convoManager.ReplaceOutput(thought.Content);
-        } else if (thought.Content.Contains("||BYE||"))
-        {
-            convoInfo.Add(thought);
-            convoManager.ReplaceOutput(thought.Content);
-            StartCoroutine(Leave());
-        } else if (thought.Content.Contains("||CHECK TIME||"))
-        {
-            Debug.Log("I WANT TO CHECK THE TIME!!!");
+            case "TALK":
+                convoManager.ReplaceOutput(actionObj.Message);
+                break;
+            case "BYE":
+                convoManager.ReplaceOutput(actionObj.Message);
+                StartCoroutine(Leave());
+                break;
+            case "NOTHING":
+                break;
         }
+
+        thought.Content = ContentObject.ObjectToString(actionObj);
+        shortMem.Add(thought);
+        PrintAll();
     }
 
     IEnumerator Thinking()
@@ -155,63 +177,22 @@ public class AICharacter : MonoBehaviour, IInteractable
         {
             if (!GPTCommunicator.GENERATING)
             {
-                Debug.Log("Thinking now!");
-                List<ChatMessage> thinkInfo = new List<ChatMessage>();
+                ContentObject thinkObj = new ContentObject("THINK", "What do you want to do next?", time: World.instance.GetTimeStr());
+
                 ChatMessage thinkAction = new ChatMessage();
                 thinkAction.Role = "system";
-                thinkAction.Content = "WHAT DO YOU WANT TO DO? The last time someone spoke was " + lastSpokeTime + ".";
-                thinkInfo.Add(thinkAction);
+                thinkAction.Content = ContentObject.ObjectToString(thinkObj);
+                shortMem.Add(thinkAction);
 
-                GPTCommunicator.Prompt(ProccessThought, World.instance.worldInfo, instructInfo, contextInfo, convoInfo, thinkInfo);
+                Debug.Log("THINKING");
+
+                GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
             }
 
             yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));
 
-
-            /*if (Time.time - start > Mathf.Max(1, convoTime))
-            {
-                ChatMessage world = new ChatMessage();
-                world.Content = "You need to get back to work, say goodbye! Add the phrase \"[BYE]\" to your next response";
-                world.Role = "system";
-                personalInfo.Add(world);
-            }
-
-            // should NPC speak?
-            float rand = UnityEngine.Random.Range(0f, 1f);
-            if (rand <= talkative)
-            {
-                Speak();
-            }*/
-
-            /*ChatMessage probe = new ChatMessage();
-            probe.Role = "system";
-            probe.Content = "What do you want to do?";
-            List<ChatMessage> finalInfo = instructionsInfo.Concat(contextInfo.Concat(convoInfo).ToList()).ToList();
-            finalInfo.Add(probe);
-            convoManager.Speak
-
-
-            yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));*/
         }
     }
-
-    /*private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Setting setting = collision.GetComponent<Setting>();
-        if (setting != null)
-        {
-            locationContext.Content = "You are at " + setting.settingName + ".";
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Setting setting = collision.GetComponent<Setting>();
-        if (setting != null)
-        {
-            locationContext.Content = "You don't know where you are.";
-        }
-    }*/
 
     IEnumerator Leave()
     {
@@ -219,4 +200,19 @@ public class AICharacter : MonoBehaviour, IInteractable
         convoManager.EndConversation();
     }
 
+
+    private void PrintAll()
+    {
+        foreach (ChatMessage message in longMem)
+        {
+            Debug.Log(String.Format("role: {0} \t content: {1}", message.Role, message.Content));
+        }
+        foreach (ChatMessage message in shortMem)
+        {
+            Debug.Log(String.Format("role: {0} \t content: {1}", message.Role, message.Content));
+        }
+        Debug.Log("");
+        Debug.Log("");
+
+    }
 }
