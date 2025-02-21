@@ -47,6 +47,7 @@ public class AICharacter : MonoBehaviour, IInteractable
         background.Content = ContentObject.ObjectToString(new ContentObject("MEMORY", string.Format("Your name is {0}. {1}", characterName, characterBackground)));
         longMem.Add(background);
 
+        // add additional memories
         foreach (World.Text info in memories)
         {
             ContentObject temp = new ContentObject("MEMORY", info.message);
@@ -56,17 +57,13 @@ public class AICharacter : MonoBehaviour, IInteractable
             message.Role = "system";
             longMem.Add(message);
         }
-
-        /*foreach (ChatMessage prompt in promptMem)
-        {
-            shortMem.Remove(prompt);
-        }
-        promptMem.Clear();*/
     }
 
     void Start()
     {
         convoManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<ConversationManager>();
+
+        // add all world memories
         foreach (ChatMessage info in World.instance.worldMem)
         {
             longMem.Add(info);
@@ -79,6 +76,10 @@ public class AICharacter : MonoBehaviour, IInteractable
         //Debug.Log(World.instance.GetDateStrAI());
     }
 
+    /// <summary>
+    /// Called when someone talks to the a AI
+    /// </summary>
+    /// <param name="message"></param>
     public void Chat(string message)
     {
         ContentObject temp = new ContentObject("TALK", message);
@@ -102,6 +103,9 @@ public class AICharacter : MonoBehaviour, IInteractable
         worldEvent.Role = "system";
     }*/
 
+    /// <summary>
+    /// Called when the player interacts with the AI
+    /// </summary>
     public void Interact()
     {
         ContentObject startConvo = new ContentObject("EVENT", "You are chatting with Ansh.");
@@ -118,6 +122,7 @@ public class AICharacter : MonoBehaviour, IInteractable
         convoManager.StartConversation(this);
         PrintAll();
     }
+
     public void ExitedConversation()
     {
         ContentObject endConvo = new ContentObject("EVENT", "You are no longer chatting with Ansh.");
@@ -144,6 +149,7 @@ public class AICharacter : MonoBehaviour, IInteractable
 
     private void Summarize(ChatMessage memory)
     {
+        Debug.Log("IN SUMMARIZE!");
         ContentObject actionObj = ContentObject.StringToObject(memory.Content);
         actionObj.Time = null;
 
@@ -160,7 +166,7 @@ public class AICharacter : MonoBehaviour, IInteractable
         actionObj.Time = World.instance.GetTimeStrAI();
         actionObj.Date = World.instance.GetDateStrAI();
         actionObj.Character = characterName;
-        Debug.Log(actionObj.Category);
+        Debug.Log("CAT: " + actionObj.Category);
 
         switch (actionObj.Category)
         {
@@ -202,7 +208,12 @@ public class AICharacter : MonoBehaviour, IInteractable
 
     IEnumerator Leave()
     {
-        yield return new WaitForSeconds(3f);
+        while (ConversationManager.AI_SPEAKING)
+        {
+            yield return null;
+
+        }
+        yield return new WaitForSeconds(2f);
         convoManager.EndConversation();
     }
 

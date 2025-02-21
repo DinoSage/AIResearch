@@ -13,7 +13,11 @@ public static class GPTCommunicator
 
     public static async void Prompt(Action<ChatMessage> process, params List<ChatMessage>[] lists)
     {
-        if (GENERATING || ConversationManager.AI_SPEAKING) return;
+        if (GENERATING || ConversationManager.AI_SPEAKING)
+        {
+            Debug.LogWarning("BUSY - AI Generating or Speaking");
+            return;
+        }
 
         GENERATING = true;
 
@@ -29,12 +33,13 @@ public static class GPTCommunicator
 
         var response = await openAI.CreateChatCompletion(request);
 
+        GENERATING = false;
+
         if (response.Choices != null && response.Choices.Count > 0)
         {
             int idx = UnityEngine.Random.Range(0, response.Choices.Count);
             process(response.Choices[idx].Message);
         }
 
-        GENERATING = false;
     }
 }
