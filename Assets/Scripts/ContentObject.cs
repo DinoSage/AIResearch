@@ -18,8 +18,7 @@ public class ContentObject
         Message = message;
     }
 
-    private static readonly string PATTERN = @"\[(?<category>\w+)(?: \| time=(?<time>\d{2}:\d{2}))?(?: \| location=(?<location>[\w\s]+))?(?: \| character=(?<npc>[\w\s]+))?\] (?<message>.+)";
-
+    private static readonly string PATTERN = @"\[(?<category>\w+)(?: \| date=(?<date>\d{4}-\d{2}-\d{2}))?(?: \| time=(?<time>\d{2}:\d{2}))?(?: \| location=(?<location>[\w\s]+))?(?: \| character=(?<npc>[\w\s]+))?\] (?<message>.+)";
     public string Category { get; set; } // Required
     public string Date { get; set; } // Optional (Format: YYYY-MM-DD)
     public string Time { get; set; } // Optional (Format: HH:MM)
@@ -32,6 +31,7 @@ public class ContentObject
         ContentObject obj = new ContentObject();
         Match match = Regex.Match(content, PATTERN);
         obj.Category = match.Groups["category"].Value;
+        obj.Date = match.Groups["date"].Value;
         obj.Time = match.Groups["time"].Value;
         obj.Location = match.Groups["location"].Value;
         obj.Character = match.Groups["npc"].Value;
@@ -43,6 +43,9 @@ public class ContentObject
     public static string ObjectToString(ContentObject obj)
     {
         string formattedString = $"[{obj.Category}";
+
+        if (!string.IsNullOrEmpty(obj.Date))
+            formattedString += $" | time={obj.Date}";
 
         if (!string.IsNullOrEmpty(obj.Time))
             formattedString += $" | time={obj.Time}";
