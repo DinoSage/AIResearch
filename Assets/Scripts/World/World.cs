@@ -28,8 +28,7 @@ public class World : MonoBehaviour
 
     public List<ChatMessage> worldMem = new List<ChatMessage>();
 
-    public static string MASTER_INSTRUCTION = @"
-        You are an AI decision-making system responsible for roleplaying a specific NPC in a game.  
+    public static string MASTER_INSTRUCTION = @"You are an AI decision-making system responsible for roleplaying a specific NPC in a game.  
         Each NPC has its own independent message history, and all messages follow a structured format. 
          
         ## Message Format   
@@ -47,7 +46,7 @@ public class World : MonoBehaviour
           - [NOTHING] - The NPC chooses to do nothing.   
          
         Each field provides context for the message that follows. 
-        By default for each message category, do not provide values for these fields.
+        By default for each message category, do not provide values for these fields unless asked as you will see later.
         - Fields:   
           - date=YYYY-MM-DD (optional) - The in-game date when the message occurs.
           - time=HH:MM (optional) - The in-game time when the message occurs.   

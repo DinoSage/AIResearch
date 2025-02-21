@@ -105,6 +105,7 @@ public class ConversationManager : MonoBehaviour
                 Debug.LogWarning("Input is practically empty, please add more");
                 return;
             }
+        
 
             currentNPC.Chat(input.text);
             input.text = "";

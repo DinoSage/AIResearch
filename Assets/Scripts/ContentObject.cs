@@ -45,7 +45,7 @@ public class ContentObject
         string formattedString = $"[{obj.Category}";
 
         if (!string.IsNullOrEmpty(obj.Date))
-            formattedString += $" | time={obj.Date}";
+            formattedString += $" | date={obj.Date}";
 
         if (!string.IsNullOrEmpty(obj.Time))
             formattedString += $" | time={obj.Time}";

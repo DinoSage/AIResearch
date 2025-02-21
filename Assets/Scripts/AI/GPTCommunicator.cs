@@ -13,7 +13,7 @@ public static class GPTCommunicator
 
     public static async void Prompt(Action<ChatMessage> process, params List<ChatMessage>[] lists)
     {
-        if (GENERATING) return;
+        if (GENERATING || ConversationManager.AI_SPEAKING) return;
 
         GENERATING = true;
 

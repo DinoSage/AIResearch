@@ -67,10 +67,16 @@ public class AICharacter : MonoBehaviour, IInteractable
     void Start()
     {
         convoManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<ConversationManager>();
+        foreach (ChatMessage info in World.instance.worldMem)
+        {
+            longMem.Add(info);
+        }
+        PrintAll();
     }
 
     void Update()
     {
+        //Debug.Log(World.instance.GetDateStrAI());
     }
 
     public void Chat(string message)
@@ -110,6 +116,7 @@ public class AICharacter : MonoBehaviour, IInteractable
         thinkCouroutine = Thinking();
         StartCoroutine(thinkCouroutine);
         convoManager.StartConversation(this);
+        PrintAll();
     }
     public void ExitedConversation()
     {
@@ -148,15 +155,12 @@ public class AICharacter : MonoBehaviour, IInteractable
 
     private void ProccessThought(ChatMessage thought)
     {
-        // disregard thought if some NPC is generating or speaking
-        if (GPTCommunicator.GENERATING || ConversationManager.AI_SPEAKING)
-        {
-            return;
-        }
-
+        Debug.Log("TEST: " + thought.Content);
         ContentObject actionObj = ContentObject.StringToObject(thought.Content);
         actionObj.Time = World.instance.GetTimeStrAI();
         actionObj.Date = World.instance.GetDateStrAI();
+        actionObj.Character = characterName;
+        Debug.Log(actionObj.Category);
 
         switch (actionObj.Category)
         {
