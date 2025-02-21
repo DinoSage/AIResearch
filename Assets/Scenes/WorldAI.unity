@@ -2136,6 +2136,7 @@ MonoBehaviour:
   convoUI:
   - {fileID: 63755244}
   - {fileID: 959458598}
+  textRoll: 0.05
 --- !u!1 &1621949786
 GameObject:
   m_ObjectHideFlags: 0

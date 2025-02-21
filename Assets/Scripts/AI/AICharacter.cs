@@ -175,7 +175,7 @@ public class AICharacter : MonoBehaviour, IInteractable
     {
         while (true)
         {
-            if (!GPTCommunicator.GENERATING)
+            if (!GPTCommunicator.GENERATING && !ConversationManager.AI_SPEAKING)
             {
                 ContentObject thinkObj = new ContentObject("THINK", "What do you want to do next?", time: World.instance.GetTimeStr());
 
@@ -190,7 +190,6 @@ public class AICharacter : MonoBehaviour, IInteractable
             }
 
             yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));
-
         }
     }
 

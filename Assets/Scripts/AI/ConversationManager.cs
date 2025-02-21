@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class ConversationManager : MonoBehaviour
@@ -12,6 +13,12 @@ public class ConversationManager : MonoBehaviour
     // -- Serialized Fields --
     [SerializeField]
     GameObject[] convoUI;
+
+    [SerializeField]
+    private float textRoll; // the number of seconds to wait before rolling next character of text
+
+
+    public static bool AI_SPEAKING = false;
 
     // -- Non-Serialized Fields --
     private TMP_InputField input;
@@ -41,7 +48,7 @@ public class ConversationManager : MonoBehaviour
 
     public void ReplaceOutput(string outputText)
     {
-        output.SetText(outputText);
+        StartCoroutine(RollText(outputText));
     }
 
     public void StartConversation(AICharacter npc)
@@ -83,13 +90,19 @@ public class ConversationManager : MonoBehaviour
         {
             if (GPTCommunicator.GENERATING)
             {
-                Debug.LogWarning("GPT: still generating previous response");
+                Debug.LogWarning("GPT is still generating previous response");
+                return;
+            }
+
+            if (AI_SPEAKING)
+            {
+                Debug.LogWarning("NPC is still speaking, please do not interrupt");
                 return;
             }
 
             if (input.text.Length < 1)
             {
-                Debug.LogWarning("GPT: input is practically empty");
+                Debug.LogWarning("Input is practically empty, please add more");
                 return;
             }
 
@@ -104,5 +117,16 @@ public class ConversationManager : MonoBehaviour
         {
             EndConversation();
         }
+    }
+
+    IEnumerator RollText(string text)
+    {
+        AI_SPEAKING = true;
+        for (int i = 0; i < text.Length; i++)
+        {
+            output.SetText(text.Substring(0, i));
+            yield return new WaitForSeconds(textRoll);
+        }
+        AI_SPEAKING = false;
     }
 }
