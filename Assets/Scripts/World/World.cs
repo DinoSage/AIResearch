@@ -12,6 +12,12 @@ public class World : MonoBehaviour
 
     // -- Serialize Fields --
     [SerializeField]
+    private string startDate;
+
+    [SerializeField]
+    private string startTime;
+
+    [SerializeField]
     private bool debugEnabled;
 
     [SerializeField]
@@ -123,6 +129,9 @@ public class World : MonoBehaviour
         public string message;
     }
 
+    // -- Private Fields --
+    private DateTime dateTime;
+
     void Awake()
     {
         instance = this;
@@ -141,28 +150,45 @@ public class World : MonoBehaviour
     void Start()
     {
 
+        dateTime = DateTime.Parse(startDate + " " + startTime);
+        StartCoroutine(WorldTick());
     }
 
     // -- Public Functions --
-    public int[] GetTimeInts()
-    {
-        float factor = (secsPerGameMin <= 0) ? 10 : secsPerGameMin;
-        float minutesF = Time.time / factor;
-        int hour = (int)(minutesF / 60) % 24;
-        int minutes = (int)(minutesF % 60);
 
-        int[] time = { hour, minutes };
-        return time;
+    public string GetTimeStrClock()
+    {
+        //return string.Format("{0:D2}:{1:D2}", dateTime.Hour, dateTime.Minute);
+        return dateTime.ToShortTimeString();
     }
 
-    public string GetTimeStr()
+    public string GetDateStrCalendar()
     {
-        int[] time = GetTimeInts();
-        return string.Format("{0:D2}:{1:D2}", time[0], time[1]);
+        //return dateTime.ToString("D");
+        return dateTime.ToString("MMM d, yyyy");
+    }
+
+    public string GetTimeStrAI()
+    {
+        return dateTime.ToString("HH:mm");
+    }
+
+    public string GetDateStrAI()
+    {
+        return dateTime.ToString("yyyy-MM-dd");
     }
 
     public bool IsDebugEnabled()
     {
         return debugEnabled;
+    }
+
+    IEnumerator WorldTick()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(secsPerGameMin);
+            dateTime = dateTime.AddMinutes(1);
+        }
     }
 }

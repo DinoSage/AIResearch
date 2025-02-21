@@ -75,7 +75,10 @@ public class AICharacter : MonoBehaviour, IInteractable
 
     public void Chat(string message)
     {
-        ContentObject temp = new ContentObject("TALK", message, time: World.instance.GetTimeStr(), character: "Ansh");
+        ContentObject temp = new ContentObject("TALK", message);
+        temp.Time = World.instance.GetTimeStrAI();
+        temp.Date = World.instance.GetDateStrAI();
+        temp.Character = "Ansh";
 
         ChatMessage userMessage = new ChatMessage();
         userMessage.Role = "user";
@@ -88,14 +91,17 @@ public class AICharacter : MonoBehaviour, IInteractable
     /*public void Alert(string update)
     {
         ChatMessage worldEvent = new ChatMessage();
-        string time = "This happened at time " + World.instance.GetTimeStr() + ".";
+        string time = "This happened at time " + World.instance.GetTimeStrClock() + ".";
         worldEvent.Content = update + time;
         worldEvent.Role = "system";
     }*/
 
     public void Interact()
     {
-        ContentObject startConvo = new ContentObject("EVENT", "You are chatting with Ansh.", time: World.instance.GetTimeStr());
+        ContentObject startConvo = new ContentObject("EVENT", "You are chatting with Ansh.");
+        startConvo.Time = World.instance.GetTimeStrAI();
+        startConvo.Date = World.instance.GetDateStrAI();
+
         ChatMessage eventMessage = new ChatMessage();
         eventMessage.Role = "system";
         eventMessage.Content = ContentObject.ObjectToString(startConvo);
@@ -107,10 +113,13 @@ public class AICharacter : MonoBehaviour, IInteractable
     }
     public void ExitedConversation()
     {
-        ContentObject startConvo = new ContentObject("EVENT", "You are no longer chatting with Ansh.", time: World.instance.GetTimeStr());
+        ContentObject endConvo = new ContentObject("EVENT", "You are no longer chatting with Ansh.");
+        endConvo.Time = World.instance.GetTimeStrAI();
+        endConvo.Date = World.instance.GetDateStrAI();
+
         ChatMessage eventMessage = new ChatMessage();
         eventMessage.Role = "system";
-        eventMessage.Content = ContentObject.ObjectToString(startConvo);
+        eventMessage.Content = ContentObject.ObjectToString(endConvo);
         shortMem.Add(eventMessage);
 
         StopCoroutine(thinkCouroutine);
@@ -146,7 +155,9 @@ public class AICharacter : MonoBehaviour, IInteractable
         }
 
         ContentObject actionObj = ContentObject.StringToObject(thought.Content);
-        actionObj.Time = World.instance.GetTimeStr();
+        actionObj.Time = World.instance.GetTimeStrAI();
+        actionObj.Date = World.instance.GetDateStrAI();
+
         switch (actionObj.Category)
         {
             case "TALK":
@@ -171,7 +182,7 @@ public class AICharacter : MonoBehaviour, IInteractable
         {
             if (!GPTCommunicator.GENERATING && !ConversationManager.AI_SPEAKING)
             {
-                ContentObject thinkObj = new ContentObject("THINK", "What do you want to do next?", time: World.instance.GetTimeStr());
+                ContentObject thinkObj = new ContentObject("THINK", "What do you want to do next?", time: World.instance.GetTimeStrAI());
 
                 ChatMessage thinkAction = new ChatMessage();
                 thinkAction.Role = "system";
