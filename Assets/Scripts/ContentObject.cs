@@ -21,6 +21,7 @@ public class ContentObject
     private static readonly string PATTERN = @"\[(?<category>\w+)(?: \| time=(?<time>\d{2}:\d{2}))?(?: \| location=(?<location>[\w\s]+))?(?: \| character=(?<npc>[\w\s]+))?\] (?<message>.+)";
 
     public string Category { get; set; } // Required
+    public string Date { get; set; } // Optional (Format: YYYY-MM-DD)
     public string Time { get; set; } // Optional (Format: HH:MM)
     public string Location { get; set; } // Optional
     public string Character { get; set; } // Optional

@@ -85,18 +85,6 @@ public class AICharacter : MonoBehaviour, IInteractable
         GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
     }
 
-    private void Reply(ChatMessage reply)
-    {
-        ContentObject temp = ContentObject.StringToObject(reply.Content);
-        temp.Time = World.instance.GetTimeStr();
-
-        reply.Content = ContentObject.ObjectToString(temp);
-        shortMem.Add(reply);
-
-        convoManager.ReplaceOutput(temp.Message);
-        PrintAll();
-    }
-
     /*public void Alert(string update)
     {
         ChatMessage worldEvent = new ChatMessage();
@@ -151,6 +139,12 @@ public class AICharacter : MonoBehaviour, IInteractable
 
     private void ProccessThought(ChatMessage thought)
     {
+        // disregard thought if some NPC is generating or speaking
+        if (GPTCommunicator.GENERATING || ConversationManager.AI_SPEAKING)
+        {
+            return;
+        }
+
         ContentObject actionObj = ContentObject.StringToObject(thought.Content);
         actionObj.Time = World.instance.GetTimeStr();
         switch (actionObj.Category)
@@ -183,8 +177,6 @@ public class AICharacter : MonoBehaviour, IInteractable
                 thinkAction.Role = "system";
                 thinkAction.Content = ContentObject.ObjectToString(thinkObj);
                 shortMem.Add(thinkAction);
-
-                Debug.Log("THINKING");
 
                 GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
             }
