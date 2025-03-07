@@ -44,7 +44,7 @@ public class AICharacter : MonoBehaviour
         // add identity memory
         ChatMessage background = new ChatMessage();
         background.Role = "system";
-        background.Content = ContentObject.ObjectToString(new ContentObject("MEMORY", string.Format("Your name is {0}. {1}", characterName, characterBackground)));
+        background.Content = (new ContentObject("MEMORY", string.Format("Your name is {0}. {1}", characterName, characterBackground))).ToString();
         longMem.Add(background);
 
         // add additional memories
@@ -53,7 +53,7 @@ public class AICharacter : MonoBehaviour
             ContentObject temp = new ContentObject("MEMORY", info.message);
 
             ChatMessage message = new ChatMessage();
-            message.Content = ContentObject.ObjectToString(temp);
+            message.Content = temp.ToString();
             message.Role = "system";
             longMem.Add(message);
         }
@@ -83,8 +83,9 @@ public class AICharacter : MonoBehaviour
 
         ChatMessage userMessage = new ChatMessage();
         userMessage.Role = "user";
-        userMessage.Content = ContentObject.ObjectToString(temp);
+        userMessage.Content = temp.ToString();
         shortMem.Add(userMessage);
+        Debug.Log("TEMP:" + temp);
 
         GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
     }
@@ -92,7 +93,7 @@ public class AICharacter : MonoBehaviour
     private void ProccessThought(ChatMessage thought)
     {
         Debug.Log(thought.Content);
-        ContentObject actionObj = ContentObject.StringToObject(thought.Content);
+        ContentObject actionObj = ContentObject.FromString(thought.Content);
         actionObj.Time = World.instance.GetTimeStrAI();
         actionObj.Date = World.instance.GetDateStrAI();
         actionObj.Character = characterName;
@@ -106,7 +107,7 @@ public class AICharacter : MonoBehaviour
                 break;
         }
 
-        thought.Content = ContentObject.ObjectToString(actionObj);
+        thought.Content = actionObj.ToString();
         shortMem.Add(thought);
         PrintAll();
     }
@@ -121,7 +122,7 @@ public class AICharacter : MonoBehaviour
 
                 ChatMessage thinkAction = new ChatMessage();
                 thinkAction.Role = "system";
-                thinkAction.Content = ContentObject.ObjectToString(thinkObj);
+                thinkAction.Content = thinkObj.ToString();
                 shortMem.Add(thinkAction);
 
                 GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
@@ -131,7 +132,21 @@ public class AICharacter : MonoBehaviour
         }
     }
 
+    public void Sense(string update)
+    {
+        ContentObject cobj = ContentObject.FromString(update);
 
+        if (cobj.Category.Equals("TALK"))
+        {
+            Chat(cobj.Message);
+            return;
+        }
+
+        ChatMessage message = new ChatMessage();
+        message.Role = "system";
+        message.Content = cobj.ToString();
+        shortMem.Add(message);
+    }
 
     void Update()
     {
@@ -151,7 +166,7 @@ public class AICharacter : MonoBehaviour
 
         ChatMessage userMessage = new ChatMessage();
         userMessage.Role = "user";
-        userMessage.Content = ContentObject.ObjectToString(temp);
+        userMessage.Content = ContentObject.ToString(temp);
         shortMem.Add(userMessage);
 
         GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
@@ -165,7 +180,7 @@ public class AICharacter : MonoBehaviour
 
         ChatMessage worldEvent = new ChatMessage();
         worldEvent.Role = "system";
-        worldEvent.Content = ContentObject.ObjectToString(eventObject);
+        worldEvent.Content = ContentObject.ToString(eventObject);
         shortMem.Add(worldEvent);
     }
 
@@ -180,7 +195,7 @@ public class AICharacter : MonoBehaviour
 
         ChatMessage eventMessage = new ChatMessage();
         eventMessage.Role = "system";
-        eventMessage.Content = ContentObject.ObjectToString(startConvo);
+        eventMessage.Content = ContentObject.ToString(startConvo);
         shortMem.Add(eventMessage);
 
         thinkCouroutine = Thinking();
@@ -197,7 +212,7 @@ public class AICharacter : MonoBehaviour
 
         ChatMessage eventMessage = new ChatMessage();
         eventMessage.Role = "system";
-        eventMessage.Content = ContentObject.ObjectToString(endConvo);
+        eventMessage.Content = ContentObject.ToString(endConvo);
         shortMem.Add(eventMessage);
 
         //StopCoroutine(thinkCouroutine);
@@ -207,7 +222,7 @@ public class AICharacter : MonoBehaviour
 
         ChatMessage summAction = new ChatMessage();
         summAction.Role = "system";
-        summAction.Content = ContentObject.ObjectToString(summObj);
+        summAction.Content = ContentObject.ToString(summObj);
         shortMem.Add(summAction);
 
         GPTCommunicator.Prompt(Summarize, longMem, shortMem);
@@ -216,10 +231,10 @@ public class AICharacter : MonoBehaviour
     private void Summarize(ChatMessage memory)
     {
         Debug.Log("IN SUMMARIZE!");
-        ContentObject actionObj = ContentObject.StringToObject(memory.Content);
+        ContentObject actionObj = ContentObject.FromString(memory.Content);
         actionObj.Time = null;
 
-        memory.Content = ContentObject.ObjectToString(actionObj);
+        memory.Content = ContentObject.ToString(actionObj);
         longMem.Add(memory);
         shortMem.Clear();
         PrintAll();
@@ -236,14 +251,14 @@ public class AICharacter : MonoBehaviour
 
         ChatMessage eventMessage = new ChatMessage();
         eventMessage.Role = "system";
-        eventMessage.Content = ContentObject.ObjectToString(startConvo);
+        eventMessage.Content = ContentObject.ToString(startConvo);
         shortMem.Add(eventMessage);
     }
 
     private void ProccessThought(ChatMessage thought)
     {
         Debug.Log("TEST: " + thought.Content);
-        ContentObject actionObj = ContentObject.StringToObject(thought.Content);
+        ContentObject actionObj = ContentObject.FromString(thought.Content);
         actionObj.Time = World.instance.GetTimeStrAI();
         actionObj.Date = World.instance.GetDateStrAI();
         actionObj.Character = characterName;
@@ -265,7 +280,7 @@ public class AICharacter : MonoBehaviour
                 break;
         }
 
-        thought.Content = ContentObject.ObjectToString(actionObj);
+        thought.Content = ContentObject.ToString(actionObj);
         shortMem.Add(thought);
         PrintAll();
     }
@@ -280,7 +295,7 @@ public class AICharacter : MonoBehaviour
 
                 ChatMessage thinkAction = new ChatMessage();
                 thinkAction.Role = "system";
-                thinkAction.Content = ContentObject.ObjectToString(thinkObj);
+                thinkAction.Content = ContentObject.ToString(thinkObj);
                 shortMem.Add(thinkAction);
 
                 GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);

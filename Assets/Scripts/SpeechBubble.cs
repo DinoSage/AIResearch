@@ -39,12 +39,15 @@ public class SpeechBubble : MonoBehaviour
         output.gameObject.SetActive(false);
 
         // world object updates
-        Debug.Log(text);
         string garbled = GarbleText(text, GARBLE_PERCENT);
-        Debug.Log(garbled);
-        wobj.UpdateProxem3(text);
-        wobj.UpdateProxem2(garbled);
-        Debug.Log(garbled);
+
+        ContentObject cobj = new ContentObject("TALK", text);
+        cobj.Time = World.instance.GetTimeStrAI();
+        cobj.Date = World.instance.GetDateStrAI();
+
+        wobj.UpdateProxem3(cobj.ToString());
+        cobj.Message = garbled;
+        wobj.UpdateProxem2(cobj.ToString());
     }
 
     private string GarbleText(string text, float percent)

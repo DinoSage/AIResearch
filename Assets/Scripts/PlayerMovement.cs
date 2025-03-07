@@ -9,16 +9,23 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float speed;
 
+    [SerializeField]
+    private AICharacter[] test;
+
     // -- Non-Serialized Fields --
     private bool canMove = true;
     private InputAction moveAction;
     private WorldObject wobj;
+    private Vector3 prevPos;
+    private bool isMoving = false;
 
     void Start()
     {
         // find move action for movement textInput in update
         PlayerInput input = this.GetComponent<PlayerInput>();
+        wobj = GetComponent<WorldObject>();
         moveAction = input.actions.FindAction("Move");
+        prevPos = this.transform.position;
 
         //StartCoroutine(Walking());
     }
@@ -34,6 +41,28 @@ public class PlayerMovement : MonoBehaviour
             this.transform.position += new Vector3(deltaPos.x, deltaPos.y, 0);
         }
 
+        ContentObject cobjFar = new ContentObject("EVENT", "You can see Ansh is stopped at a distance. You can only see him.");
+        cobjFar.Time = World.instance.GetTimeStrAI();
+        cobjFar.Date = World.instance.GetDateStrAI();
+
+        ContentObject cobjClose = new ContentObject("EVENT", "You can see and hear Ansh stopped right next to you. You can see, hear, and speak with him.");
+        cobjClose.Time = World.instance.GetTimeStrAI();
+        cobjClose.Date = World.instance.GetDateStrAI();
+
+
+        if (Vector3.Distance(this.transform.position, prevPos) > 0 && !isMoving)
+        {
+            Debug.Log("STARTED MOVING!");
+        }
+        else if (Vector3.Distance(this.transform.position, prevPos) == 0 && isMoving)
+        {
+            Debug.Log("STOPPED MOVING!");
+            wobj.UpdateProxem2(cobjFar.ToString());
+            wobj.UpdateProxem3(cobjClose.ToString());
+        }
+
+        isMoving = (Vector3.Distance(this.transform.position, prevPos) > 0);
+        prevPos = this.transform.position;
     }
 
     public void OnTest()
@@ -41,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         this.GetComponent<WorldObject>().UpdateProxemAll("The person named Ansh coughed.");
     }
 
-    IEnumerator Walking()
+    /*IEnumerator Walking()
     {
         while (true)
         {
@@ -51,6 +80,6 @@ public class PlayerMovement : MonoBehaviour
                 yield return new WaitForSeconds(1);
             }
         }
-    }
+    }*/
 
 }

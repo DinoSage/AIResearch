@@ -139,7 +139,7 @@ public class World : MonoBehaviour
             ContentObject temp = new ContentObject("MEMORY", info.message);
 
             ChatMessage message = new ChatMessage();
-            message.Content = ContentObject.ObjectToString(temp);
+            message.Content = temp.ToString();
             message.Role = "system";
             worldMem.Add(message);
         }

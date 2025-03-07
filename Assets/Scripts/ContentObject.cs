@@ -6,7 +6,16 @@ using System.Text.RegularExpressions;
 
 public class ContentObject
 {
-    // Constructors
+    private static readonly string CONTENT_PATTERN = @"\[(?<category>\w+)(?: \| date=(?<date>\d{4}-\d{2}-\d{2}))?(?: \| time=(?<time>\d{2}:\d{2}))?(?: \| location=(?<location>[\w\s]+?))?(?: \| character=(?<npc>[\w\s]+?))?\](?: (?<message>.*))?";
+
+    // -- External --
+    public string Category { get; set; } // Required
+    public string Date { get; set; } // Optional (Format: YYYY-MM-DD)
+    public string Time { get; set; } // Optional (Format: HH:MM)
+    public string Location { get; set; } // Optional
+    public string Character { get; set; } // Optional
+    public string Message { get; set; } // Optional
+
     public ContentObject() { }
 
     public ContentObject(string category, string message, string time = "", string location = "", string character = "")
@@ -18,18 +27,11 @@ public class ContentObject
         Message = message;
     }
 
-    private static readonly string PATTERN = @"\[(?<category>\w+)(?: \| date=(?<date>\d{4}-\d{2}-\d{2}))?(?: \| time=(?<time>\d{2}:\d{2}))?(?: \| location=(?<location>[\w\s]+?))?(?: \| character=(?<npc>[\w\s]+?))?\](?: (?<message>.*))?";
-    public string Category { get; set; } // Required
-    public string Date { get; set; } // Optional (Format: YYYY-MM-DD)
-    public string Time { get; set; } // Optional (Format: HH:MM)
-    public string Location { get; set; } // Optional
-    public string Character { get; set; } // Optional
-    public string Message { get; set; } // Required
 
-    public static ContentObject StringToObject(string content)
+    public static ContentObject FromString(string content)
     {
         ContentObject obj = new ContentObject();
-        Match match = Regex.Match(content, PATTERN);
+        Match match = Regex.Match(content, CONTENT_PATTERN);
         obj.Category = match.Groups["category"].Value;
         obj.Date = match.Groups["date"].Value;
         obj.Time = match.Groups["time"].Value;
@@ -40,23 +42,23 @@ public class ContentObject
         return obj;
     }
 
-    public static string ObjectToString(ContentObject obj)
+    public string ToString()
     {
-        string formattedString = $"[{obj.Category}";
+        string formattedString = $"[{Category}";
 
-        if (!string.IsNullOrEmpty(obj.Date))
-            formattedString += $" | date={obj.Date}";
+        if (!string.IsNullOrEmpty(Date))
+            formattedString += $" | date={Date}";
 
-        if (!string.IsNullOrEmpty(obj.Time))
-            formattedString += $" | time={obj.Time}";
+        if (!string.IsNullOrEmpty(Time))
+            formattedString += $" | time={Time}";
 
-        if (!string.IsNullOrEmpty(obj.Location))
-            formattedString += $" | location={obj.Location}";
+        if (!string.IsNullOrEmpty(Location))
+            formattedString += $" | location={Location}";
 
-        if (!string.IsNullOrEmpty(obj.Character))
-            formattedString += $" | character={obj.Character}";
+        if (!string.IsNullOrEmpty(Character))
+            formattedString += $" | character={Character}";
 
-        formattedString += $"] {obj.Message}";
+        formattedString += $"] {Message}";
 
         return formattedString;
     }
