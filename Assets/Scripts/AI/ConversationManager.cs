@@ -113,7 +113,7 @@ public class ConversationManager : MonoBehaviour
     }
     public void OnLeave()
     {
-        // end conversation if leaving conversation input received
+        // end conversation if leaving conversation textInput received
         if (currentNPC != null)
         {
             EndConversation();

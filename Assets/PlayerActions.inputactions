@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ConvoMode",
+                    "type": "Button",
+                    "id": "f9ad110c-19d8-44d7-a09c-ec848d4fb73c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -110,6 +119,17 @@
                     "action": "Test",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fc35575c-85ff-48cb-b8b3-3dcd336ce1b5",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConvoMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -118,7 +138,7 @@
             "id": "779a2ec3-9f29-412b-b3b7-132b578441f4",
             "actions": [
                 {
-                    "name": "Talk",
+                    "name": "Enter",
                     "type": "Button",
                     "id": "ec299a7a-1885-4900-b198-6d84409c73dc",
                     "expectedControlType": "Button",
@@ -134,6 +154,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PlayerMode",
+                    "type": "Button",
+                    "id": "22855923-b187-46e6-9e99-1dce6572eeab",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -144,7 +173,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Talk",
+                    "action": "Enter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -156,6 +185,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Leave",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fd42df1e-26ac-4439-bd9d-155773712bbd",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerMode",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        // find move action for movement input in update
+        // find move action for movement textInput in update
         PlayerInput input = this.GetComponent<PlayerInput>();
         moveAction = input.actions.FindAction("Move");
 
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // move player each frame based on movement input (if movement enabled)
+        // move player each frame based on movement textInput (if movement enabled)
         if (canMove)
         {
             Vector2 deltaPos = moveAction.ReadValue<Vector2>().normalized;

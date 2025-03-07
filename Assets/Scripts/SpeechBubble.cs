@@ -17,15 +17,23 @@ public class SpeechBubble : MonoBehaviour
     // -- Internal --
     private IEnumerator coroutine = null;
 
+    private void Start()
+    {
+        output.gameObject.SetActive(false);
+    }
+
     private IEnumerator Speak(string text)
     {
-        for (int i = 0; i < text.Length; i++)
+        output.gameObject.SetActive(true);
+        for (int i = 0; i <= text.Length; i++)
         {
             output.SetText(text.Substring(0, i));
             yield return new WaitForSeconds(TEXT_ROLL);
         }
         yield return new WaitForSeconds(SPEAK_DURATION);
         coroutine = null;
+        output.SetText("");
+        output.gameObject.SetActive(false);
     }
 
     // -- External --
@@ -37,5 +45,10 @@ public class SpeechBubble : MonoBehaviour
         }
         coroutine = Speak(text);
         StartCoroutine(coroutine);
+    }
+
+    public bool IsSpeaking()
+    {
+        return (coroutine != null);
     }
 }
