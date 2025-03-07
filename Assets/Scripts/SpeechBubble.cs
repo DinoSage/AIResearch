@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpeechBubble : MonoBehaviour
 {
 
-    static readonly float SPEAK_DURATION = 3f;
+    static readonly float SPEAK_DURATION = 2f;
     static readonly float TEXT_ROLL = 0.05f;
     static readonly float GARBLE_PERCENT = 0.6f;
 

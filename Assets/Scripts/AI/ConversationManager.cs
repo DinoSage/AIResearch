@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 
 public class ConversationManager : MonoBehaviour
 {
-    // -- Serialized Fields --
+    /*// -- Serialized Fields --
     [SerializeField]
     GameObject[] convoUI;
 
@@ -129,5 +129,5 @@ public class ConversationManager : MonoBehaviour
             yield return new WaitForSeconds(textRoll);
         }
         AI_SPEAKING = false;
-    }
+    }*/
 }

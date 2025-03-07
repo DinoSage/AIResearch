@@ -13,11 +13,11 @@ public static class GPTCommunicator
 
     public static async void Prompt(Action<ChatMessage> process, params List<ChatMessage>[] lists)
     {
-        if (GENERATING || ConversationManager.AI_SPEAKING)
+        /*if (GENERATING)
         {
             Debug.LogWarning("BUSY - AI Generating or Speaking");
             return;
-        }
+        }*/
 
         GENERATING = true;
 

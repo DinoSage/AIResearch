@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AICharacter : MonoBehaviour, IInteractable
+public class AICharacter : MonoBehaviour
 {
     public static float SAFEGUARD = 3f;
 
@@ -29,8 +29,8 @@ public class AICharacter : MonoBehaviour, IInteractable
     List<ChatMessage> longMem = new List<ChatMessage>();
     List<ChatMessage> shortMem = new List<ChatMessage>();
 
-    private ConversationManager convoManager;
     private IEnumerator thinkCouroutine;
+    private SpeechBubble bubble;
 
     // -- Functions --
     void Awake()
@@ -61,7 +61,7 @@ public class AICharacter : MonoBehaviour, IInteractable
 
     void Start()
     {
-        convoManager = GameObject.FindGameObjectWithTag("ChatManager").GetComponent<ConversationManager>();
+        bubble = GetComponent<SpeechBubble>();
 
         // add all world memories
         foreach (ChatMessage info in World.instance.worldMem)
@@ -72,24 +72,73 @@ public class AICharacter : MonoBehaviour, IInteractable
         // start thinking
         StartCoroutine(Thinking());
         PrintAll();
+    }
 
-        ContentObject temp = new ContentObject("EVENT", "Ansh is in front of you and it looks like he wants to talk");
+    public void Chat(string message)
+    {
+        ContentObject temp = new ContentObject("TALK", message);
         temp.Time = World.instance.GetTimeStrAI();
         temp.Date = World.instance.GetDateStrAI();
+        temp.Character = "Ansh";
 
-        ChatMessage mess = new ChatMessage();
-        mess.Role = "system";
-        mess.Content = ContentObject.ObjectToString(temp);
-        shortMem.Add(mess);
+        ChatMessage userMessage = new ChatMessage();
+        userMessage.Role = "user";
+        userMessage.Content = ContentObject.ObjectToString(temp);
+        shortMem.Add(userMessage);
 
+        GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
     }
+
+    private void ProccessThought(ChatMessage thought)
+    {
+        Debug.Log(thought.Content);
+        ContentObject actionObj = ContentObject.StringToObject(thought.Content);
+        actionObj.Time = World.instance.GetTimeStrAI();
+        actionObj.Date = World.instance.GetDateStrAI();
+        actionObj.Character = characterName;
+
+        switch (actionObj.Category)
+        {
+            case "TALK":
+                bubble.Display(actionObj.Message);
+                break;
+            case "NOTHING":
+                break;
+        }
+
+        thought.Content = ContentObject.ObjectToString(actionObj);
+        shortMem.Add(thought);
+        PrintAll();
+    }
+
+    IEnumerator Thinking()
+    {
+        while (true)
+        {
+            if (!GPTCommunicator.GENERATING)
+            {
+                ContentObject thinkObj = new ContentObject("THINK", "What do you want to do next?", time: World.instance.GetTimeStrAI());
+
+                ChatMessage thinkAction = new ChatMessage();
+                thinkAction.Role = "system";
+                thinkAction.Content = ContentObject.ObjectToString(thinkObj);
+                shortMem.Add(thinkAction);
+
+                GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
+            }
+
+            yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));
+        }
+    }
+
+
 
     void Update()
     {
         //Debug.Log(World.instance.GetDateStrAI());
     }
 
-    /// <summary>
+    /*/// <summary>
     /// Called when someone talks to the a AI
     /// </summary>
     /// <param name="message"></param>
@@ -250,7 +299,7 @@ public class AICharacter : MonoBehaviour, IInteractable
         }
         yield return new WaitForSeconds(2f);
         convoManager.EndConversation();
-    }
+    }*/
 
 
     private void PrintAll()

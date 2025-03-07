@@ -18,7 +18,7 @@ public class ContentObject
         Message = message;
     }
 
-    private static readonly string PATTERN = @"\[(?<category>\w+)(?: \| date=(?<date>\d{4}-\d{2}-\d{2}))?(?: \| time=(?<time>\d{2}:\d{2}))?(?: \| location=(?<location>[\w\s]+))?(?: \| character=(?<npc>[\w\s]+))?\] (?<message>.+)";
+    private static readonly string PATTERN = @"\[(?<category>\w+)(?: \| date=(?<date>\d{4}-\d{2}-\d{2}))?(?: \| time=(?<time>\d{2}:\d{2}))?(?: \| location=(?<location>[\w\s]+?))?(?: \| character=(?<npc>[\w\s]+?))?\](?: (?<message>.*))?";
     public string Category { get; set; } // Required
     public string Date { get; set; } // Optional (Format: YYYY-MM-DD)
     public string Time { get; set; } // Optional (Format: HH:MM)

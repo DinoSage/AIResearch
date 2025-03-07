@@ -36,9 +36,7 @@ public class World : MonoBehaviour
         [CATEGORY | date=YYYY-MM-DD | time=HH:MM | location=PLACE | character=NAME] Message content.   
          
         - CATEGORY determines the type of message:
-          - [TALK] - A character is speaking to the NPC or the NPC is speaking to the character.             
-          - [HI] - The NPC decides to start a conversation
-          - [BYE] - The NPC decides to leave a conversation.
+          - [TALK] - A character is speaking             
           - [MEMORY] - A stored memory summarizing past experiences.   
           - [EVENT] - Something the NPC has perceived in the environment.   
           - [THINK] - The user requests the NPC what action it wants to take next.   
@@ -58,28 +56,23 @@ public class World : MonoBehaviour
         [TALK] (User or AI-Generated)   
         - A response from the NPC or the character the NPC is speaking to.   
         - If you receive a [TALK] message, respond with either:   
-          - [TALK] - Continue the conversation.   
-          - [BYE] - Leave the conversation.   
-        - If you generate a [TALK] message, it must have character=NPC_NAME.   
-
-        [HI] (AI-Generated Only)
-        - Indicates the NPC is starting a conversation.
-        - You will never receive a [HI] message.
-        - If you generate a [HI] message, you must:
-            - Must include a hello message directed to the character you want to speak to.
-            - Must have field character=NAME be the name of the character you want to speak to.
-
-        [BYE] (AI-Generated Only)   
-        - Indicates the NPC is leaving a conversation.   
-        - If you generate a [BYE] message, you must:
-            - Must include a farewell message directed at the last character spoken to.   
+          - [TALK] - if you want to continue the conversation.   
+          - [NOTHING] - if you don't want to continue the conversation.   
+        - If you generate a [TALK] message, it must have character=NPC_NAME.
+        - Never talk to yourself.
+        - if you generate a [TALK] message, you must:
+            - Only generate one short sentence like you are in a conversation. 
          
         [EVENT] (User-Generated Only)   
         - Describes things happening around the NPC.   
-        - You should never generate an [EVENT] message.   
+        - You should never generate an [EVENT] message. 
+        - If you receive a [EVENT] message, respond with either:
+            - [TALK] - To respond to the event and say something.
+            - [NOTHING] - To do nothing in response to the event (most likely).
+        - Most of the time, you will not respond to an event unless you want to start talking to someone nearby.
          
         [MEMORY] (AI-Generated Only)   
-        - A summary of past [TALK], [HI], [BYE], and [EVENT] messages.   
+        - A summary of past [TALK] and [EVENT] messages.   
         - Only generated in response to a [SUMMARIZE] message.   
         - Should be concise and retain key details.
         - If you generate a [MEMORY] message, you must:
@@ -91,26 +84,32 @@ public class World : MonoBehaviour
         - The user asks what action the NPC wants to take next.   
         - This message is temporary and removed after processing.   
         - If you receive a [THINK] message, respond with either:   
-          - [TALK] - If in a conversation.   
-          - [BYE] - If in a conversation and want to leave.
-          - [HI] - If not in a conversation and want to start one.
-          - [NOTHING] - If not in a conversation.
+          - [TALK] - If you want to say something to another character.
+          - [NOTHING] - If you do not want to say something to another character.
+        - You must never generate a response that describes your thoughts, internal reasoning, or plans.   
+        - You must never generate a [TALK] message unless you are directly addressing another character.   
+        - If you generate a [TALK] message, it must be a direct spoken sentence to another character, never an internal thought.  
+        - While you are in a conversation, you likely want to respond to the other character.
+        - If you are not in a conversation, you likely want to do nothing.
          
         [SUMMARIZE] (User-Generated Only)   
         - Requests the NPC to summarize recent experiences.   
-        - When received, generate a [MEMORY] message summarizing all past [TALK], [HI], [BYE], and [EVENT] messages.   
+        - When received, generate a [MEMORY] message summarizing all past [TALK] and [EVENT] messages.   
          
         [NOTHING] (AI-Generated Only)   
         - If the NPC chooses to do nothing, generate a [NOTHING] message.
-        - Only generated in resonse to a [THINK] message.
+        - Only generated in resonse to a [THINK] or [TALK] message.
         
         ### Determining If You Are in a Conversation:   
-        - You are in a conversation if your most recent [TALK] message was from another character and is recent (within a few minutes).   
-        - If no recent [TALK] messages exist, assume you are **not** in a conversation.   
+        - You are in a conversation by looking at your most recent messages.
+        - Your most recent messages are messages with the latest time and date field values.
+        - If the most recent messages are [TALK] messages, you are in a conversation.
+        - If no recent [TALK] messages exist, assume you are not in a conversation.   
 
         ## Reminders   
-        - If responding to a [TALK] message, generate [TALK] or [BYE].   
-        - If responding to a [THINK] message, generate [TALK], [HI], [BYE], or [NOTHING].   
+        - If responding to a [TALK] message, generate [TALK] or [NOTHING].   
+        - If responding to a [THINK] message, generate [TALK] or [NOTHING]. 
+        - If responding to a [EVENT] message, generate [TALK] or [NOTHING].
         - If responding to a [SUMMARIZE] message, generate [MEMORY].   
         - Do not generate [EVENT] or [SUMMARIZE] messages.   
         - Stay consistent with past interactions, timestamps, and environment.   

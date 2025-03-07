@@ -5,14 +5,14 @@ using UnityEngine;
 public class Senses : MonoBehaviour
 {
 
-    public 
-    // Start is called before the first frame update
+    // -- Internal --
+    private AICharacter character;
+
     void Start()
     {
-        
+        character = GetComponent<AICharacter>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -27,6 +27,7 @@ public class Senses : MonoBehaviour
 
     public void Ears(string update)
     {
-        this.GetComponent<SpeechBubble>().Display("Who is there? I am blind!");
+        Debug.Log("SPEC: " + update);
+        character.Chat(update);
     }
 }

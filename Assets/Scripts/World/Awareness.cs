@@ -53,6 +53,9 @@ public class Awareness : MonoBehaviour
             WorldObject wobj = obj.GetComponent<WorldObject>();
             if (wobj != null)
             {
+                // skip yourself - do not trigger to your own update
+                if (wobj.gameObject == this.gameObject) continue;
+
                 float dist = Vector2.Distance(this.transform.position, wobj.transform.position);
                 if (dist <= proxem3Range)
                 {
