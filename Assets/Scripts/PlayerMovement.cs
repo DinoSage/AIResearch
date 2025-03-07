@@ -12,12 +12,15 @@ public class PlayerMovement : MonoBehaviour
     // -- Non-Serialized Fields --
     private bool canMove = true;
     private InputAction moveAction;
+    private WorldObject wobj;
 
     void Start()
     {
         // find move action for movement input in update
         PlayerInput input = this.GetComponent<PlayerInput>();
         moveAction = input.actions.FindAction("Move");
+
+        //StartCoroutine(Walking());
     }
 
     void Update()
@@ -30,11 +33,24 @@ public class PlayerMovement : MonoBehaviour
 
             this.transform.position += new Vector3(deltaPos.x, deltaPos.y, 0);
         }
+
     }
 
     public void OnTest()
     {
         this.GetComponent<WorldObject>().UpdateProxemAll("The person named Ansh coughed.");
+    }
+
+    IEnumerator Walking()
+    {
+        while (true)
+        {
+            if (Mathf.Abs(moveAction.ReadValue<Vector2>().magnitude) > 0)
+            {
+                wobj.UpdateProxem3("You see Ansh");
+                yield return new WaitForSeconds(1);
+            }
+        }
     }
 
 }

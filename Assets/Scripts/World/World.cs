@@ -98,7 +98,7 @@ public class World : MonoBehaviour
          
         [SUMMARIZE] (User-Generated Only)   
         - Requests the NPC to summarize recent experiences.   
-        - When received, generate a [MEMORY] message summarizing all past [TALK], [BYE], and [EVENT] messages.   
+        - When received, generate a [MEMORY] message summarizing all past [TALK], [HI], [BYE], and [EVENT] messages.   
          
         [NOTHING] (AI-Generated Only)   
         - If the NPC chooses to do nothing, generate a [NOTHING] message.
@@ -144,13 +144,13 @@ public class World : MonoBehaviour
             message.Role = "system";
             worldMem.Add(message);
         }
+        dateTime = DateTime.Parse(startDate + " " + startTime);
+        StartCoroutine(WorldTick());
     }
 
     void Start()
     {
 
-        dateTime = DateTime.Parse(startDate + " " + startTime);
-        StartCoroutine(WorldTick());
     }
 
     // -- Public Functions --

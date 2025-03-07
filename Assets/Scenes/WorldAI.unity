@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDate: 2025-02-21
   startTime: 13:20
-  debugEnabled: 1
+  debugEnabled: 0
   secsPerGameMin: 1
   worldMemories:
   - message: "In the heart of a dense, ancient forest lies the small medieval village

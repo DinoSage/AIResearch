@@ -68,7 +68,20 @@ public class AICharacter : MonoBehaviour, IInteractable
         {
             longMem.Add(info);
         }
+
+        // start thinking
+        StartCoroutine(Thinking());
         PrintAll();
+
+        ContentObject temp = new ContentObject("EVENT", "Ansh is in front of you and it looks like he wants to talk");
+        temp.Time = World.instance.GetTimeStrAI();
+        temp.Date = World.instance.GetDateStrAI();
+
+        ChatMessage mess = new ChatMessage();
+        mess.Role = "system";
+        mess.Content = ContentObject.ObjectToString(temp);
+        shortMem.Add(mess);
+
     }
 
     void Update()
@@ -95,13 +108,17 @@ public class AICharacter : MonoBehaviour, IInteractable
         GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
     }
 
-    /*public void Alert(string update)
+    public void Alert(string update)
     {
+        ContentObject eventObject = new ContentObject("EVENT", update);
+        eventObject.Time = World.instance.GetTimeStrAI();
+        eventObject.Date = World.instance.GetDateStrAI();
+
         ChatMessage worldEvent = new ChatMessage();
-        string time = "This happened at time " + World.instance.GetTimeStrClock() + ".";
-        worldEvent.Content = update + time;
         worldEvent.Role = "system";
-    }*/
+        worldEvent.Content = ContentObject.ObjectToString(eventObject);
+        shortMem.Add(worldEvent);
+    }
 
     /// <summary>
     /// Called when the player interacts with the AI
@@ -134,10 +151,10 @@ public class AICharacter : MonoBehaviour, IInteractable
         eventMessage.Content = ContentObject.ObjectToString(endConvo);
         shortMem.Add(eventMessage);
 
-        StopCoroutine(thinkCouroutine);
-        thinkCouroutine = null;
+        //StopCoroutine(thinkCouroutine);
+        //thinkCouroutine = null;
 
-        ContentObject summObj = new ContentObject("SUMMARIZE", "Summarize all relevant [TALK], [BYE], and [EVENT] messages. Set the [MEMORY] message's time field to reflect the latest relevant event. Mention important times within the summary where necessary. Keep it concise while preserving key details about conversations, events, and decisions.");
+        ContentObject summObj = new ContentObject("SUMMARIZE", "Summarize all relevant [TALK], [HI], [BYE], and [EVENT] messages. Set the [MEMORY] message's time field to reflect the latest relevant event. Mention important times within the summary where necessary. Keep it concise while preserving key details about conversations, events, and decisions.");
 
         ChatMessage summAction = new ChatMessage();
         summAction.Role = "system";
@@ -159,6 +176,21 @@ public class AICharacter : MonoBehaviour, IInteractable
         PrintAll();
     }
 
+    private void HIAction(ContentObject action)
+    {
+        convoManager.StartConversation(this);
+        convoManager.ReplaceOutput(action.Message);
+
+        ContentObject startConvo = new ContentObject("EVENT", "You are chatting with Ansh.");
+        startConvo.Time = World.instance.GetTimeStrAI();
+        startConvo.Date = World.instance.GetDateStrAI();
+
+        ChatMessage eventMessage = new ChatMessage();
+        eventMessage.Role = "system";
+        eventMessage.Content = ContentObject.ObjectToString(startConvo);
+        shortMem.Add(eventMessage);
+    }
+
     private void ProccessThought(ChatMessage thought)
     {
         Debug.Log("TEST: " + thought.Content);
@@ -170,6 +202,9 @@ public class AICharacter : MonoBehaviour, IInteractable
 
         switch (actionObj.Category)
         {
+            case "HI":
+                convoManager.StartConversation(this);
+                break;
             case "TALK":
                 convoManager.ReplaceOutput(actionObj.Message);
                 break;
