@@ -31,6 +31,7 @@ public class AICharacter : MonoBehaviour
 
     private IEnumerator thinkCouroutine;
     private SpeechBubble bubble;
+    private bool temp = false;
 
     // -- Functions --
     void Awake()
@@ -68,6 +69,7 @@ public class AICharacter : MonoBehaviour
         {
             longMem.Add(info);
         }
+
 
         // start thinking
         StartCoroutine(Thinking());
@@ -151,6 +153,15 @@ public class AICharacter : MonoBehaviour
     void Update()
     {
         //Debug.Log(World.instance.GetDateStrAI());
+        if (!temp)
+        {
+            ContentObject cobj = new ContentObject("EVENT", "You can now see and talk to " + characterName);
+            cobj.Time = World.instance.GetTimeStrAI();
+            cobj.Date = World.instance.GetDateStrAI();
+
+            this.GetComponent<WorldObject>().UpdateProxemAll(cobj.ToString());
+            temp = true;
+        }
     }
 
     /*/// <summary>
