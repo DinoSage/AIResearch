@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    private static float MARGIN = 5f;
+    private static float MARGIN = 2.5f;
 
     // -- Serialize Fields --
 
@@ -15,10 +15,10 @@ public class Door : MonoBehaviour
         {
             Vector3 offset = new Vector3(direction.x, direction.y, 0);
             Vector3 start = this.transform.position + offset.normalized * MARGIN;
-            RaycastHit2D hit = Physics2D.Raycast(start, MARGIN * direction.normalized, 100f, LayerMask.GetMask("Setting"));
+            RaycastHit2D hit = Physics2D.Raycast(start, direction.normalized, 100f, LayerMask.GetMask("Door"));
             if (hit)
             {
-                collision.gameObject.transform.position = hit.point + direction;
+                collision.gameObject.transform.position = hit.point + MARGIN * direction.normalized;
             }
         }
     }

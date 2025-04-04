@@ -7,7 +7,6 @@ public class Locator : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(GetCurrSetting());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
