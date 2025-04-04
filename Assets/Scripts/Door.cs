@@ -1,23 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour, IInteractable
+public class Door : MonoBehaviour
 {
+    private static float MARGIN = 5f;
+
     // -- Serialize Fields --
-    [SerializeField]
-    private Door otherDoor;
 
     [SerializeField]
-    private Vector2 offset;
+    private Vector2 direction;
 
-    public Vector2 GetOutputPosition()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        return this.transform.position + new Vector3(offset.x, offset.y, 0);
-    }
-
-    public void Interact()
-    {
-        Player.instance.transform.position = otherDoor.GetOutputPosition();
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Vector3 offset = new Vector3(direction.x, direction.y, 0);
+            Vector3 start = this.transform.position + offset.normalized * MARGIN;
+            RaycastHit2D hit = Physics2D.Raycast(start, MARGIN * direction.normalized, 100f, LayerMask.GetMask("Setting"));
+            if (hit)
+            {
+                collision.gameObject.transform.position = hit.point + direction;
+            }
+        }
     }
 }
