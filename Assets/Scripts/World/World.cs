@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static ConversationManager;
 
 public class World : MonoBehaviour
 {
@@ -152,6 +151,15 @@ public class World : MonoBehaviour
 
     }
 
+    IEnumerator WorldTick()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(secsPerGameMin);
+            dateTime = dateTime.AddMinutes(1);
+        }
+    }
+
     // -- Public Functions --
 
     public string GetTimeStrClock()
@@ -179,14 +187,5 @@ public class World : MonoBehaviour
     public bool IsDebugEnabled()
     {
         return debugEnabled;
-    }
-
-    IEnumerator WorldTick()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(secsPerGameMin);
-            dateTime = dateTime.AddMinutes(1);
-        }
     }
 }
