@@ -4,8 +4,6 @@ using UnityEngine;
 public class Setting : MonoBehaviour
 {
     // -- Serialize Fields --
-    [SerializeField]
-    private string settingName;
 
     [SerializeField]
     private float width;
@@ -23,7 +21,7 @@ public class Setting : MonoBehaviour
 
     public string GetSettingName()
     {
-        return settingName;
+        return this.gameObject.name;
     }
 
 
