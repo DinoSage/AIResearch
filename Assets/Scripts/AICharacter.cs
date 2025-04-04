@@ -137,6 +137,7 @@ public class AICharacter : MonoBehaviour
     public void Sense(string update)
     {
         ContentObject cobj = ContentObject.FromString(update);
+        cobj.Time = World.instance.GetTimeStrAI();
 
         if (cobj.Category.Equals("TALK"))
         {
