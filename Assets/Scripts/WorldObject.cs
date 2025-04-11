@@ -1,11 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class WorldObject : MonoBehaviour
 {
+    // -- Serialize Fields --
+    [SerializeField]
+    private string Proxem1Desc;
+    [SerializeField]
+    private string Proxem2Desc;
+    [SerializeField]
+    private string Proxem3Desc;
+
     // -- Events (To Subscribe To) --
     public delegate void ProxemUpdate(string update);
     public event ProxemUpdate Proxem1Trigger;

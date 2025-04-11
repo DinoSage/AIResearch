@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -10,6 +11,28 @@ public class Setting : MonoBehaviour
 
     [SerializeField]
     private float height;
+
+    // -- Private Fields --
+    List<WorldObject> interactables = new List<WorldObject>();
+
+    // -- Internal --
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        WorldObject wobj = collision.GetComponent<WorldObject>();
+        if (wobj != null)
+        {
+            interactables.Add(wobj);
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        WorldObject wobj = collision.GetComponent<WorldObject>();
+        if (wobj != null)
+        {
+            interactables.Remove(wobj);
+        }
+    }
 
     // -- Public Functions --
     public Vector2 RandPointInSetting()
@@ -24,5 +47,8 @@ public class Setting : MonoBehaviour
         return this.gameObject.name;
     }
 
-
+    public WorldObject[] GetInteractables()
+    {
+        return interactables.ToArray();
+    }
 }
