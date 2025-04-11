@@ -7,6 +7,12 @@ public class Locator : MonoBehaviour
 
     private void Update()
     {
+        string destinations = "";
+        foreach (Setting dest in currSetting.GetAllDestinations())
+        {
+            destinations += dest.GetSettingName() + "\t";
+        }
+        Debug.Log("Destinations: " + destinations);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

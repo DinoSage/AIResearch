@@ -13,9 +13,24 @@ public class Setting : MonoBehaviour
     private float height;
 
     // -- Private Fields --
-    List<WorldObject> interactables = new List<WorldObject>();
+    private List<WorldObject> interactables = new List<WorldObject>();
+    private Door[] doors;
 
     // -- Internal --
+
+    private void Start()
+    {
+        Bounds bounds = this.GetComponent<SpriteRenderer>().bounds;
+        Collider2D[] hits = Physics2D.OverlapBoxAll(this.transform.position, bounds.size, 0f, LayerMask.GetMask("Door"));
+        doors = new Door[hits.Length];
+        Debug.Log($"For {name}:");
+        for (int i = 0; i < hits.Length; i++)
+        {
+            doors[i] = hits[i].gameObject.GetComponent<Door>();
+            Debug.Log($"Door To: {doors[i].GetDestination() == null}");
+        }
+    }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         WorldObject wobj = collision.GetComponent<WorldObject>();
@@ -50,5 +65,16 @@ public class Setting : MonoBehaviour
     public WorldObject[] GetInteractables()
     {
         return interactables.ToArray();
+    }
+
+    public Setting[] GetAllDestinations()
+    {
+        Setting[] settings = new Setting[doors.Length];
+        for (int i = 0; i < doors.Length; i++)
+        {
+            settings[i] = doors[i].GetDestination();
+        }
+
+        return settings;
     }
 }
