@@ -43,11 +43,13 @@ public class MainCameraMovement : MonoBehaviour
         float camWidth = camHeight * mainCamera.aspect;
 
         float camMinX = settingBounds.min.x + camWidth;
-        float camMaxX = settingBounds.extents.x - camWidth;
+        float camMaxX = settingBounds.max.x - camWidth;
 
         float camMinY = settingBounds.min.y + camHeight;
-        float camMaxY = settingBounds.extents.y - camHeight;
+        float camMaxY = settingBounds.max.y - camHeight;
 
+        Debug.Log("MinX: " + camMinX + "MaxX: " + camMaxX);
+        Debug.Log("MinY: " + camMinY + "MaxY: " + camMaxY);
 
         // move target position
         Vector3 targetPosition = Player.instance.transform.position;
