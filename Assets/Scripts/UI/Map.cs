@@ -15,8 +15,7 @@ public class Map : MonoBehaviour
 
     void Update()
     {
-        string location = playerLocator.GetCurrSetting();
-        Debug.Log(location);
+        string location = playerLocator.GetCurrSettingName();
         map.SetText(location);
     }
 }

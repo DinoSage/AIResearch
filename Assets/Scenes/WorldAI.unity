@@ -248,7 +248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &29553451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Proxem1Desc: 
+  Proxem2Desc: 
+  Proxem3Desc: 
 --- !u!114 &29553452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,8 +317,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Sarah
-  characterBackground: Roleplay as the character Sarah in the village.
   thinkDelay: 10
   memories:
   - message: If it has been more than 10 seconds since anyone said anything in a
@@ -1356,7 +1357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &362839659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1369,6 +1370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Proxem1Desc: 
+  Proxem2Desc: 
+  Proxem3Desc: 
 --- !u!114 &362839660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1422,8 +1426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Sarah
-  characterBackground: Roleplay as the character Sarah in the village.
   thinkDelay: 10
   memories:
   - message: If it has been more than 10 seconds since anyone said anything in a
@@ -1966,7 +1968,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &595109039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1979,6 +1981,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Proxem1Desc: 
+  Proxem2Desc: 
+  Proxem3Desc: 
 --- !u!114 &595109040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2032,8 +2037,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Sarah
-  characterBackground: Roleplay as the character Sarah in the village.
   thinkDelay: 10
   memories:
   - message: If it has been more than 10 seconds since anyone said anything in a
@@ -2931,7 +2934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.273}
-  m_AnchoredPosition: {x: -0.00030517578, y: -67.20001}
+  m_AnchoredPosition: {x: -0.00024414062, y: -67.20001}
   m_SizeDelta: {x: 0.00061035, y: -141.872}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959458600
@@ -3129,7 +3132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1053464647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3142,6 +3145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Proxem1Desc: 
+  Proxem2Desc: 
+  Proxem3Desc: 
 --- !u!114 &1053464648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3195,8 +3201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Sarah
-  characterBackground: Roleplay as the character Sarah in the village.
   thinkDelay: 10
   memories:
   - message: If it has been more than 10 seconds since anyone said anything in a
@@ -3696,7 +3700,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1065316143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3709,6 +3713,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Proxem1Desc: 
+  Proxem2Desc: 
+  Proxem3Desc: 
 --- !u!114 &1065316144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3762,8 +3769,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Sarah
-  characterBackground: Roleplay as the character Sarah in the village.
   thinkDelay: 10
   memories:
   - message: If it has been more than 10 seconds since anyone said anything in a
@@ -4553,6 +4558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Proxem1Desc: 
+  Proxem2Desc: 
+  Proxem3Desc: 
 --- !u!61 &1215079629
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5642,7 +5650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2115881567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5655,6 +5663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Proxem1Desc: 
+  Proxem2Desc: 
+  Proxem3Desc: 
 --- !u!114 &2115881568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5708,8 +5719,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Sarah
-  characterBackground: Roleplay as the character Sarah in the village.
   thinkDelay: 10
   memories:
   - message: If it has been more than 10 seconds since anyone said anything in a
@@ -6266,7 +6275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4721322843909663385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6347,8 +6356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: Sarah
-  characterBackground: Roleplay as the character Sarah in the village.
   thinkDelay: 10
   memories:
   - message: If it has been more than 10 seconds since anyone said anything in a
@@ -6373,6 +6380,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80c3b1d2d0a2df469ee636637186438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Proxem1Desc: 
+  Proxem2Desc: 
+  Proxem3Desc: 
 --- !u!1 &7925421439622210038
 GameObject:
   m_ObjectHideFlags: 0

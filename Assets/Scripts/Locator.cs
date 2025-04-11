@@ -26,8 +26,13 @@ public class Locator : MonoBehaviour
     }
 
     // -- Public Function --
-    public string GetCurrSetting()
+    public string GetCurrSettingName()
     {
         return (currSetting != null) ? currSetting.GetSettingName() : "Unknown";
+    }
+
+    public Setting GetCurrSetting()
+    {
+        return currSetting;
     }
 }
