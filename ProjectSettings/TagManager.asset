@@ -23,7 +23,7 @@ TagManager:
   - 
   - NPC
   - 
-  - 
+  - Item
   - 
   - 
   - 
@@ -44,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Item
+    uniqueID: 3214071015
     locked: 0
