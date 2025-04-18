@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 public class OutputOptionsManager : MonoBehaviour
 {
+    public static readonly float CHARACTERS_PER_SECOND = 7f;
+
     [SerializeField] GameObject outputPanel;
     [SerializeField] TextMeshProUGUI outputText;
     [SerializeField] Button[] outputButtons;
@@ -17,6 +20,12 @@ public class OutputOptionsManager : MonoBehaviour
     private void DisableOutput()
     {
         outputPanel.SetActive(false);
+    }
+
+    IEnumerator DelayedDisable(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        DisableOutput();
     }
 
     public void SetOutputDetails(string text, string[] names, UnityAction[] actions)
@@ -44,5 +53,20 @@ public class OutputOptionsManager : MonoBehaviour
                 button.gameObject.SetActive(false);
             }
         }
+    }
+
+    public void SetOutputDetails(string text)
+    {
+        outputPanel.SetActive(true);
+        outputText.text = text;
+
+        foreach (var button in outputButtons)
+        {
+            button.onClick.RemoveAllListeners();
+            button.gameObject.SetActive(false);
+        }
+
+        int seconds = 1 + (int)(text.Length / CHARACTERS_PER_SECOND);
+        StartCoroutine(DelayedDisable(seconds));
     }
 }

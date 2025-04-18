@@ -8,13 +8,28 @@ public class Tester : MonoBehaviour
 
     void Start()
     {
-        //outputOptionsManager = FindObjectOfType<OutputOptionsManager>();
-        //StartCoroutine(TestDelayOutput());
+        outputOptionsManager = FindObjectOfType<OutputOptionsManager>();
+        //StartCoroutine(TestTextOnly1());
+        //StartCoroutine(TestTextOnly2());
     }
 
     void Update()
     {
 
+    }
+
+    IEnumerator TestTextOnly1()
+    {
+        yield return new WaitForSeconds(2);
+        string text = "You notice someone being very suspsicious asround the corner";
+        outputOptionsManager.SetOutputDetails(text);
+    }
+
+    IEnumerator TestTextOnly2()
+    {
+        yield return new WaitForSeconds(20);
+        string text = "Wow!";
+        outputOptionsManager.SetOutputDetails(text);
     }
 
     IEnumerator TestDelayOutput()
