@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BasicItem : MonoBehaviour, IInteractable
 {
@@ -6,6 +7,8 @@ public class BasicItem : MonoBehaviour, IInteractable
     [SerializeField] string proxem1Text;
     [SerializeField] string proxem2Text;
     [SerializeField] string proxem3Text;
+
+    [SerializeField] bool hideable;
 
 
     private WorldObject wobj;
@@ -19,9 +22,24 @@ public class BasicItem : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        outputOptionsManager.SetOutputDetails(outputText);
+        if (hideable)
+        {
+            string[] optionNames = { "Hide" };
+            UnityAction[] optionActions = { Hide };
+
+            outputOptionsManager.SetOutputDetails(outputText, optionNames, optionActions);
+        }
+        else
+        {
+            outputOptionsManager.SetOutputDetails(outputText);
+        }
         wobj.UpdateProxem1(proxem1Text);
         wobj.UpdateProxem2(proxem2Text);
         wobj.UpdateProxem3(proxem3Text);
+    }
+
+    public void Hide()
+    {
+        this.gameObject.SetActive(false);
     }
 }
