@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -52,11 +50,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Vector3.Distance(this.transform.position, prevPos) > 0 && !isMoving)
         {
-            Debug.Log("STARTED MOVING!");
+            //Debug.Log("STARTED MOVING!");
         }
         else if (Vector3.Distance(this.transform.position, prevPos) == 0 && isMoving)
         {
-            Debug.Log("STOPPED MOVING!");
+            //Debug.Log("STOPPED MOVING!");
             wobj.UpdateProxem2(cobjFar.ToString());
             wobj.UpdateProxem3(cobjClose.ToString());
         }

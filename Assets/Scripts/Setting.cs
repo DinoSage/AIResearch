@@ -13,14 +13,15 @@ public class Setting : MonoBehaviour
     private float height;
 
     // -- Private Fields --
-    private List<WorldObject> interactables = new List<WorldObject>();
-    private Door[] doors;
+    private List<WorldObject> characters = new List<WorldObject>();
+    private List<WorldObject> doors = new List<WorldObject>();
+    private List<WorldObject> items = new List<WorldObject>();
 
     // -- Internal --
 
     private void Start()
     {
-        Bounds bounds = this.GetComponent<SpriteRenderer>().bounds;
+        /*Bounds bounds = this.GetComponent<SpriteRenderer>().bounds;
         Collider2D[] hits = Physics2D.OverlapBoxAll(this.transform.position, bounds.size, 0f, LayerMask.GetMask("Door"));
         doors = new Door[hits.Length];
         Debug.Log($"For {name}:");
@@ -28,7 +29,7 @@ public class Setting : MonoBehaviour
         {
             doors[i] = hits[i].gameObject.GetComponent<Door>();
             Debug.Log($"Door To: {doors[i].GetDestination() == null}");
-        }
+        }*/
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -36,7 +37,27 @@ public class Setting : MonoBehaviour
         WorldObject wobj = collision.GetComponent<WorldObject>();
         if (wobj != null)
         {
-            interactables.Add(wobj);
+            BasicItem item = wobj.GetComponent<BasicItem>();
+            Door door = wobj.GetComponent<Door>();
+            SpeechBubble bubble = wobj.GetComponent<SpeechBubble>();
+
+            if (item != null)
+            {
+                Debug.Log($"ITEM: " + wobj.name);
+                items.Add(wobj);
+            }
+
+            if (bubble != null)
+            {
+                Debug.Log($"Character: " + wobj.name);
+                characters.Add(wobj);
+            }
+
+            if (door != null)
+            {
+                Debug.Log($"DOOR: " + wobj.name);
+                doors.Add(wobj);
+            }
         }
     }
 
@@ -45,7 +66,24 @@ public class Setting : MonoBehaviour
         WorldObject wobj = collision.GetComponent<WorldObject>();
         if (wobj != null)
         {
-            interactables.Remove(wobj);
+            BasicItem item = wobj.GetComponent<BasicItem>();
+            Door door = wobj.GetComponent<Door>();
+            SpeechBubble bubble = wobj.GetComponent<SpeechBubble>();
+
+            if (item != null)
+            {
+                items.Remove(wobj);
+            }
+
+            if (bubble != null)
+            {
+                characters.Remove(wobj);
+            }
+
+            if (door != null)
+            {
+                doors.Remove(wobj);
+            }
         }
     }
 
@@ -62,19 +100,19 @@ public class Setting : MonoBehaviour
         return this.gameObject.name;
     }
 
-    public WorldObject[] GetInteractables()
+    public WorldObject[] GetItems()
     {
-        return interactables.ToArray();
+
+        return items.ToArray();
     }
 
-    public Setting[] GetAllDestinations()
+    public WorldObject[] GetCharacters()
     {
-        Setting[] settings = new Setting[doors.Length];
-        for (int i = 0; i < doors.Length; i++)
-        {
-            settings[i] = doors[i].GetDestination();
-        }
+        return characters.ToArray();
+    }
 
-        return settings;
+    public WorldObject[] GetDoors()
+    {
+        return doors.ToArray();
     }
 }
