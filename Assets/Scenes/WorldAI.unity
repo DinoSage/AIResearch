@@ -301,10 +301,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e43a6d821a1af49ac02f11cc40eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proxem1Range: 20
-  proxem2Range: 10
-  proxem3Range: 5
-  updateTriggerName: Sense
+  innerProxemity:
+    max: 0
+    range: 0
+  middleProxemity:
+    max: 0
+    range: 0
+  outerProxemity:
+    max: 0
+    range: 0
+  updateFunctionBroadcastName: 
 --- !u!114 &29553455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2609,10 +2615,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e43a6d821a1af49ac02f11cc40eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proxem1Range: 20
-  proxem2Range: 10
-  proxem3Range: 5
-  updateTriggerName: Sense
+  innerProxemity:
+    max: 0
+    range: 0
+  middleProxemity:
+    max: 0
+    range: 0
+  outerProxemity:
+    max: 0
+    range: 0
+  updateFunctionBroadcastName: 
 --- !u!114 &362839663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4313,10 +4325,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e43a6d821a1af49ac02f11cc40eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proxem1Range: 20
-  proxem2Range: 10
-  proxem3Range: 5
-  updateTriggerName: Sense
+  innerProxemity:
+    max: 0
+    range: 0
+  middleProxemity:
+    max: 0
+    range: 0
+  outerProxemity:
+    max: 0
+    range: 0
+  updateFunctionBroadcastName: 
 --- !u!114 &595109043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7924,10 +7942,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e43a6d821a1af49ac02f11cc40eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proxem1Range: 20
-  proxem2Range: 10
-  proxem3Range: 5
-  updateTriggerName: Sense
+  innerProxemity:
+    max: 0
+    range: 0
+  middleProxemity:
+    max: 0
+    range: 0
+  outerProxemity:
+    max: 0
+    range: 0
+  updateFunctionBroadcastName: 
 --- !u!114 &1053464651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8657,10 +8681,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e43a6d821a1af49ac02f11cc40eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proxem1Range: 20
-  proxem2Range: 10
-  proxem3Range: 5
-  updateTriggerName: Sense
+  innerProxemity:
+    max: 0
+    range: 0
+  middleProxemity:
+    max: 0
+    range: 0
+  outerProxemity:
+    max: 0
+    range: 0
+  updateFunctionBroadcastName: 
 --- !u!114 &1065316147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16659,10 +16689,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e43a6d821a1af49ac02f11cc40eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proxem1Range: 20
-  proxem2Range: 10
-  proxem3Range: 5
-  updateTriggerName: Sense
+  innerProxemity:
+    max: 0
+    range: 0
+  middleProxemity:
+    max: 0
+    range: 0
+  outerProxemity:
+    max: 0
+    range: 0
+  updateFunctionBroadcastName: 
 --- !u!114 &2115881571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17252,7 +17288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &4721322843909663385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17634,10 +17670,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e43a6d821a1af49ac02f11cc40eab9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proxem1Range: 20
-  proxem2Range: 10
-  proxem3Range: 5
-  updateTriggerName: Sense
+  innerProxemity:
+    max: 0
+    range: 0
+  middleProxemity:
+    max: 0
+    range: 0
+  outerProxemity:
+    max: 1
+    range: 0
+  updateFunctionBroadcastName: 
 --- !u!114 &8969176031139236171
 MonoBehaviour:
   m_ObjectHideFlags: 0

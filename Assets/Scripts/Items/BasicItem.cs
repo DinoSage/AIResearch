@@ -33,9 +33,9 @@ public class BasicItem : MonoBehaviour, IInteractable
         {
             outputOptionsManager.SetOutputDetails(outputText);
         }
-        wobj.UpdateProxem1(proxem1Text);
-        wobj.UpdateProxem2(proxem2Text);
-        wobj.UpdateProxem3(proxem3Text);
+        wobj.UpdateOuterProxem(proxem1Text);
+        wobj.UpdateMiddleProxem(proxem2Text);
+        wobj.UpdateInnerProxem(proxem3Text);
     }
 
     public void Hide()

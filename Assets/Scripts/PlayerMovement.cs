@@ -55,8 +55,8 @@ public class PlayerMovement : MonoBehaviour
         else if (Vector3.Distance(this.transform.position, prevPos) == 0 && isMoving)
         {
             //Debug.Log("STOPPED MOVING!");
-            wobj.UpdateProxem2(cobjFar.ToString());
-            wobj.UpdateProxem3(cobjClose.ToString());
+            wobj.UpdateMiddleProxem(cobjFar.ToString());
+            wobj.UpdateInnerProxem(cobjClose.ToString());
         }
 
         isMoving = (Vector3.Distance(this.transform.position, prevPos) > 0);

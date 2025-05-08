@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -114,5 +115,10 @@ public class Setting : MonoBehaviour
     public WorldObject[] GetDoors()
     {
         return doors.ToArray();
+    }
+
+    public WorldObject[] GetAll()
+    {
+        return items.Concat(characters).Concat(doors).ToArray();
     }
 }

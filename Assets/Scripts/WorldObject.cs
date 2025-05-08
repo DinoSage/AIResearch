@@ -13,30 +13,30 @@ public class WorldObject : MonoBehaviour
 
     // -- Events (To Subscribe To) --
     public delegate void ProxemUpdate(string update);
-    public event ProxemUpdate Proxem1Trigger;
-    public event ProxemUpdate Proxem2Trigger;
-    public event ProxemUpdate Proxem3Trigger;
+    public event ProxemUpdate outerProxemTrigger;
+    public event ProxemUpdate middleProxemTrigger;
+    public event ProxemUpdate innerProxemTrigger;
 
     // -- Public Functions --
-    public void UpdateProxem1(string update)
+    public void UpdateOuterProxem(string update)
     {
-        Proxem1Trigger?.Invoke(update);
+        outerProxemTrigger?.Invoke(update);
     }
 
-    public void UpdateProxem2(string update)
+    public void UpdateMiddleProxem(string update)
     {
-        Proxem2Trigger?.Invoke(update);
+        middleProxemTrigger?.Invoke(update);
     }
 
-    public void UpdateProxem3(string update)
+    public void UpdateInnerProxem(string update)
     {
-        Proxem3Trigger?.Invoke(update);
+        innerProxemTrigger?.Invoke(update);
     }
 
     public void UpdateProxemAll(string update)
     {
-        UpdateProxem1(update);
-        UpdateProxem2(update);
-        UpdateProxem3(update);
+        UpdateOuterProxem(update);
+        UpdateMiddleProxem(update);
+        UpdateInnerProxem(update);
     }
 }

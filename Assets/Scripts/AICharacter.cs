@@ -64,21 +64,8 @@ public class AICharacter : MonoBehaviour
 
         // start thinking
         StartCoroutine(Thinking());
+        StartCoroutine(Move());
         PrintAll();
-    }
-
-    private void Update()
-    {
-        //Debug.Log(World.instance.GetDateStrAI());
-        /*if (!temp)
-        {
-            ContentObject cobj = new ContentObject("EVENT", "You can now see and talk to " + characterName);
-            cobj.Time = World.instance.GetTimeStrAI();
-            cobj.Date = World.instance.GetDateStrAI();
-
-            this.GetComponent<WorldObject>().UpdateProxemAll(cobj.ToString());
-            temp = true;
-        }*/
     }
 
     private void PrintAll()
@@ -93,7 +80,6 @@ public class AICharacter : MonoBehaviour
         }
         Debug.Log("");
         Debug.Log("");
-
     }
 
     private void ProccessThought(ChatMessage thought)
@@ -136,6 +122,36 @@ public class AICharacter : MonoBehaviour
 
             yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));
         }
+    }
+
+    IEnumerator Move()
+    {
+        while (true)
+        {
+            Locator locator = GetComponent<Locator>();
+            int randInt = UnityEngine.Random.Range(1, 4);
+            WorldObject[] targets = locator.GetCurrSetting().GetAll();
+            WorldObject randTarget = targets[UnityEngine.Random.Range(0, targets.Length)];
+
+            StartCoroutine(Approach(randTarget));
+
+
+            yield return new WaitForSeconds(UnityEngine.Random.Range(10, 15));
+        }
+
+    }
+
+    IEnumerator Approach(WorldObject obj)
+    {
+        bool approaching = true;
+        while (approaching)
+        {
+            if (obj.GetComponent<Door>() != null)
+            {
+                this.transform.position = Vector3.MoveTowards(this.transform.position, obj.transform.position, Time.deltaTime * 5f);
+            }
+        }
+        yield return null;
     }
 
     // -- Functions - External

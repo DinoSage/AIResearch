@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,17 +5,18 @@ public class Awareness : MonoBehaviour
 {
     // -- Serialize Fields --
     [Header("Awareness")]
-    [SerializeField]
-    private float proxem1Range;
 
     [SerializeField]
-    private float proxem2Range;
+    private Proxem innerProxemity;
 
     [SerializeField]
-    private float proxem3Range;
+    private Proxem middleProxemity;
 
     [SerializeField]
-    private string updateTriggerName;
+    private Proxem outerProxemity;
+
+    [SerializeField]
+    private string updateFunctionBroadcastName;
 
     // -- Non-Serialized Fields --
     List<WorldObject> subscribed;
@@ -26,11 +26,18 @@ public class Awareness : MonoBehaviour
     void Awake()
     {
         // validate serialize field results
-        bool ordered = (proxem1Range >= proxem2Range) && (proxem2Range >= proxem3Range);
-        bool nonzero = (proxem1Range >= 0) && (proxem2Range >= 0) && (proxem3Range >= 0);
-        if (!nonzero || !ordered)
+        bool orderedInnerMiddle = (innerProxemity.range <= middleProxemity.range) || (middleProxemity.max);
+        bool orderedMiddleOuter = (middleProxemity.range <= outerProxemity.range) || (outerProxemity.max);
+
+        if (!orderedInnerMiddle || !orderedMiddleOuter)
         {
-            Debug.LogWarning("Proxem Ranges are less than zero or not in decreasing order (range1 >= range2 >= range3)");
+            Debug.LogWarning("Proxem Ranges are not in increasing order");
+        }
+
+        bool nonzero = (innerProxemity.range >= 0) && (middleProxemity.range >= 0) && (outerProxemity.range >= 0);
+        if (!nonzero)
+        {
+            Debug.LogWarning("Proxem Ranges are less than zero");
         }
 
         subscribed = new List<WorldObject>();
@@ -38,16 +45,16 @@ public class Awareness : MonoBehaviour
 
     void Update()
     {
-        foreach(WorldObject wobj in subscribed)
+        foreach (WorldObject wobj in subscribed)
         {
-            wobj.Proxem1Trigger -= Trigger;
-            wobj.Proxem2Trigger -= Trigger;
-            wobj.Proxem3Trigger -= Trigger;
+            wobj.outerProxemTrigger -= Trigger;
+            wobj.middleProxemTrigger -= Trigger;
+            wobj.innerProxemTrigger -= Trigger;
         }
         subscribed.Clear();
 
 
-        Collider2D[] objects = Physics2D.OverlapCircleAll(this.transform.position, proxem1Range);
+        Collider2D[] objects = Physics2D.OverlapCircleAll(this.transform.position, outerProxemity.range);
         foreach (Collider2D obj in objects)
         {
             WorldObject wobj = obj.GetComponent<WorldObject>();
@@ -57,17 +64,17 @@ public class Awareness : MonoBehaviour
                 if (wobj.gameObject == this.gameObject) continue;
 
                 float dist = Vector2.Distance(this.transform.position, wobj.transform.position);
-                if (dist <= proxem3Range)
+                if (dist <= innerProxemity.range)
                 {
-                    wobj.Proxem3Trigger += Trigger;
-                } 
-                else if (dist <= proxem2Range)
+                    wobj.innerProxemTrigger += Trigger;
+                }
+                else if (dist <= middleProxemity.range)
                 {
-                    wobj.Proxem2Trigger += Trigger;
+                    wobj.middleProxemTrigger += Trigger;
                 }
                 else
                 {
-                    wobj.Proxem1Trigger += Trigger;
+                    wobj.outerProxemTrigger += Trigger;
                 }
                 subscribed.Add(wobj);
             }
@@ -76,6 +83,13 @@ public class Awareness : MonoBehaviour
 
     private void Trigger(string update)
     {
-        this.SendMessage(updateTriggerName, update);
+        this.SendMessage(updateFunctionBroadcastName, update);
     }
+}
+
+[System.Serializable]
+public struct Proxem
+{
+    public bool max;
+    public float range;
 }
