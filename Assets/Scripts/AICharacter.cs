@@ -8,7 +8,9 @@ public class AICharacter : MonoBehaviour
 {
     public static float SAFEGUARD = 3f;
 
-    // -- Serialize Fields --
+    // ==============================
+    //       Serialized Fields
+    // ==============================
 
     [SerializeField]
     private float thinkDelay;
@@ -17,15 +19,21 @@ public class AICharacter : MonoBehaviour
     public World.Text[] memories;
 
 
-    // -- Non-Serialized Fields -- 
+    // ==============================
+    //        Other Variables
+    // ==============================
+
     List<ChatMessage> longMem = new List<ChatMessage>();
     List<ChatMessage> shortMem = new List<ChatMessage>();
 
     private IEnumerator thinkCouroutine;
     private SpeechBubble bubble;
-    private bool temp = false;
 
-    // -- Functions - Internal --
+
+    // ==============================
+    //        Unity Functions
+    // ==============================
+
     private void Awake()
     {
         // add master instruction
@@ -67,6 +75,10 @@ public class AICharacter : MonoBehaviour
         StartCoroutine(Move());
         PrintAll();
     }
+
+    // ==============================
+    //       Private Functions
+    // ==============================
 
     private void PrintAll()
     {
@@ -126,17 +138,38 @@ public class AICharacter : MonoBehaviour
 
     IEnumerator Move()
     {
+        int nonDoorCount = 0;
         while (true)
         {
             Locator locator = GetComponent<Locator>();
-            int randInt = UnityEngine.Random.Range(1, 4);
-            WorldObject[] targets = locator.GetCurrSetting().GetAll();
+            int randInt = (nonDoorCount <= 3) ? UnityEngine.Random.Range(1, 4) : 0;
+            WorldObject[] targets = null;
+            if (randInt == 0)
+            {
+                targets = locator.GetCurrSetting().GetDoors();
+                nonDoorCount = 0;
+            }
+            else if (randInt == 1)
+            {
+                targets = locator.GetCurrSetting().GetItems();
+                nonDoorCount++;
+            }
+            else if (randInt == 2)
+            {
+                targets = locator.GetCurrSetting().GetCharacters();
+                nonDoorCount++;
+            }
+            else
+            {
+                Debug.LogError("Should not be reaching here!");
+            }
+
             WorldObject randTarget = targets[UnityEngine.Random.Range(0, targets.Length)];
 
             StartCoroutine(Approach(randTarget));
 
 
-            yield return new WaitForSeconds(UnityEngine.Random.Range(10, 15));
+            yield return null;
         }
 
     }
@@ -144,18 +177,24 @@ public class AICharacter : MonoBehaviour
     IEnumerator Approach(WorldObject obj)
     {
         bool approaching = true;
+
+        Vector3 targetPos = obj.transform.position;
+
         while (approaching)
         {
-            if (obj.GetComponent<Door>() != null)
+            this.transform.position = Vector3.MoveTowards(this.transform.position, obj.transform.position, Time.deltaTime * 5f);
+            if (Vector3.Distance(targetPos, this.transform.position) < 0.01f)
             {
-                this.transform.position = Vector3.MoveTowards(this.transform.position, obj.transform.position, Time.deltaTime * 5f);
+                approaching = false;
             }
+            yield return null;
         }
         yield return null;
     }
 
-    // -- Functions - External
-
+    // ==============================
+    //        Public Functions
+    // ==============================
     public void Chat(string message)
     {
         ContentObject temp = new ContentObject("TALK", message);
@@ -188,5 +227,4 @@ public class AICharacter : MonoBehaviour
         message.Content = cobj.ToString();
         shortMem.Add(message);
     }
-
 }
