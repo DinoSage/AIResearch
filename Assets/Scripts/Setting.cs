@@ -44,19 +44,16 @@ public class Setting : MonoBehaviour
 
             if (item != null)
             {
-                Debug.Log($"ITEM: " + wobj.name);
                 items.Add(wobj);
             }
 
             if (bubble != null)
             {
-                Debug.Log($"Character: " + wobj.name);
                 characters.Add(wobj);
             }
 
             if (door != null)
             {
-                Debug.Log($"DOOR: " + wobj.name);
                 doors.Add(wobj);
             }
         }

@@ -1,9 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Locator : MonoBehaviour
 {
     // -- Private Variables --
-    private Setting currSetting;
+    [SerializeField] private Setting currSetting;
 
     private void Update()
     {

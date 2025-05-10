@@ -18,7 +18,6 @@ public class AICharacter : MonoBehaviour
     [SerializeField]
     public World.Text[] memories;
 
-
     // ==============================
     //        Other Variables
     // ==============================
@@ -28,6 +27,8 @@ public class AICharacter : MonoBehaviour
 
     private IEnumerator thinkCouroutine;
     private SpeechBubble bubble;
+    private Locator locator;
+    private bool moving;
 
 
     // ==============================
@@ -63,6 +64,7 @@ public class AICharacter : MonoBehaviour
     private void Start()
     {
         bubble = GetComponent<SpeechBubble>();
+        locator = GetComponent<Locator>();
 
         // add all world memories
         foreach (ChatMessage info in World.instance.worldMem)
@@ -71,9 +73,9 @@ public class AICharacter : MonoBehaviour
         }
 
         // start thinking
-        StartCoroutine(Thinking());
+        //StartCoroutine(Thinking());
         StartCoroutine(Move());
-        PrintAll();
+        //PrintAll();
     }
 
     // ==============================
@@ -138,57 +140,35 @@ public class AICharacter : MonoBehaviour
 
     IEnumerator Move()
     {
-        int nonDoorCount = 0;
+        yield return null;
         while (true)
         {
-            Locator locator = GetComponent<Locator>();
-            int randInt = (nonDoorCount <= 3) ? UnityEngine.Random.Range(1, 4) : 0;
-            WorldObject[] targets = null;
-            if (randInt == 0)
-            {
-                targets = locator.GetCurrSetting().GetDoors();
-                nonDoorCount = 0;
-            }
-            else if (randInt == 1)
-            {
-                targets = locator.GetCurrSetting().GetItems();
-                nonDoorCount++;
-            }
-            else if (randInt == 2)
-            {
-                targets = locator.GetCurrSetting().GetCharacters();
-                nonDoorCount++;
-            }
-            else
-            {
-                Debug.LogError("Should not be reaching here!");
-            }
+            Debug.Log("is locator null? " + (locator == null));
+            Setting setting = locator.GetCurrSetting();
+            Debug.Log("is locator setting null? " + (setting == null));
+            Debug.Log("is locator rand point null? " + (locator.GetCurrSetting().RandPointInSetting()));
 
-            WorldObject randTarget = targets[UnityEngine.Random.Range(0, targets.Length)];
-
-            StartCoroutine(Approach(randTarget));
-
-
-            yield return null;
+            Vector3 point = locator.GetCurrSetting().RandPointInSetting();
+            Debug.Log("Moving to: " + point);
+            StartCoroutine(Approaching(point, 0.1f));
+            yield return new WaitWhile(IsMoving);
         }
-
+        yield return null;
     }
 
-    IEnumerator Approach(WorldObject obj)
+    IEnumerator Approaching(Vector3 targetPos, float threshold)
     {
-        bool approaching = true;
-
-        Vector3 targetPos = obj.transform.position;
-
-        while (approaching)
+        moving = true;
+        while (true)
         {
-            this.transform.position = Vector3.MoveTowards(this.transform.position, obj.transform.position, Time.deltaTime * 5f);
-            if (Vector3.Distance(targetPos, this.transform.position) < 0.01f)
+            this.transform.position = Vector3.MoveTowards(this.transform.position, targetPos, Time.deltaTime * 5f);
+            if (Vector3.Distance(targetPos, this.transform.position) < threshold)
             {
-                approaching = false;
+                break;
             }
             yield return null;
         }
+        moving = false;
         yield return null;
     }
 
@@ -226,5 +206,10 @@ public class AICharacter : MonoBehaviour
         message.Role = "system";
         message.Content = cobj.ToString();
         shortMem.Add(message);
+    }
+
+    public bool IsMoving()
+    {
+        return moving;
     }
 }
