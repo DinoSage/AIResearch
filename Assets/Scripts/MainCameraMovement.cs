@@ -37,7 +37,7 @@ public class MainCameraMovement : MonoBehaviour
     {
         // calculate camera bounds
         Setting currSetting = locator.GetCurrSetting();
-        Bounds settingBounds = currSetting.GetComponent<SpriteRenderer>().bounds;
+        Bounds settingBounds = currSetting.GetComponent<BoxCollider2D>().bounds;
 
         float camHeight = mainCamera.orthographicSize;
         float camWidth = camHeight * mainCamera.aspect;
