@@ -31,6 +31,12 @@ public class MainCameraMovement : MonoBehaviour
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         locator = Player.instance.GetComponent<Locator>();
+        DebugEditor.ShowDebugWindow();
+    }
+
+    private void OnDestroy()
+    {
+        DebugEditor.instance.Close();
     }
 
     private void LateUpdate()
