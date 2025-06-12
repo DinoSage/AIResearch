@@ -33,15 +33,15 @@ Transform:
   m_Children:
   - {fileID: 7861928506299293029}
   - {fileID: 8709911610178549}
-  - {fileID: 1808605140295281782}
+  - {fileID: 2149651435749479842}
   - {fileID: 8725465164549818893}
   - {fileID: 5824592458669087986}
-  - {fileID: 6727745982886506511}
   - {fileID: 4700106306587418697}
-  - {fileID: 2149651435749479842}
+  - {fileID: 6727745982886506511}
+  - {fileID: 1808605140295281782}
   - {fileID: 5679230200433322084}
-  - {fileID: 1400368562846183784}
   - {fileID: 231170116054777013}
+  - {fileID: 1400368562846183784}
   - {fileID: 1170286960659620403}
   - {fileID: 1473662905140898581}
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -103,8 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e9f29eabf66fe4d8a4827a26698bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 0
-  height: 0
 --- !u!1 &4183938788676081089
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +130,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 22, y: 22, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4903559215911344734}
@@ -178,7 +176,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4f11f503eeecf31418306326c49b1f0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aef7c16b528a0b340b990f1a61de49b8, type: 3}
   m_Color: {r: 0.6117647, g: 0.6117647, b: 0.6117647, a: 0.57254905}
   m_FlipX: 0
   m_FlipY: 0
@@ -557,7 +555,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070905931775157888, guid: 34d0fa1b0bd9e514e9ba81bf06f51b16, type: 3}
       propertyPath: m_Name
-      value: Corner - TL (6)
+      value: Wall - BL
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -655,7 +653,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070905931775157888, guid: 34d0fa1b0bd9e514e9ba81bf06f51b16, type: 3}
       propertyPath: m_Name
-      value: Corner - TL (1)
+      value: Wall - TR
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -749,7 +747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070905931775157888, guid: 34d0fa1b0bd9e514e9ba81bf06f51b16, type: 3}
       propertyPath: m_Name
-      value: Corner - TR (1)
+      value: Corner - TL
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -847,7 +845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070905931775157888, guid: 34d0fa1b0bd9e514e9ba81bf06f51b16, type: 3}
       propertyPath: m_Name
-      value: Corner - TL
+      value: Wall - TL
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -953,7 +951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070905931775157888, guid: 34d0fa1b0bd9e514e9ba81bf06f51b16, type: 3}
       propertyPath: m_Name
-      value: Corner - TL (3)
+      value: Wall - RT
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1059,7 +1057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070905931775157888, guid: 34d0fa1b0bd9e514e9ba81bf06f51b16, type: 3}
       propertyPath: m_Name
-      value: Corner - TL (4)
+      value: Wall - RB
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1165,7 +1163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070905931775157888, guid: 34d0fa1b0bd9e514e9ba81bf06f51b16, type: 3}
       propertyPath: m_Name
-      value: Corner - TL (5)
+      value: Wall - LB
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1263,7 +1261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070905931775157888, guid: 34d0fa1b0bd9e514e9ba81bf06f51b16, type: 3}
       propertyPath: m_Name
-      value: Corner - TL (7)
+      value: Wall - BR
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1369,7 +1367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070905931775157888, guid: 34d0fa1b0bd9e514e9ba81bf06f51b16, type: 3}
       propertyPath: m_Name
-      value: Corner - TL (2)
+      value: Wall - LT
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

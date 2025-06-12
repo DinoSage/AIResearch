@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class Setting : MonoBehaviour
 {
+
     // -- Private Fields --
     private List<WorldObject> characters = new List<WorldObject>();
     private List<WorldObject> doors = new List<WorldObject>();
@@ -87,7 +88,7 @@ public class Setting : MonoBehaviour
 
     public string GetSettingName()
     {
-        return this.gameObject.name;
+        return this.gameObject.transform.parent.name;
     }
 
     public WorldObject[] GetItems()
