@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DebugGUI : MonoBehaviour
 {
-
+    [SerializeField] bool testDebug;
     // START ---> FPS calculation usefull variables
     public float updateInterval = 0.5f; // the time must pass to cache the frames value
     private double lastInterval; // last interval end time
@@ -39,11 +39,14 @@ public class DebugGUI : MonoBehaviour
 
     public void OnGUI()
     {
-        // make a popup window
-        windowRect = GUILayout.Window(0, windowRect, fillWindow, "DEBUG Window");
-        // the window can be dragged around by the users - make sure that it doesn't go offscreen.
-        windowRect.x = Mathf.Clamp(windowRect.x, 0.0f, Screen.width - windowRect.width);
-        windowRect.y = Mathf.Clamp(windowRect.y, 0.0f, Screen.height - windowRect.height);
+        if (!testDebug)
+        {
+            // make a popup window
+            windowRect = GUILayout.Window(0, windowRect, fillWindow, "DEBUG Window");
+            // the window can be dragged around by the users - make sure that it doesn't go offscreen.
+            windowRect.x = Mathf.Clamp(windowRect.x, 0.0f, Screen.width - windowRect.width);
+            windowRect.y = Mathf.Clamp(windowRect.y, 0.0f, Screen.height - windowRect.height);
+        }
     } // OnGUI
 
     private void fillWindow(int windowID)
@@ -51,10 +54,11 @@ public class DebugGUI : MonoBehaviour
         // make the window be draggable only in the top 20 pixels.
         GUI.DragWindow(new Rect(0f, 0f, (float)System.Decimal.MaxValue, 20f));
         // the label for first window part
-        GUILayout.Label("Marked Variables Status", captionLabel);
+        GUILayout.Label("Marked Variables Status");
         // we are going to create the text area inside a scroll view to make sossible to scroll the content if necessary
         scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Height(120));
-        GUILayout.TextArea(textAreaContent, debugTextArea, (GUILayoutOption[])null);
+        GUILayout.TextArea(textAreaContent, (GUILayoutOption[])null);
+        GUILayout.Button("TEST");
         GUILayout.EndScrollView();
         // the clear button
         // N.B. by pressing this button you will clear all ArrayList elements so
@@ -70,7 +74,7 @@ public class DebugGUI : MonoBehaviour
           // divider
         GUILayout.Label("", lineLabel);
         // the label for second window part
-        GUILayout.Label("Others DEBUG features", captionLabel);
+        GUILayout.Label("Others DEBUG features");
         // write the FPS value with 3 different colors depending by values
         if (fps > 30)
             GUILayout.Label("FPS: " + fps.ToString("f2"), greenLabel);
