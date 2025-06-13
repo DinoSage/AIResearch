@@ -23,6 +23,10 @@ public class DebugEditor : EditorWindow
     {
         label = new Label("Testing");
         rootVisualElement.Add(label);
+        var btn = new Button(Test);
+        var btnLabel = new Label("Click Me");
+        btn.Add(btnLabel);
+        rootVisualElement.Add(btn);
     }
 
     void Update()
@@ -33,6 +37,11 @@ public class DebugEditor : EditorWindow
     public void Dumb()
     {
         label.text += "!";
+    }
+
+    public void Test()
+    {
+        Debug.Log("IT WORKED!");
     }
 
 }
