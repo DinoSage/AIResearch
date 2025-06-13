@@ -22,8 +22,8 @@ public class AICharacter : MonoBehaviour
     //        Other Variables
     // ==============================
 
-    List<ChatMessage> longMem = new List<ChatMessage>();
-    List<ChatMessage> shortMem = new List<ChatMessage>();
+    public List<ChatMessage> longMem = new List<ChatMessage>();
+    public List<ChatMessage> shortMem = new List<ChatMessage>();
 
     private IEnumerator thinkCouroutine;
     private SpeechBubble bubble;
@@ -73,7 +73,7 @@ public class AICharacter : MonoBehaviour
         }
 
         // start thinking
-        //StartCoroutine(Thinking());
+        StartCoroutine(Thinking());
         //StartCoroutine(Move());
         //PrintAll();
     }
@@ -211,5 +211,10 @@ public class AICharacter : MonoBehaviour
     public bool IsMoving()
     {
         return moving;
+    }
+
+    public static string ConvertToString(ChatMessage message)
+    {
+        return $"role: {message.Role}\ncontent: {message.Content}";
     }
 }

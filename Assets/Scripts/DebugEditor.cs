@@ -7,6 +7,9 @@ public class DebugEditor : EditorWindow
 {
     private static EditorWindow instance;
 
+    private ListView charList;
+    private ListView messageList;
+
     public static void OpenDebugWindow()
     {
         if (instance == null)
@@ -31,10 +34,11 @@ public class DebugEditor : EditorWindow
         var splitView = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Horizontal);
         rootVisualElement.Add(splitView);
 
-        var charList = new ListView();
+        charList = new ListView();
         splitView.Add(charList);
 
-        var messageList = new ListView();
+        messageList = new ListView();
+        messageList.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
         splitView.Add(messageList);
 
         AICharacter[] npcs = FindObjectsOfType<AICharacter>(false);
@@ -45,14 +49,33 @@ public class DebugEditor : EditorWindow
         charList.selectionChanged += OnCharacterSelectionChange;
     }
 
+    public void OnGUI()
+    {
+        //messageList.Rebuild();
+        //Debug.Log("Rebuilding");
+    }
+
     private void OnCharacterSelectionChange(IEnumerable<object> selectedItems)
     {
+        messageList.Clear();
 
+        var enumerator = selectedItems.GetEnumerator();
+        if (enumerator.MoveNext())
+        {
+            AICharacter selected = enumerator.Current as AICharacter;
+            if (selected != null)
+            {
+                messageList.makeItem = () => new Label();
+                messageList.bindItem = (item, index) => (item as Label).text = AICharacter.ConvertToString(selected.shortMem[index]);
+                messageList.itemsSource = selected.shortMem;
+            }
+
+        }
     }
 
     void Update()
     {
-        //label.schedule.Execute(Dumb).Every(1000);
+        rootVisualElement.schedule.Execute(messageList.Rebuild).Every(100);
     }
 
     public void Dumb()
