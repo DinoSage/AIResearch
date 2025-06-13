@@ -74,7 +74,7 @@ public class AICharacter : MonoBehaviour
 
         // start thinking
         //StartCoroutine(Thinking());
-        StartCoroutine(Move());
+        //StartCoroutine(Move());
         //PrintAll();
     }
 

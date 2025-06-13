@@ -1,14 +1,13 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class DebugEditor : EditorWindow
 {
-    private Label label;
+    private static EditorWindow instance;
 
-    public static EditorWindow instance;
-
-    public static void ShowDebugWindow()
+    public static void OpenDebugWindow()
     {
         if (instance == null)
         {
@@ -16,17 +15,39 @@ public class DebugEditor : EditorWindow
             wnd.titleContent = new GUIContent("Debug Window");
             instance = wnd;
         }
-        // This method is called when the user selects the menu item in the Editor
+    }
+
+    public static void CloseDebugWindow()
+    {
+        if (instance != null)
+        {
+            instance.Close();
+            instance = null;
+        }
     }
 
     public void CreateGUI()
     {
-        label = new Label("Testing");
-        rootVisualElement.Add(label);
-        var btn = new Button(Test);
-        var btnLabel = new Label("Click Me");
-        btn.Add(btnLabel);
-        rootVisualElement.Add(btn);
+        var splitView = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Horizontal);
+        rootVisualElement.Add(splitView);
+
+        var charList = new ListView();
+        splitView.Add(charList);
+
+        var messageList = new ListView();
+        splitView.Add(messageList);
+
+        AICharacter[] npcs = FindObjectsOfType<AICharacter>(false);
+
+        charList.makeItem = () => new Label();
+        charList.bindItem = (item, index) => { (item as Label).text = npcs[index].name; };
+        charList.itemsSource = npcs;
+        charList.selectionChanged += OnCharacterSelectionChange;
+    }
+
+    private void OnCharacterSelectionChange(IEnumerable<object> selectedItems)
+    {
+
     }
 
     void Update()
@@ -36,7 +57,7 @@ public class DebugEditor : EditorWindow
 
     public void Dumb()
     {
-        label.text += "!";
+        //label.text += "!";
     }
 
     public void Test()
