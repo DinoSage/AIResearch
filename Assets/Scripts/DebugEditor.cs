@@ -47,6 +47,8 @@ public class DebugEditor : EditorWindow
         charList.bindItem = (item, index) => { (item as Label).text = npcs[index].name; };
         charList.itemsSource = npcs;
         charList.selectionChanged += OnCharacterSelectionChange;
+
+        rootVisualElement.schedule.Execute(messageList.Rebuild).Every(100);
     }
 
     public void OnGUI()
@@ -75,7 +77,6 @@ public class DebugEditor : EditorWindow
 
     void Update()
     {
-        rootVisualElement.schedule.Execute(messageList.Rebuild).Every(100);
     }
 
     public void Dumb()

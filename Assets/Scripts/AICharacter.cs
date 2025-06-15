@@ -215,6 +215,6 @@ public class AICharacter : MonoBehaviour
 
     public static string ConvertToString(ChatMessage message)
     {
-        return $"role: {message.Role}\ncontent: {message.Content}";
+        return $"role: {message.Role}\ncontent: {message.Content}\n";
     }
 }
