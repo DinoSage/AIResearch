@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class AICharacter : MonoBehaviour
 {
@@ -22,8 +23,8 @@ public class AICharacter : MonoBehaviour
     //        Other Variables
     // ==============================
 
-    public List<ChatMessage> longMem = new List<ChatMessage>();
-    public List<ChatMessage> shortMem = new List<ChatMessage>();
+    List<ChatMessage> longMem = new List<ChatMessage>();
+    List<ChatMessage> shortMem = new List<ChatMessage>();
 
     private IEnumerator thinkCouroutine;
     private SpeechBubble bubble;
@@ -216,5 +217,21 @@ public class AICharacter : MonoBehaviour
     public static string ConvertToString(ChatMessage message)
     {
         return $"role: {message.Role}\ncontent: {message.Content}\n";
+    }
+
+    public void BindListViewToCharacterShortMem(ListView messageList)
+    {
+        messageList.Clear();
+        messageList.makeItem = () => new Label();
+        messageList.bindItem = (item, index) => (item as Label).text = AICharacter.ConvertToString(shortMem[index]);
+        messageList.itemsSource = shortMem;
+    }
+
+    public void BindListViewToCharacterLongMem(ListView messageList)
+    {
+        messageList.Clear();
+        messageList.makeItem = () => new Label();
+        messageList.bindItem = (item, index) => (item as Label).text = AICharacter.ConvertToString(longMem[index]);
+        messageList.itemsSource = longMem;
     }
 }

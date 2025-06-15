@@ -7,6 +7,7 @@ public class DebugEditor : EditorWindow
 {
     private static EditorWindow instance;
 
+    private TwoPaneSplitView splitView;
     private ListView charList;
     private ListView messageList;
 
@@ -31,7 +32,7 @@ public class DebugEditor : EditorWindow
 
     public void CreateGUI()
     {
-        var splitView = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Horizontal);
+        splitView = new TwoPaneSplitView(0, 250, TwoPaneSplitViewOrientation.Horizontal);
         rootVisualElement.Add(splitView);
 
         charList = new ListView();
@@ -67,9 +68,7 @@ public class DebugEditor : EditorWindow
             AICharacter selected = enumerator.Current as AICharacter;
             if (selected != null)
             {
-                messageList.makeItem = () => new Label();
-                messageList.bindItem = (item, index) => (item as Label).text = AICharacter.ConvertToString(selected.shortMem[index]);
-                messageList.itemsSource = selected.shortMem;
+                selected.BindListViewToCharacterShortMem(messageList);
             }
 
         }
@@ -81,7 +80,6 @@ public class DebugEditor : EditorWindow
 
     public void Dumb()
     {
-        //label.text += "!";
     }
 
     public void Test()
