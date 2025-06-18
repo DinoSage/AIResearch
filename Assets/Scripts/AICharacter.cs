@@ -132,8 +132,14 @@ public class AICharacter : MonoBehaviour
                 thinkAction.Content = thinkObj.ToString();
                 shortMem.Add(thinkAction);
 
+                Debug.Log("THIKING: " + this.name);
                 GPTCommunicator.Prompt(ProccessThought, longMem, shortMem);
             }
+            else
+            {
+                Debug.Log("DID NOT GET TO THINK: " + this.name);
+            }
+
 
             yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));
         }

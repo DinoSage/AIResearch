@@ -43,13 +43,20 @@ public class DebugEditor : EditorWindow
         splitView.Add(messageList);
 
         AICharacter[] npcs = FindObjectsOfType<AICharacter>(false);
-
-        charList.makeItem = () => new Label();
-        charList.bindItem = (item, index) => { (item as Label).text = npcs[index].name; };
+        charList.makeItem = CharDropDown;
+        charList.bindItem = (item, index) => { (item as DropdownField).label = npcs[index].name; };
         charList.itemsSource = npcs;
         charList.selectionChanged += OnCharacterSelectionChange;
 
         rootVisualElement.schedule.Execute(messageList.Rebuild).Every(100);
+    }
+
+    private DropdownField CharDropDown()
+    {
+        List<string> choices = new List<string> { "shortmem", "longmem" };
+        var dropdown = new DropdownField(choices, 0);
+        dropdown.RegisterValueChangedCallback((evt) => Debug.Log(evt.newValue));
+        return dropdown;
     }
 
     public void OnGUI()
