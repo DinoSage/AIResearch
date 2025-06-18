@@ -23,8 +23,8 @@ public class AICharacter : MonoBehaviour
     //        Other Variables
     // ==============================
 
-    List<ChatMessage> longMem = new List<ChatMessage>();
-    List<ChatMessage> shortMem = new List<ChatMessage>();
+    public List<ChatMessage> longMem = new List<ChatMessage>();
+    public List<ChatMessage> shortMem = new List<ChatMessage>();
 
     private IEnumerator thinkCouroutine;
     private SpeechBubble bubble;
@@ -142,6 +142,7 @@ public class AICharacter : MonoBehaviour
 
 
             yield return new WaitForSeconds(Mathf.Max(SAFEGUARD, thinkDelay));
+            //yield return new WaitForSeconds(UnityEngine.Random.Range(SAFEGUARD, SAFEGUARD + 2));
         }
     }
 
@@ -227,10 +228,16 @@ public class AICharacter : MonoBehaviour
 
     public void BindListViewToCharacterShortMem(ListView messageList)
     {
+        List<string> empty = new List<string>();
+        /*messageList.Clear();
+        messageList.makeItem = () => new Label();
+        messageList.bindItem = (item, index) => (item as Label).text = (shortMem.Count < index) ? AICharacter.ConvertToString(shortMem[index]) : "Empty";
+        messageList.itemsSource = shortMem;*/
+
         messageList.Clear();
         messageList.makeItem = () => new Label();
-        messageList.bindItem = (item, index) => (item as Label).text = AICharacter.ConvertToString(shortMem[index]);
-        messageList.itemsSource = shortMem;
+        messageList.bindItem = (item, index) => (item as Label).text = empty[index];
+        messageList.itemsSource = empty;
     }
 
     public void BindListViewToCharacterLongMem(ListView messageList)

@@ -11,6 +11,8 @@ public class DebugEditor : EditorWindow
     private ListView charList;
     private ListView messageList;
 
+    private bool firstTime = false;
+
     public static void OpenDebugWindow()
     {
         if (instance == null)
@@ -40,6 +42,8 @@ public class DebugEditor : EditorWindow
 
         messageList = new ListView();
         messageList.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
+        messageList.style.whiteSpace = WhiteSpace.Normal;
+        messageList.horizontalScrollingEnabled = false;
         splitView.Add(messageList);
 
         AICharacter[] npcs = FindObjectsOfType<AICharacter>(false);
@@ -47,6 +51,7 @@ public class DebugEditor : EditorWindow
         charList.bindItem = (item, index) => { (item as DropdownField).label = npcs[index].name; };
         charList.itemsSource = npcs;
         charList.selectionChanged += OnCharacterSelectionChange;
+
 
         rootVisualElement.schedule.Execute(messageList.Rebuild).Every(100);
     }
@@ -75,10 +80,27 @@ public class DebugEditor : EditorWindow
             AICharacter selected = enumerator.Current as AICharacter;
             if (selected != null)
             {
-                selected.BindListViewToCharacterShortMem(messageList);
+                //selected.BindListViewToCharacterShortMem(messageList);
+                messageList.Clear();
+                /*if (!firstTime)
+                {
+                    firstTime = true;
+                    messageList.makeItem = () => new Label();
+                    messageList.bindItem = (item, index) => (item as Label).text = AICharacter.ConvertToString(selected.shortMem[index]);
+                }*/
+                messageList.makeItem = TMPLabel;
+                messageList.bindItem = (item, index) => (item as Label).text = AICharacter.ConvertToString(selected.shortMem[index]);
+                messageList.itemsSource = selected.shortMem;
             }
 
         }
+    }
+
+    private Label TMPLabel()
+    {
+        var label = new Label();
+        label.style.whiteSpace = WhiteSpace.Normal;
+        return label;
     }
 
     void Update()
