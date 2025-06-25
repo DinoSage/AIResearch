@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc725364dd7a04047bd8e4d01a92468b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thinkDelay: 10
+  thinkDelay: 4
   memories:
   - message: If it has been more than 10 seconds since anyone said anything in a
       conversation, you tend to speak up.
@@ -15831,6 +15831,10 @@ PrefabInstance:
     - target: {fileID: 6467260975053485174, guid: 678d867e526bdbe4e931bcbce7c39788, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6497385409344870177, guid: 678d867e526bdbe4e931bcbce7c39788, type: 3}
+      propertyPath: thinkDelay
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

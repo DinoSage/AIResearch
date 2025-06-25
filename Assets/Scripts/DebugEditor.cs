@@ -53,7 +53,7 @@ public class DebugEditor : EditorWindow
         charList.selectionChanged += OnCharacterSelectionChange;
 
 
-        rootVisualElement.schedule.Execute(messageList.Rebuild).Every(100);
+        rootVisualElement.schedule.Execute(messageList.Rebuild).Every(50);
     }
 
     private DropdownField CharDropDown()
@@ -68,6 +68,7 @@ public class DebugEditor : EditorWindow
     {
         //messageList.Rebuild();
         //Debug.Log("Rebuilding");
+        //messageList.RefreshItems();
     }
 
     private void OnCharacterSelectionChange(IEnumerable<object> selectedItems)
@@ -91,6 +92,7 @@ public class DebugEditor : EditorWindow
                 messageList.makeItem = TMPLabel;
                 messageList.bindItem = (item, index) => (item as Label).text = AICharacter.ConvertToString(selected.shortMem[index]);
                 messageList.itemsSource = selected.shortMem;
+                messageList.Rebuild();
             }
 
         }
